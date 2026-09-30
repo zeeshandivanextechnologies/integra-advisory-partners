@@ -162,6 +162,15 @@ function Process() {
                   Complete Intake Form
                   <FiArrowUpRight />
                 </Link>
+                <div className="prc-visual">
+                  <img
+                    src="/images/strategic-growth.webp"
+                    alt="Rising gold bars and an upward arrow, representing strategic clarity and lasting growth"
+                    width="1000"
+                    height="1000"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
 
