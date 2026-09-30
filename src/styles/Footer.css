@@ -56,7 +56,6 @@
 .footer-location {
   display: flex;
   gap: 10px;
-  max-width: 340px;
   font-size: 14px !important;
   line-height: 22px !important;
 }
@@ -194,7 +193,7 @@
 
 /* ---------- contact + social (shown when siteConfig has values) ---------- */
 .footer-contact {
-  margin-top: 16px !important;
+  margin-top: 8px !important;
 }
 
 .footer-contact li {
@@ -244,4 +243,9 @@
   border-color: var(--additional-color);
   background-color: var(--additional-color);
   color: var(--primary-color);
+}
+
+.footer-contact li span {
+  line-height: 21px;
+  color: color-mix(in srgb, var(--secondary-color) 80%, transparent);
 }

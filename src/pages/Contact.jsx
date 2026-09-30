@@ -158,7 +158,7 @@ function Contact() {
                   </div>
                 </div>
 
-                {(contact.email || contact.phone) && (
+                {(contact.email || contact.phone || contact.address) && (
                   <div className="cnt-info">
                     <span className="cnt-info-icon">
                       <FiMail />
@@ -177,6 +177,9 @@ function Contact() {
                         >
                           {contact.phone}
                         </a>
+                      )}
+                      {contact.address && (
+                        <p className="cnt-info-text mt-2">{contact.address}</p>
                       )}
                     </div>
                   </div>

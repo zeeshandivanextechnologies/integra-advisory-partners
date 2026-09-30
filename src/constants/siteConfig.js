@@ -8,14 +8,15 @@
 const siteConfig = {
   /* ---------- contact details ---------- */
   contact: {
-    email: '', // e.g. 'hello@integraadvisorypartners.com'
-    phone: '', // e.g. '+1 202 555 0100' (display format)
-    address: '', // e.g. 'West Bay, Doha, Qatar'
+    email: 'zeeshandivanextechnologies@gmail.com',
+    phone: '+91 98765 41230',
+    address:
+      'First floor, Vaishali Tower II, 104, Nursery Cir, above KFC, Acharya Vinoba Bhave Nagar, B Block, Vaishali Nagar, Jaipur, Rajasthan 302021',
   },
 
-  /* ---------- whatsapp (U.S. number, digits only with country code) ---------- */
+  /* ---------- whatsapp (digits only, with country code) ---------- */
   whatsapp: {
-    number: '', // e.g. '12025550100'
+    number: '919876541230',
     message: 'Hello Integra, I would like to learn more about entering Qatar and the GCC.',
   },
 
@@ -30,7 +31,7 @@ const siteConfig = {
 
   /* ---------- booking + video call (Calendly or similar) ---------- */
   booking: {
-    url: '', // e.g. 'https://calendly.com/integra/discovery-call'
+    url: 'https://calendly.com/zeeshandivanextechnologies',
   },
 
   /*

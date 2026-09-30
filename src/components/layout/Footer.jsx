@@ -1,5 +1,5 @@
 ﻿import { Link } from 'react-router-dom'
-import { FiArrowUpRight, FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
+import { FiArrowUpRight, FiHome, FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
 import {
   FaFacebookF,
   FaInstagram,
@@ -59,12 +59,16 @@ function Footer() {
               The trusted bridge between global <span className='d-lg-block d-sm-inline'>ambition and regional opportunity.</span>
             </p> 
             <p className="footer-location">
-              <FiMapPin />
-              Based in Doha. Built for serious international operators entering
-              MENA and the GCC.
+              <div>
+                <FiMapPin />
+              </div>
+              <div>
+                Based in Doha. Built for serious international <span className='d-lg-block d-sm-inline'>operators entering
+              MENA and the GCC.</span>
+              </div>
             </p>
 
-            {(contact.email || contact.phone) && (
+            {(contact.email || contact.phone || contact.address) && (
               <ul className="footer-contact">
                 {contact.email && (
                   <li>
@@ -78,6 +82,12 @@ function Footer() {
                     <a href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`}>
                       {contact.phone}
                     </a>
+                  </li>
+                )}
+                {contact.address && (
+                  <li className="align-items-start">
+                    <FiHome className="mt-1" />
+                    <span>{contact.address}</span>
                   </li>
                 )}
               </ul>
@@ -151,7 +161,7 @@ function Footer() {
 
         <div className="footer-bottom">
           <p>&copy; {year} Integra Advisory Partners. All rights reserved.</p>
-          <p>{contact.address || 'Doha, Qatar'}</p>
+          <p>Doha, Qatar</p>
         </div>
       </div>
     </footer>
