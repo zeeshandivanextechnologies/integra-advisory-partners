@@ -1,0 +1,486 @@
+/* ---------- page banner ---------- */
+.prc-banner {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 0 110px;
+  background:
+    radial-gradient(circle at 90% 120%, color-mix(in srgb, #9fe8ff 45%, transparent), transparent 40%),
+    linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
+}
+
+.prc-banner-mark {
+  position: absolute;
+  right: -60px;
+  bottom: -80px;
+  width: 420px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.prc-banner .container {
+  position: relative;
+}
+
+.prc-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  color: var(--additional-color);
+}
+
+.prc-breadcrumb a {
+  color: color-mix(in srgb, var(--secondary-color) 80%, transparent);
+}
+
+.prc-breadcrumb a:hover {
+  color: #fff;
+}
+
+.prc-breadcrumb span {
+  color: var(--additional-color);
+}
+
+.prc-banner-title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.prc-banner-text {
+  max-width: 620px;
+  font-family: var(--secondary-font);
+  font-size: 18px;
+  line-height: 30px;
+  color: color-mix(in srgb, var(--secondary-color) 85%, transparent);
+  margin: 0;
+}
+
+/* ---------- key facts (overlaps banner) ---------- */
+.prc-facts {
+  position: relative;
+  z-index: 1;
+  margin-top: -56px;
+}
+
+.prc-fact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+  padding: 20px;
+  border-radius: 16px;
+  background-color: #fff;
+  border: 1px solid var(--secondary-color);
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--primary-color) 10%, transparent);
+  transition: all 0.35s ease;
+}
+
+.prc-fact:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-color);
+}
+
+.prc-fact-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: var(--additional-color);
+  font-size: 20px;
+  color: var(--primary-color);
+}
+
+.prc-fact-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--primary-color);
+}
+
+.prc-fact-label {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--secondary-font);
+  font-size: 13px;
+  line-height: 19px;
+  color: color-mix(in srgb, var(--primary-color) 70%, #fff);
+}
+
+/* ---------- sections ---------- */
+.prc-section {
+  padding: 80px 0;
+}
+
+.prc-intro {
+  position: sticky;
+  top: 120px;
+}
+
+.prc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-family: var(--secondary-font);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+}
+
+.prc-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--additional-color);
+}
+
+.prc-heading {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.prc-lead {
+  font-family: var(--secondary-font);
+  font-size: 17px;
+  line-height: 28px;
+  margin-bottom: 28px !important;
+}
+
+/* ---------- timeline ---------- */
+.prc-timeline {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prc-timeline::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  bottom: 28px;
+  left: 27px;
+  width: 2px;
+  background: linear-gradient(var(--primary-color), var(--secondary-color));
+}
+
+.prc-step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.prc-step + .prc-step {
+  margin-top: 20px;
+}
+
+.prc-step-number {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: 4px solid var(--tertiary-color);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--additional-color);
+  transition: transform 0.35s ease;
+}
+
+.prc-step:hover .prc-step-number {
+  transform: scale(1.08);
+}
+
+.prc-step-card {
+  flex-grow: 1;
+  padding: 24px;
+  border-radius: 16px;
+  background-color: #fff;
+  border: 1px solid var(--secondary-color);
+  transition: all 0.35s ease;
+}
+
+.prc-step:hover .prc-step-card {
+  transform: translateX(6px);
+  border-color: var(--primary-color);
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--primary-color) 10%, transparent);
+}
+
+.prc-step-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.prc-step-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+.prc-step-title {
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.prc-step-text {
+  font-family: var(--secondary-font);
+  font-size: 15px;
+  line-height: 25px;
+  margin: 0;
+}
+
+.prc-tags,
+.prc-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.prc-tags span {
+  padding: 6px 12px;
+  border-radius: 50px;
+  background-color: var(--tertiary-color);
+  border: 1px solid var(--secondary-color);
+  font-family: var(--secondary-font);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.prc-days span {
+  padding: 6px 14px;
+  border-radius: 50px;
+  background-color: color-mix(in srgb, var(--additional-color) 30%, transparent);
+  font-family: var(--secondary-font);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* ---------- buttons ---------- */
+.prc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.prc-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.prc-btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.prc-btn.primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+}
+
+.prc-btn.primary svg {
+  color: var(--additional-color);
+}
+
+.prc-btn.primary:hover {
+  opacity: 0.9;
+  color: #fff;
+}
+
+.prc-btn.gold {
+  background-color: var(--additional-color);
+  border-color: var(--additional-color);
+  color: var(--primary-color);
+}
+
+.prc-btn.gold:hover {
+  background-color: #fff;
+  border-color: #fff;
+  color: var(--primary-color);
+}
+
+.prc-btn.outline-light {
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--secondary-color) 50%, transparent);
+  color: #fff;
+}
+
+.prc-btn.outline-light:hover {
+  background-color: color-mix(in srgb, #fff 10%, transparent);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* ---------- cta ---------- */
+.prc-cta {
+  padding: 48px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, #9fe8ff 35%, transparent), transparent 45%),
+    linear-gradient(135deg, var(--primary-color), #1d3f8f);
+}
+
+.prc-cta-title {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.prc-cta-text {
+  font-family: var(--secondary-font);
+  font-size: 16px;
+  line-height: 26px;
+  color: color-mix(in srgb, var(--secondary-color) 85%, transparent);
+  margin: 0;
+}
+
+.prc-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+  .prc-banner {
+    padding: 70px 0 100px;
+  }
+
+  .prc-banner-title {
+    font-size: 38px;
+  }
+
+  .prc-section {
+    padding: 64px 0;
+  }
+
+  .prc-heading {
+    font-size: 32px;
+  }
+
+  .prc-intro {
+    position: static;
+  }
+
+  .prc-cta {
+    padding: 40px 32px;
+  }
+
+  .prc-cta-title {
+    font-size: 26px;
+  }
+
+  .prc-cta-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 575px) {
+  .prc-banner {
+    padding: 56px 0 90px;
+  }
+
+  .prc-banner-title {
+    font-size: 30px;
+  }
+
+  .prc-banner-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .prc-section {
+    padding: 56px 0;
+  }
+
+  .prc-heading {
+    font-size: 28px;
+  }
+
+  .prc-timeline::before {
+    left: 21px;
+  }
+
+  .prc-step {
+    gap: 14px;
+  }
+
+  .prc-step-number {
+    width: 44px;
+    height: 44px;
+    font-size: 14px;
+    border-width: 3px;
+  }
+
+  .prc-step-card {
+    padding: 18px;
+  }
+
+  .prc-step:hover .prc-step-card {
+    transform: none;
+  }
+
+  .prc-step-title {
+    font-size: 18px;
+  }
+
+  .prc-cta {
+    padding: 32px 22px;
+  }
+
+  .prc-cta-title {
+    font-size: 22px;
+  }
+
+  .prc-btn {
+    width: 100%;
+    white-space: normal;
+  }
+}

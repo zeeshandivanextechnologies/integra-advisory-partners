@@ -1,0 +1,413 @@
+/* ---------- page banner ---------- */
+.cnt-banner {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 0;
+  background:
+    radial-gradient(circle at 90% 120%, color-mix(in srgb, #9fe8ff 45%, transparent), transparent 40%),
+    linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
+}
+
+.cnt-banner-mark {
+  position: absolute;
+  right: -60px;
+  bottom: -80px;
+  width: 420px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.cnt-banner .container {
+  position: relative;
+}
+
+.cnt-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  color: var(--additional-color);
+}
+
+.cnt-breadcrumb a {
+  color: color-mix(in srgb, var(--secondary-color) 80%, transparent);
+}
+
+.cnt-breadcrumb a:hover {
+  color: #fff;
+}
+
+.cnt-breadcrumb span {
+  color: var(--additional-color);
+}
+
+.cnt-banner-title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.cnt-banner-text {
+  max-width: 620px;
+  font-family: var(--secondary-font);
+  font-size: 18px;
+  line-height: 30px;
+  color: color-mix(in srgb, var(--secondary-color) 85%, transparent);
+  margin: 0;
+}
+
+/* ---------- section ---------- */
+.cnt-section {
+  padding: 80px 0;
+  background-color: var(--secondary-color);
+}
+
+/* ---------- form ---------- */
+.cnt-form {
+  height: 100%;
+  padding: 36px;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.cnt-form-title {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 6px;
+}
+
+.cnt-form-text {
+  font-family: var(--secondary-font);
+  font-size: 15px;
+  color: color-mix(in srgb, var(--primary-color) 70%, #fff);
+  margin-bottom: 20px !important;
+}
+
+.cnt-types {
+  margin-bottom: 24px;
+}
+
+.cnt-type {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  height: 100%;
+  margin: 0 !important;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--secondary-color);
+  background-color: var(--tertiary-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cnt-type input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cnt-type:hover {
+  border-color: var(--primary-color);
+}
+
+.cnt-type.active {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+}
+
+.cnt-type:has(input:focus-visible) {
+  outline: 2px solid var(--additional-color);
+  outline-offset: 2px;
+}
+
+.cnt-type-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  font-size: 18px;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.cnt-type.active .cnt-type-icon {
+  background-color: var(--additional-color);
+}
+
+.cnt-type-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.cnt-type-text {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--secondary-font);
+  font-size: 13px;
+  line-height: 19px;
+  color: color-mix(in srgb, var(--primary-color) 70%, #fff);
+  transition: color 0.3s ease;
+}
+
+.cnt-type.active .cnt-type-title {
+  color: #fff;
+}
+
+.cnt-type.active .cnt-type-text {
+  color: color-mix(in srgb, var(--secondary-color) 85%, transparent);
+}
+
+/* inputs: reuse .custom-frm-bx from index.css, with brand colors set here */
+.cnt-form .custom-frm-bx label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.cnt-form .custom-frm-bx .form-control {
+  height: 48px;
+  border: 1px solid var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.cnt-form .custom-frm-bx textarea.form-control {
+  height: 140px;
+}
+
+.cnt-form .custom-frm-bx .form-control::placeholder {
+  color: color-mix(in srgb, var(--primary-color) 45%, #fff) !important;
+}
+
+.cnt-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 16px !important;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background-color: color-mix(in srgb, var(--additional-color) 30%, transparent);
+  font-family: var(--secondary-font);
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--primary-color) !important;
+}
+
+/* ---------- buttons ---------- */
+.cnt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 14px 24px;
+  border-radius: 8px;
+  border: 1px solid transparent !important;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cnt-btn.primary {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+}
+
+.cnt-btn.primary svg {
+  color: var(--additional-color);
+}
+
+.cnt-btn.primary:hover {
+  opacity: 0.9;
+}
+
+.cnt-btn.gold {
+  width: 100%;
+  background-color: var(--additional-color);
+  color: var(--primary-color);
+}
+
+.cnt-btn.gold svg {
+  transition: transform 0.3s ease;
+}
+
+.cnt-btn.gold:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+.cnt-btn.gold:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- side info ---------- */
+.cnt-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.cnt-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 22px;
+  border-radius: 16px;
+  background-color: #fff;
+  transition: all 0.35s ease;
+}
+
+.cnt-info:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--primary-color) 10%, transparent);
+}
+
+.cnt-info-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background-color: var(--primary-color);
+  font-size: 20px;
+  color: var(--additional-color);
+}
+
+.cnt-info-icon.gold {
+  margin-bottom: 18px;
+  background-color: var(--additional-color);
+  color: var(--primary-color);
+}
+
+.cnt-info-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 4px;
+}
+
+.cnt-info-text {
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  line-height: 22px;
+  color: color-mix(in srgb, var(--primary-color) 70%, #fff);
+  margin: 0;
+}
+
+.cnt-intake {
+  padding: 28px;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, #9fe8ff 35%, transparent), transparent 50%),
+    linear-gradient(135deg, var(--primary-color), #1d3f8f);
+}
+
+.cnt-intake-title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.cnt-intake-text {
+  font-family: var(--secondary-font);
+  font-size: 15px;
+  line-height: 24px;
+  color: color-mix(in srgb, var(--secondary-color) 85%, transparent);
+  margin-bottom: 20px !important;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+  .cnt-banner-title {
+    font-size: 38px;
+  }
+
+  .cnt-section {
+    padding: 64px 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .cnt-banner {
+    padding: 56px 0 44px;
+  }
+
+  .cnt-banner-title {
+    font-size: 30px;
+  }
+
+  .cnt-banner-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .cnt-section {
+    padding: 56px 0;
+  }
+
+  .cnt-form {
+    padding: 24px;
+  }
+
+  .cnt-form-title {
+    font-size: 26px;
+  }
+
+  .cnt-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- config-driven extras ---------- */
+.cnt-info-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-color);
+  word-break: break-word;
+}
+
+.cnt-info-link svg {
+  color: var(--additional-color);
+}
+
+.cnt-info-link:hover {
+  color: var(--additional-color);
+}
+
+.cnt-notice.sent {
+  background-color: var(--secondary-color);
+}
+
+.cnt-notice.error {
+  background-color: color-mix(in srgb, #e5484d 18%, transparent);
+}
+
+.cnt-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

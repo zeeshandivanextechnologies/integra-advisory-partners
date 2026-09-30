@@ -1,0 +1,481 @@
+/* ---------- page banner ---------- */
+.abt-banner {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 0;
+  background:
+    radial-gradient(circle at 90% 120%, color-mix(in srgb, #9fe8ff 45%, transparent), transparent 40%),
+    linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
+}
+
+.abt-banner-mark {
+  position: absolute;
+  right: -60px;
+  bottom: -80px;
+  width: 420px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.abt-banner .container {
+  position: relative;
+}
+
+.abt-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  color: var(--additional-color);
+}
+
+.abt-breadcrumb a {
+  color: color-mix(in srgb, var(--secondary-color) 80%, transparent);
+}
+
+.abt-breadcrumb a:hover {
+  color: #fff;
+}
+
+.abt-breadcrumb span {
+  color: var(--additional-color);
+}
+
+.abt-banner-title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.abt-banner-text {
+  max-width: 620px;
+  font-family: var(--secondary-font);
+  font-size: 18px;
+  line-height: 30px;
+  color: color-mix(in srgb, var(--secondary-color) 85%, transparent);
+  margin: 0;
+}
+
+/* ---------- sections ---------- */
+.abt-section {
+  padding: 80px 0;
+}
+
+.abt-light {
+  background-color: var(--secondary-color);
+}
+
+.abt-head {
+  margin-bottom: 40px;
+}
+
+.abt-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-family: var(--secondary-font);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+}
+
+.abt-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--additional-color);
+}
+
+.abt-heading {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+}
+
+.abt-lead {
+  font-family: var(--secondary-font);
+  font-size: 17px;
+  line-height: 28px;
+  margin-bottom: 16px !important;
+}
+
+.abt-light .abt-lead {
+  color: var(--primary-color);
+}
+
+.abt-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background-color: var(--primary-color);
+  font-size: 22px;
+  color: var(--additional-color);
+  transition: transform 0.35s ease;
+}
+
+/* ---------- who we are ---------- */
+.abt-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 16px;
+  background-color: #fff;
+  border: 1px solid var(--secondary-color);
+  transition: all 0.35s ease;
+}
+
+.abt-highlight:hover {
+  transform: translateX(6px);
+  border-color: var(--primary-color);
+  box-shadow: 0 14px 36px color-mix(in srgb, var(--primary-color) 10%, transparent);
+}
+
+.abt-highlight:hover .abt-icon,
+.abt-card:hover .abt-icon {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.abt-highlight-title {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--primary-color);
+  margin-bottom: 6px;
+}
+
+.abt-highlight-text {
+  font-family: var(--secondary-font);
+  font-size: 15px;
+  line-height: 24px;
+  margin: 0;
+}
+
+/* ---------- real market conditions ---------- */
+.abt-clarity li {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 24px;
+  border-radius: 14px;
+  background-color: #fff;
+  transition: all 0.35s ease;
+}
+
+.abt-clarity li + li {
+  margin-top: 12px;
+}
+
+.abt-clarity li:hover {
+  transform: translateX(6px);
+  box-shadow: 0 14px 36px color-mix(in srgb, var(--primary-color) 10%, transparent);
+}
+
+.abt-clarity-number {
+  flex-shrink: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--additional-color);
+}
+
+.abt-clarity-text {
+  flex-grow: 1;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--primary-color);
+}
+
+.abt-clarity-check {
+  flex-shrink: 0;
+  font-size: 20px;
+  color: var(--primary-color);
+  opacity: 0.3;
+  transition: opacity 0.35s ease;
+}
+
+.abt-clarity li:hover .abt-clarity-check {
+  opacity: 1;
+}
+
+/* ---------- mission, vision, promise ---------- */
+.abt-card {
+  height: 100%;
+  padding: 28px;
+  border-radius: 18px;
+  background-color: #fff;
+  border: 1px solid var(--secondary-color);
+  transition: all 0.35s ease;
+}
+
+.abt-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary-color);
+  box-shadow: 0 18px 44px color-mix(in srgb, var(--primary-color) 12%, transparent);
+}
+
+.abt-card .abt-icon {
+  margin-bottom: 20px;
+}
+
+.abt-card-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+}
+
+.abt-card-text {
+  font-family: var(--secondary-font);
+  font-size: 15px;
+  line-height: 25px;
+  margin: 0;
+}
+
+/* ---------- who we serve + values ---------- */
+.abt-panel {
+  height: 100%;
+  padding: 32px;
+  border-radius: 18px;
+  background-color: #fff;
+}
+
+.abt-panel .abt-icon {
+  margin-bottom: 20px;
+}
+
+.abt-panel-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.abt-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--secondary-font);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--primary-color);
+}
+
+.abt-list li + li {
+  margin-top: 14px;
+}
+
+.abt-list svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--additional-color);
+}
+
+.abt-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.abt-values span {
+  padding: 8px 16px;
+  border-radius: 50px;
+  background-color: var(--tertiary-color);
+  border: 1px solid var(--secondary-color);
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.abt-values span:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+}
+
+.abt-panel-note {
+  padding-top: 20px;
+  border-top: 1px solid var(--secondary-color);
+  font-family: var(--secondary-font);
+  font-size: 14px !important;
+  line-height: 22px !important;
+  margin: 0 !important;
+}
+
+/* ---------- positioning + cta ---------- */
+.abt-cta {
+  padding: 48px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, #9fe8ff 35%, transparent), transparent 45%),
+    linear-gradient(135deg, var(--primary-color), #1d3f8f);
+}
+
+.abt-cta-logo {
+  height: 100px;
+  width: auto;
+}
+
+.abt-cta-title {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #fff;
+  margin: 0;
+}
+
+.abt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.abt-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.abt-btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.abt-btn.gold {
+  background-color: var(--additional-color);
+  border-color: var(--additional-color);
+  color: var(--primary-color);
+}
+
+.abt-btn.gold:hover {
+  background-color: #fff;
+  border-color: #fff;
+  color: var(--primary-color);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+  .abt-banner {
+    padding: 70px 0 56px;
+  }
+
+  .abt-banner-title {
+    font-size: 38px;
+  }
+
+  .abt-section {
+    padding: 64px 0;
+  }
+
+  .abt-heading {
+    font-size: 32px;
+  }
+
+  .abt-cta {
+    padding: 40px 32px;
+    text-align: center;
+  }
+
+  .abt-cta-title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 575px) {
+  .abt-banner {
+    padding: 56px 0 44px;
+  }
+
+  .abt-banner-title {
+    font-size: 30px;
+  }
+
+  .abt-banner-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .abt-section {
+    padding: 56px 0;
+  }
+
+  .abt-heading {
+    font-size: 28px;
+  }
+
+  .abt-highlight {
+    padding: 20px;
+  }
+
+  .abt-clarity li {
+    padding: 16px 18px;
+  }
+
+  .abt-clarity-text {
+    font-size: 15px;
+  }
+
+  .abt-panel {
+    padding: 24px;
+  }
+
+  .abt-cta {
+    padding: 32px 22px;
+  }
+
+  .abt-cta-title {
+    font-size: 21px;
+  }
+
+  .abt-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- approach image ---------- */
+.abt-visual {
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 18px 44px color-mix(in srgb, var(--primary-color) 14%, transparent);
+}
+
+.abt-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s ease;
+}
+
+.abt-visual:hover img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 991px) {
+  .abt-visual {
+    max-width: 440px;
+  }
+}
