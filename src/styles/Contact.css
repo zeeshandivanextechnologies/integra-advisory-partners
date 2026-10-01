@@ -4,7 +4,11 @@
   overflow: hidden;
   padding: 70px 0;
   background:
-    radial-gradient(circle at 90% 120%, color-mix(in srgb, #9fe8ff 45%, transparent), transparent 40%),
+    radial-gradient(
+      circle at 90% 120%,
+      color-mix(in srgb, #9fe8ff 45%, transparent),
+      transparent 40%
+    ),
     linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
 }
 
@@ -199,7 +203,11 @@
   margin: 8px 0 16px !important;
   padding: 12px 14px;
   border-radius: 10px;
-  background-color: color-mix(in srgb, var(--additional-color) 30%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--additional-color) 30%,
+    transparent
+  );
   font-family: var(--secondary-font);
   font-size: 14px !important;
   font-weight: 600 !important;
@@ -267,7 +275,7 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding: 22px;
+  padding: 24px;
   border-radius: 16px;
   background-color: #fff;
   transition: all 0.35s ease;
@@ -275,7 +283,8 @@
 
 .cnt-info:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 40px color-mix(in srgb, var(--primary-color) 10%, transparent);
+  box-shadow: 0 16px 40px
+    color-mix(in srgb, var(--primary-color) 10%, transparent);
 }
 
 .cnt-info-icon {
@@ -316,7 +325,11 @@
   padding: 28px;
   border-radius: 16px;
   background:
-    radial-gradient(circle at 100% 0%, color-mix(in srgb, #9fe8ff 35%, transparent), transparent 50%),
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in srgb, #9fe8ff 35%, transparent),
+      transparent 50%
+    ),
     linear-gradient(135deg, var(--primary-color), #1d3f8f);
 }
 
@@ -334,48 +347,6 @@
   line-height: 24px;
   color: color-mix(in srgb, var(--secondary-color) 85%, transparent);
   margin-bottom: 20px !important;
-}
-
-/* ---------- responsive ---------- */
-@media (max-width: 991px) {
-  .cnt-banner-title {
-    font-size: 38px;
-  }
-
-  .cnt-section {
-    padding: 64px 0;
-  }
-}
-
-@media (max-width: 575px) {
-  .cnt-banner {
-    padding: 56px 0 44px;
-  }
-
-  .cnt-banner-title {
-    font-size: 30px;
-  }
-
-  .cnt-banner-text {
-    font-size: 16px;
-    line-height: 26px;
-  }
-
-  .cnt-section {
-    padding: 56px 0;
-  }
-
-  .cnt-form {
-    padding: 24px;
-  }
-
-  .cnt-form-title {
-    font-size: 26px;
-  }
-
-  .cnt-btn {
-    width: 100%;
-  }
 }
 
 /* ---------- config-driven extras ---------- */
@@ -410,4 +381,63 @@
 .cnt-btn:disabled {
   opacity: 0.6;
   cursor: wait;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+  .cnt-banner-title {
+    font-size: 38px;
+  }
+
+  .cnt-section {
+    padding: 64px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .cnt-banner {
+    padding: 40px 0;
+  }
+
+  .cnt-section {
+    padding: 40px 0;
+  }
+
+  .cnt-info {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .cnt-intake {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .cnt-form {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .cnt-form-text {
+    margin-bottom: 10px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .cnt-banner-title {
+    font-size: 30px;
+  }
+
+  .cnt-banner-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .cnt-form-title {
+    font-size: 26px;
+  }
+
+  .cnt-btn {
+    width: 100%;
+  }
 }

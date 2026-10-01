@@ -118,7 +118,7 @@ function About() {
       <section className="abt-section">
         <div className="container">
           <div className="row  align-items-center">
-            <div className="col-lg-6">
+            <div className="col-lg-6 mb-3 mb-lg-0">
               <span className="abt-eyebrow">Who We Are</span>
               <h2 className="abt-heading">
                 From interest to execution, with more confidence.
@@ -135,12 +135,21 @@ function About() {
                 trusted ecosystem access to help clients move from interest to
                 execution with more confidence.
               </p>
+              <div className="abt-photo">
+                <img
+                  src="/images/about-team-meeting.webp"
+                  alt="Three businesswomen in a meeting around an office table"
+                  width="1200"
+                  height="801"
+                  loading="lazy"
+                />
+              </div>
             </div>
 
             <div className="col-lg-6">
-              <div className="row g-3">
+              <div className="row ">
                 {highlights.map(({ icon: Icon, title, text }) => (
-                  <div className="col-12" key={title}>
+                  <div className="col-lg-12 mb-3" key={title}>
                     <div className="abt-highlight">
                       <span className="abt-icon">
                         <Icon />
@@ -183,7 +192,7 @@ function About() {
 
           <div className="row ">
 
-            <div className="col-lg-5">
+            <div className="col-lg-5 col-md-12 mb-3 mb-lg-0">
               <div className="abt-visual">
                 <img
                   src="/images/open-gates.webp"
@@ -226,7 +235,7 @@ function About() {
 
           <div className="row ">
             {pillars.map(({ icon: Icon, title, text }) => (
-              <div className="col-lg-4 col-md-6 mb-3" key={title}>
+              <div className="col-lg-4  col-md-6 col-sm-12 mb-3" key={title}>
                 <div className="abt-card">
                   <span className="abt-icon">
                     <Icon />

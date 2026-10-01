@@ -4,7 +4,9 @@ import {
   FiArrowUpRight,
   FiBookOpen,
   FiChevronRight,
+  FiCheck,
   FiClock,
+  FiInfo,
   FiMail,
   FiMic,
   FiShield,
@@ -59,6 +61,12 @@ const tabs = [{ key: 'all', title: 'All topics' }, ...categories]
 
 const { mailingList } = siteConfig
 
+const subscribeMessages = {
+  sending: 'Subscribing...',
+  sent: 'Thank you. Please check your inbox to confirm your subscription.',
+  error: 'Something went wrong. Please try again in a moment.',
+}
+
 const formatDate = (value) =>
   new Date(`${value}T00:00:00`).toLocaleDateString('en-US', {
     month: 'short',
@@ -73,6 +81,25 @@ function Insights() {
   )
 
   const [activeTab, setActiveTab] = useState('all')
+  const [subscribeStatus, setSubscribeStatus] = useState('idle')
+
+  const handleSubscribe = async (event) => {
+    event.preventDefault()
+    const formElement = event.currentTarget
+    setSubscribeStatus('sending')
+
+    try {
+      await fetch(mailingList.action, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(formElement)),
+      })
+      formElement.reset()
+      setSubscribeStatus('sent')
+    } catch {
+      setSubscribeStatus('error')
+    }
+  }
 
   const visibleTopics =
     activeTab === 'all'
@@ -151,16 +178,14 @@ function Insights() {
             </div>
 
             <div className="row">
-              {articles.map((article) => (
-                <div className="col-lg-4 col-md-6 mb-4" key={article.title}>
-                  <a
-                    href={article.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ins-article"
-                  >
-                    <span className="ins-topic-category">
-                      {categoryTitle(article.category)}
+              {articles.map((article) => {
+                const content = (
+                  <>
+                    <span className="ins-article-tags">
+                      <span className="ins-topic-category">
+                        {categoryTitle(article.category)}
+                      </span>
+                      {article.draft && <span className="ins-draft">Draft</span>}
                     </span>
                     <h3 className="ins-topic-title">{article.title}</h3>
                     {article.excerpt && (
@@ -172,9 +197,28 @@ function Insights() {
                         Read <FiArrowUpRight />
                       </span>
                     </span>
-                  </a>
-                </div>
-              ))}
+                  </>
+                )
+
+                return (
+                  <div className="col-lg-4 col-md-6 mb-3" key={article.title}>
+                    {article.slug ? (
+                      <Link to={`/insights/${article.slug}`} className="ins-article">
+                        {content}
+                      </Link>
+                    ) : (
+                      <a
+                        href={article.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ins-article"
+                      >
+                        {content}
+                      </a>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -184,7 +228,7 @@ function Insights() {
       <section className="ins-section ins-light">
         <div className="container">
           <div className="row align-items-end ins-head">
-            <div className="col-lg-5">
+            <div className="col-lg-5 mb-3 mb-lg-0">
               <span className="ins-eyebrow">Topics</span>
               <h2 className="ins-heading">Upcoming insight topics.</h2>
             </div>
@@ -206,9 +250,9 @@ function Insights() {
             </div>
           </div>
 
-          <div className="row g-4">
+          <div className="row">
             {visibleTopics.map((topic) => (
-              <div className="col-lg-4 col-md-6" key={topic.title}>
+              <div className="col-lg-4 col-md-6 mb-3" key={topic.title}>
                 <div className="ins-topic">
                   <span className="ins-topic-category">
                     {categoryTitle(topic.category)}
@@ -235,7 +279,7 @@ function Insights() {
                   <FiMail />
                 </span>
               </div>
-              <div className="col-lg-7">
+              <div className="col-lg-7 mb-3 mb-lg-0">
                 <h2 className="ins-cta-title">Subscribe to the Monthly Brief</h2>
                 <p className="ins-cta-text">
                   Market-entry notes, regulatory updates, and event invitations
@@ -244,12 +288,12 @@ function Insights() {
               </div>
               <div className="col-lg-4 text-lg-end">
                 {mailingList.action ? (
-                  <form
-                    className="ins-subscribe"
-                    action={mailingList.action}
-                    method="post"
-                    target="_blank"
-                  >
+                  <form className="ins-subscribe" onSubmit={handleSubscribe}>
+                    {Object.entries(mailingList.hiddenFields || {}).map(
+                      ([name, value]) => (
+                        <input key={name} type="hidden" name={name} value={value} />
+                      ),
+                    )}
                     <label htmlFor="ins-email" className="visually-hidden">
                       Email address
                     </label>
@@ -260,10 +304,21 @@ function Insights() {
                       placeholder="you@company.com"
                       required
                     />
-                    <button type="submit" className="ins-btn gold">
+                    <button
+                      type="submit"
+                      className="ins-btn gold"
+                      disabled={subscribeStatus === 'sending'}
+                    >
                       Subscribe
                       <FiArrowUpRight />
                     </button>
+
+                    {subscribeStatus !== 'idle' && (
+                      <p className={`ins-subscribe-status ${subscribeStatus}`} role="status">
+                        {subscribeStatus === 'sent' ? <FiCheck /> : <FiInfo />}
+                        {subscribeMessages[subscribeStatus]}
+                      </p>
+                    )}
                   </form>
                 ) : (
                   <Link to="/contact" className="ins-btn gold">

@@ -26,6 +26,21 @@ function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (!menuOpen) return undefined
+
+    const handleKey = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKey)
+
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKey)
+    }
+  }, [menuOpen])
+
   const closeMenu = () => setMenuOpen(false)
 
   return (
@@ -73,6 +88,12 @@ function Header() {
               <FiArrowUpRight />
             </Link>
           </div>
+
+          <div
+            className={`header-backdrop d-xl-none ${menuOpen ? 'show' : ''}`}
+            onClick={closeMenu}
+            aria-hidden="true"
+          ></div>
         </div>
       </nav>
     </header>

@@ -51,7 +51,7 @@ function Footer() {
     <footer className="site-footer">
       <div className="container">
         <div className="row footer-top">
-          <div className="col-lg-4 col-md-12">
+          <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
             <Link to="/" className="footer-logo">
               <img src={logo} alt="Integra Advisory Partners" />
             </Link>
@@ -59,16 +59,71 @@ function Footer() {
               The trusted bridge between global <span className='d-lg-block d-sm-inline'>ambition and regional opportunity.</span>
             </p> 
             <p className="footer-location">
-              <div>
+              <span>
                 <FiMapPin />
-              </div>
-              <div>
+              </span>
+              <span>
                 Based in Doha. Built for serious international <span className='d-lg-block d-sm-inline'>operators entering
               MENA and the GCC.</span>
-              </div>
+              </span>
             </p>
 
-            {(contact.email || contact.phone || contact.address) && (
+           
+
+            {socialLinks.length > 0 && (
+              <div className="footer-social">
+                {socialLinks.map(([key, url]) => {
+                  const { icon: Icon, label } = socialIcons[key]
+                  return (
+                    <a
+                      key={key}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                    >
+                      <Icon />
+                    </a>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+
+          <div className="col-lg-2 col-md-6 col-sm-12 mb-4 mb-lg-0">
+            <h6 className="footer-title">Quick Links</h6>
+            <ul className="footer-links">
+              {quickLinks.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="col-lg-3 col-md-6 col-sm-12 mb-4 mb-lg-0">
+            <h6 className="footer-title">Services</h6>
+            <ul className="footer-links">
+              {services.map((service) => (
+                <li key={service}>
+                  <Link to="/services">{service}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="col-lg-3 col-md-6 col-sm-12">
+            <h6 className="footer-title">Get Started</h6>
+            <p className="footer-text">
+              Before you open in Qatar or the GCC, know what the market,
+              regulators, banks, and partners will actually require.
+            </p>
+            <Link to="/intake" className="footer-cta">
+              Start Your Market Entry Review
+              <FiArrowUpRight />
+            </Link>
+
+             {(contact.email || contact.phone || contact.address) && (
               <ul className="footer-contact">
                 {contact.email && (
                   <li>
@@ -93,58 +148,6 @@ function Footer() {
               </ul>
             )}
 
-            {socialLinks.length > 0 && (
-              <div className="footer-social">
-                {socialLinks.map(([key, url]) => {
-                  const { icon: Icon, label } = socialIcons[key]
-                  return (
-                    <a
-                      key={key}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={label}
-                    >
-                      <Icon />
-                    </a>
-                  )
-                })}
-              </div>
-            )}
-          </div>
-
-          <div className="col-lg-2 col-md-4 col-sm-6">
-            <h6 className="footer-title">Quick Links</h6>
-            <ul className="footer-links">
-              {quickLinks.map((link) => (
-                <li key={link.to}>
-                  <Link to={link.to}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="col-lg-3 col-md-4 col-sm-6">
-            <h6 className="footer-title">Services</h6>
-            <ul className="footer-links">
-              {services.map((service) => (
-                <li key={service}>
-                  <Link to="/services">{service}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="col-lg-3 col-md-4">
-            <h6 className="footer-title">Get Started</h6>
-            <p className="footer-text">
-              Before you open in Qatar or the GCC, know what the market,
-              regulators, banks, and partners will actually require.
-            </p>
-            <Link to="/intake" className="footer-cta">
-              Start Your Market Entry Review
-              <FiArrowUpRight />
-            </Link>
           </div>
         </div>
 

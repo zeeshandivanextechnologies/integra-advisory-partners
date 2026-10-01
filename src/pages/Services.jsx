@@ -12,6 +12,10 @@ import {
   FiZap,
 } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
+import pillarMarket from '../assets/icons/pillar-market-strategy.webp'
+import pillarCompliance from '../assets/icons/pillar-compliance.webp'
+import pillarIntelligence from '../assets/icons/pillar-business-intelligence.webp'
+import pillarPartners from '../assets/icons/pillar-partner-matchmaking.webp'
 import usePageMeta from '../hooks/usePageMeta.js'
 import '../styles/Services.css'
 
@@ -22,6 +26,57 @@ const focusAreas = [
   'Advisory',
   'Ecosystem introductions',
 ]
+
+const pillars = [
+  {
+    key: 'market',
+    image: pillarMarket,
+    title: 'Market Strategy & Positioning',
+    text: 'Deciding whether and how to enter Qatar or the wider GCC.',
+    services: ['Market Entry Blueprint'],
+  },
+  {
+    key: 'compliance',
+    image: pillarCompliance,
+    title: 'Compliance & Regulatory Readiness',
+    text: 'Preparing documents, KYC, and incorporation steps before filings and bank conversations.',
+    services: [
+      'Regulatory & KYC Readiness Review',
+      'Qatar Incorporation & Bank Opening Pathway',
+    ],
+  },
+  {
+    key: 'intelligence',
+    image: pillarIntelligence,
+    title: 'Business Intelligence & Advisory',
+    text: 'Ongoing judgment and strategic guidance as you build in the GCC.',
+    services: ['Executive Advisory Retainer'],
+  },
+  {
+    key: 'partners',
+    image: pillarPartners,
+    title: 'Partner Matchmaking & Talent Solutions',
+    text: 'Structured introductions to the right partners, mentors, and talent.',
+    services: ['Integra Innovators', 'Integra Nights', 'Integra Gold'],
+  },
+]
+
+const pillarFor = (serviceTitle) =>
+  pillars.find((pillar) => pillar.services.includes(serviceTitle))
+
+const slug = (text) =>
+  text.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+
+function PillarLabel({ title }) {
+  const pillar = pillarFor(title)
+  if (!pillar) return null
+  return (
+    <span className="srv-pillar">
+      <img src={pillar.image} alt="" aria-hidden="true" />
+      {pillar.title}
+    </span>
+  )
+}
 
 const advisoryServices = [
   {
@@ -106,6 +161,48 @@ function Services() {
         </div>
       </section>
 
+      {/* ---------- four pillars ---------- */}
+      <section className="srv-section srv-pillars">
+        <div className="container">
+          <div className="row align-items-end srv-head">
+            <div className="col-lg-7">
+              <span className="srv-eyebrow">Our Four Pillars</span>
+              <h2 className="srv-heading">
+                Seven services, organized around four pillars.
+              </h2>
+            </div>
+            <div className="col-lg-5">
+              <p className="srv-lead">
+                Every Integra service sits under one of four pillars, so you can
+                see where each pathway fits in your expansion.
+              </p>
+            </div>
+          </div>
+
+          <div className="row">
+            {pillars.map(({ key, image, title, text, services }) => (
+              <div className="col-lg-3 col-md-6 mb-3" key={key}>
+                <div className="srv-pillar-card">
+                  <img src={image} alt="" className="srv-pillar-icon" aria-hidden="true" />
+                  <h3 className="srv-pillar-title">{title}</h3>
+                  <p className="srv-pillar-text">{text}</p>
+                  <ul className="srv-pillar-services">
+                    {services.map((service) => (
+                      <li key={service}>
+                        <a href={`#${slug(service)}`}>
+                          {service}
+                          <FiChevronRight />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ---------- advisory services ---------- */}
       <section className="srv-section">
         <div className="container">
@@ -127,8 +224,8 @@ function Services() {
 
           <div className="row ">
             {advisoryServices.map(({ icon: Icon, title, text, note }, index) => (
-              <div className="col-lg-6 mb-3" key={title}>
-                <div className="srv-card">
+              <div className="col-lg-6 col-md-6 mb-3" key={title}>
+                <div className="srv-card" id={slug(title)}>
                   <div className="srv-card-top">
                     <span className="srv-icon">
                       <Icon />
@@ -138,6 +235,7 @@ function Services() {
                     </span>
                   </div>
 
+                  <PillarLabel title={title} />
                   <h3 className="srv-card-title">{title}</h3>
                   <p className="srv-card-text">{text}</p>
 
@@ -173,7 +271,7 @@ function Services() {
           </div>
 
           <div className="row ">
-            <div className="col-lg-5 mb-3">
+            <div className="col-lg-5 col-md-12 mb-3">
               <div className="srv-visual">
                 <img
                   src="/images/partnerships.webp"
@@ -188,8 +286,8 @@ function Services() {
             <div className="col-lg-7">
               <div className="row ">
                 {networkServices.map(({ icon: Icon, title, text }, index) => (
-                  <div className="col-12 mb-3" key={title}>
-                    <div className="srv-card">
+                  <div className="col-12 col-md-12 mb-3" key={title}>
+                    <div className="srv-card" id={slug(title)}>
                       <div className="srv-card-top">
                         <span className="srv-icon">
                           <Icon />
@@ -199,6 +297,7 @@ function Services() {
                         </span>
                       </div>
 
+                      <PillarLabel title={title} />
                       <h3 className="srv-card-title">{title}</h3>
                       <p className="srv-card-text">{text}</p>
                     </div>

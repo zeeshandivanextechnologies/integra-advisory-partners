@@ -173,11 +173,15 @@ function Packages() {
           </div>
 
           <p className="pkg-disclaimer">
-            <FiInfo />
-            Prices are indicative. Final deliverables, price, timeline, and
-            payment terms are confirmed in a concise scope of work after the
+            <div>
+              <FiInfo className=''/>
+            </div>
+           <span>
+             Prices are indicative. Final deliverables, price, timeline, and
+            payment terms are confirmed in a concise scope of work <span className='d-lg-block d-sm-inline'>after the
             discovery call. No work starts until the contract and deposit are
-            complete.
+            complete.</span>
+           </span>
           </p>
         </div>
       </section>
@@ -227,7 +231,7 @@ function Packages() {
       <section className="pkg-section pt-0 pkg-compare">
         <div className="container">
           <div className="pkg-cta">
-            <div className="row align-items-center gy-4">
+            <div className="row align-items-center">
               <div className="col-lg-7">
                 <h2 className="pkg-cta-title">
                   Not sure which package fits?
@@ -243,9 +247,20 @@ function Packages() {
                     Complete Intake Form
                     <FiArrowUpRight />
                   </Link>
-                  <Link to="/contact" className="pkg-btn outline-light">
-                    Request a Call
-                  </Link>
+                  {siteConfig.booking.url ? (
+                    <a
+                      href={siteConfig.booking.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pkg-btn outline-light"
+                    >
+                      Book a Discovery Call
+                    </a>
+                  ) : (
+                    <Link to="/contact" className="pkg-btn outline-light">
+                      Request a Call
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

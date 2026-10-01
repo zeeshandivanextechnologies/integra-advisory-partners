@@ -39,21 +39,29 @@ const audiences = [
   {
     icon: FiFlag,
     title: 'U.S.-based founders',
+    image: '/images/audience-us-founders.webp',
+    alt: 'Black businessman in a blue suit on a city street',
     text: 'Black and African-American founders, operators, and investors in the U.S. exploring Qatar and the GCC.',
   },
   {
     icon: FiGlobe,
     title: 'African founders',
+    image: '/images/audience-african-founders.webp',
+    alt: 'African founder in a suit seated at an office desk',
     text: 'Founders and growth-stage companies from Nigeria, Morocco, and across the continent.',
   },
   {
     icon: FiTrendingUp,
     title: 'Diaspora & international investors',
+    image: '/images/audience-diaspora-investors.webp',
+    alt: 'Investor in a red shirt holding a tablet',
     text: 'Diaspora and international operators evaluating a serious GCC expansion.',
   },
   {
     icon: FiUsers,
     title: 'Referral partners',
+    image: '/images/audience-referral-partners.webp',
+    alt: 'Team of professionals meeting around a boardroom table',
     text: 'Law firms, banks, trade missions, embassies, accelerators, and ecosystem partners.',
   },
 ]
@@ -94,6 +102,11 @@ const reasons = [
     text: 'AI and templates accelerate research, while local judgment verifies the decision-making points that matter.',
   },
 ]
+
+// the first four reasons are tiles; the fifth is the wide feature card
+const otherReasons = reasons.slice(0, 4)
+const featureReason = reasons[4]
+const FeatureIcon = featureReason.icon
 
 const services = [
   {
@@ -156,7 +169,7 @@ function Home() {
             aria-hidden="true"
           />
         )}
-        <img src={markGold} alt="" className="hero-mark" aria-hidden="true" />
+        {/* <img src={markGold} alt="" className="hero-mark" aria-hidden="true" /> */}
 
         <div className="container">
           <div className="row align-items-center">
@@ -220,7 +233,7 @@ function Home() {
       {/* ---------- who we serve ---------- */}
       <section className="home-audience">
         <div className="container">
-          <div className="row align-items-end gy-3 audience-head">
+          <div className="row align-items-end  audience-head">
             <div className="col-lg-7">
               <span className="home-eyebrow">Who We Serve</span>
               <h2 className="home-heading mb-0">
@@ -237,10 +250,21 @@ function Home() {
             </div>
           </div>
 
-          <div className="row g-4">
-            {audiences.map(({ icon: Icon, title, text }) => (
-              <div className="col-lg-3 col-md-6" key={title}>
+          <div className="row ">
+            {audiences.map(({ icon: Icon, title, text, image, alt }) => (
+              <div className="col-lg-3 col-md-6 col-sm-12 mb-3" key={title}>
                 <div className="audience-card">
+                  {image && (
+                    <div className="audience-photo">
+                      <img
+                        src={image}
+                        alt={alt}
+                        width="800"
+                        height="600"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
                   <span className="audience-icon">
                     <Icon />
                   </span>
@@ -257,7 +281,7 @@ function Home() {
       <section className="home-section">
         <div className="container">
           <div className="row  align-items-center">
-            <div className="col-lg-5">
+            <div className="col-lg-5 mb-3 mb-lg-0">
               <span className="home-eyebrow">The Challenge</span>
               <h2 className="home-heading">
                 Expanding into the GCC is not just a market-research exercise.
@@ -291,9 +315,9 @@ function Home() {
                   What founders need to understand
                 </span>
 
-                <div className="row g-3">
+                <div className="row">
                   {challenges.map(({ icon: Icon, label }, index) => (
-                    <div className="col-sm-6" key={label}>
+                    <div className="col-sm-12 col-lg-6 col-md-6 mb-3" key={label}>
                       <div className="problem-item">
                         <span className="problem-icon">
                           <Icon />
@@ -347,36 +371,83 @@ function Home() {
           </div>
 
 
-          <div className="row">
-            <div className="col-lg-5">
-              <div className="why-intro">
-                <div className="why-visual">
-                  <img
-                    src="/images/integrated-solutions.webp"
-                    alt="Integrated solutions connecting compliance, strategy, intelligence, and partnerships"
-                    width="1000"
-                    height="1000"
-                    loading="lazy"
-                  />
+          <div className="row why-layout">
+            <div className="col-lg-4 mb-4 mb-lg-0">
+              <div className="why-photo">
+                <img
+                  src="/images/why-team.webp"
+                  alt="Business team meeting around a boardroom table"
+                  width="800"
+                  height="1000"
+                  loading="lazy"
+                />
+                <div className="why-photo-card">
+                  <span className="why-photo-label">Integra in three words</span>
+                  <ul>
+                    {pillars.map((pillar) => (
+                      <li key={pillar}>
+                        <FiCheck />
+                        {pillar}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
 
-            <div className="col-lg-7">
+            <div className="col-lg-8">
               <div className="row">
-                {reasons.map(({ icon: Icon, title, text }) => (
-                  <div className="col-md-6 mb-3" key={title}>
-                    <div className="why-card">
-                      <span className="why-icon">
-                        <Icon />
-                      </span>
-                      <h3 className="why-title">{title}</h3>
-                      <p className="why-text">{text}</p>
+                {otherReasons.map(({ icon: Icon, title, text }, index) => (
+                  <div className="col-md-6 mb-4" key={title}>
+                    <div className="why-tile">
+                      <div className="why-tile-top">
+                        <span className="why-tile-icon">
+                          <Icon />
+                        </span>
+                        <span className="why-tile-number">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+                      <h3 className="why-tile-title">{title}</h3>
+                      <p className="why-tile-text">{text}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
+            {featureReason && (
+              <div className="col-12">
+                <div className="why-feature">
+                  <div className="row align-items-center">
+                    <div className="col-lg-7 mb-3 mb-lg-0">
+                      <div className="why-feature-head">
+                        <span className="why-feature-icon">
+                          <FeatureIcon />
+                        </span>
+                        <div>
+                          <span className="why-feature-number">05</span>
+                          <h3 className="why-feature-title">{featureReason.title}</h3>
+                        </div>
+                      </div>
+                      <p className="why-feature-text">{featureReason.text}</p>
+                    </div>
+                    <div className="col-lg-5">
+                      <div className="why-feature-split">
+                        <div>
+                          <span>AI and templates</span>
+                          <strong>Accelerate research</strong>
+                        </div>
+                        <div>
+                          <span>Local judgment</span>
+                          <strong>Verifies key decisions</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -385,14 +456,14 @@ function Home() {
       <section className="home-section services-section">
         <div className="container">
           <div className="row align-items-end  section-head">
-            <div className="col-lg-7">
+            <div className="col-lg-7 col-md-12 col-sm-12 mb-3 mb-lg-0">
               <span className="home-eyebrow">Service Pathways</span>
               <h2 className="home-heading mb-0">
                 Tightly defined offerings, from first decision to full
                 operation.
               </h2>
             </div>
-            <div className="col-lg-5 text-lg-end">
+            <div className="col-lg-5 col-md-12 col-sm-12 text-lg-end">
               <Link to="/services" className="home-btn primary">
                 Compare Service Pathways
                 <FiArrowUpRight />
@@ -400,9 +471,9 @@ function Home() {
             </div>
           </div>
 
-          <div className="row g-4">
+          <div className="row">
             {services.map(({ icon: Icon, title, text }) => (
-              <div className="col-xl-3 col-lg-4 col-md-6" key={title}>
+              <div className="col-xl-3 col-lg-4 col-md-6 mb-3" key={title}>
                 <Link to="/services" className="service-card">
                   <span className="service-icon">
                     <Icon />
@@ -422,10 +493,22 @@ function Home() {
                 <p className="service-text">
                   Start with a short intake and a structured discovery call.
                 </p>
-                <Link to="/contact" className="home-btn gold mt-auto">
-                  Request a Call
-                  <FiArrowUpRight />
-                </Link>
+                {siteConfig.booking.url ? (
+                  <a
+                    href={siteConfig.booking.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="home-btn gold mt-auto"
+                  >
+                    Book a Discovery Call
+                    <FiArrowUpRight />
+                  </a>
+                ) : (
+                  <Link to="/contact" className="home-btn gold mt-auto">
+                    Request a Call
+                    <FiArrowUpRight />
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -439,7 +522,7 @@ function Home() {
             <img src={markWhite} alt="" className="cta-mark" aria-hidden="true" />
 
             <div className="row align-items-center">
-              <div className="col-lg-8">
+              <div className="col-lg-8 mb-3 mb-lg-0">
                 <h2 className="cta-title">
                   Before you open in Qatar or the GCC, know what the market,
                   regulators, banks, and partners will actually require.

@@ -118,7 +118,7 @@
 /* ---------- format cards ---------- */
 .evt-card {
   height: 100%;
-  padding: 28px;
+  padding: 24px;
   border-radius: 18px;
   background-color: #fff;
   border: 1px solid var(--secondary-color);
@@ -409,103 +409,7 @@
   gap: 12px;
 }
 
-/* ---------- responsive ---------- */
-@media (max-width: 991px) {
-  .evt-banner-title {
-    font-size: 38px;
-  }
 
-  .evt-section {
-    padding: 64px 0;
-  }
-
-  .evt-heading {
-    font-size: 32px;
-  }
-
-  .evt-spotlight-body {
-    padding: 40px 32px 32px;
-  }
-
-  .evt-spotlight-side {
-    padding: 32px;
-    border-left: none;
-    border-top: 1px solid color-mix(in srgb, #fff 12%, transparent);
-  }
-
-  .evt-spotlight-title {
-    font-size: 36px;
-  }
-
-  .evt-cta {
-    padding: 40px 32px;
-  }
-
-  .evt-cta-title {
-    font-size: 26px;
-  }
-
-  .evt-cta-actions {
-    justify-content: flex-start;
-  }
-}
-
-@media (max-width: 575px) {
-  .evt-banner {
-    padding: 56px 0 44px;
-  }
-
-  .evt-banner-title {
-    font-size: 30px;
-  }
-
-  .evt-banner-text {
-    font-size: 16px;
-    line-height: 26px;
-  }
-
-  .evt-section {
-    padding: 56px 0;
-  }
-
-  .evt-heading {
-    font-size: 28px;
-  }
-
-  .evt-card {
-    padding: 22px;
-  }
-
-  .evt-spotlight-body,
-  .evt-spotlight-side {
-    padding: 28px 22px;
-  }
-
-  .evt-spotlight-title {
-    font-size: 30px;
-  }
-
-  .evt-outcome-text {
-    font-size: 15px;
-  }
-
-  .evt-empty {
-    padding: 32px 22px;
-  }
-
-  .evt-cta {
-    padding: 32px 22px;
-  }
-
-  .evt-cta-title {
-    font-size: 22px;
-  }
-
-  .evt-btn {
-    width: 100%;
-    white-space: normal;
-  }
-}
 
 /* ---------- upcoming events list (shown when events.js has entries) ---------- */
 .evt-list li + li {
@@ -587,8 +491,105 @@
   flex-shrink: 0;
 }
 
+/* ---------- draft label (sample events, dev only) ---------- */
+.evt-draft {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  border: 1px dashed var(--additional-color);
+  background-color: color-mix(in srgb, var(--additional-color) 20%, transparent);
+  font-family: var(--secondary-font);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+}
+
+
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+  .evt-banner-title {
+    font-size: 38px;
+  }
+
+  .evt-section {
+    padding: 64px 0;
+  }
+
+  .evt-heading {
+    font-size: 32px;
+  }
+
+  .evt-spotlight-body {
+    padding: 40px 32px 32px;
+  }
+
+  .evt-spotlight-side {
+    padding: 32px;
+    border-left: none;
+    border-top: 1px solid color-mix(in srgb, #fff 12%, transparent);
+  }
+
+  .evt-spotlight-title {
+    font-size: 36px;
+  }
+
+  .evt-cta {
+    padding: 40px 32px;
+  }
+
+  .evt-cta-title {
+    font-size: 26px;
+  }
+
+  .evt-cta-actions {
+    justify-content: flex-start;
+  }
+}
+
+
 @media (max-width: 767px) {
-  .evt-item {
+  .evt-banner {
+    padding: 40px 0;
+  }
+
+   .evt-section {
+    padding: 40px 0;
+  }
+
+  .evt-head{
+    margin-bottom: 16px;
+  }
+
+    .evt-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+   .evt-spotlight-body,
+  .evt-spotlight-side {
+    padding: 20px;
+  }
+
+  .evt-spotlight{
+    border-radius: 20px;
+  }
+
+  
+  .evt-empty {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .evt-cta {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+    .evt-item {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -596,5 +597,51 @@
   .evt-item-date {
     flex-direction: row;
     width: auto;
+  }
+
+
+}
+
+
+@media (max-width: 575px) {
+
+
+  .evt-banner-title {
+    font-size: 30px;
+  }
+
+  .evt-banner-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+ 
+
+  .evt-heading {
+    font-size: 28px;
+  }
+
+
+
+ 
+
+  .evt-spotlight-title {
+    font-size: 30px;
+  }
+
+  .evt-outcome-text {
+    font-size: 15px;
+  }
+
+
+  
+
+  .evt-cta-title {
+    font-size: 22px;
+  }
+
+  .evt-btn {
+    width: 100%;
+    white-space: normal;
   }
 }

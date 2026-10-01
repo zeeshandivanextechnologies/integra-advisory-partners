@@ -1,7 +1,9 @@
+import { Suspense } from 'react'
 import { Outlet, ScrollRestoration } from 'react-router-dom'
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import WhatsAppButton from '../common/WhatsAppButton.jsx'
+import Loader from '../common/Loader.jsx'
 
 function Layout() {
   return (
@@ -9,7 +11,9 @@ function Layout() {
       <Header />
 
       <main className="flex-grow-1">
-        <Outlet />
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
       </main>
 
       <Footer />

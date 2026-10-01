@@ -4,7 +4,11 @@
   overflow: hidden;
   padding: 70px 0;
   background:
-    radial-gradient(circle at 90% 120%, color-mix(in srgb, #9fe8ff 45%, transparent), transparent 40%),
+    radial-gradient(
+      circle at 90% 120%,
+      color-mix(in srgb, #9fe8ff 45%, transparent),
+      transparent 40%
+    ),
     linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
 }
 
@@ -144,7 +148,8 @@
 .abt-highlight:hover {
   transform: translateX(6px);
   border-color: var(--primary-color);
-  box-shadow: 0 14px 36px color-mix(in srgb, var(--primary-color) 10%, transparent);
+  box-shadow: 0 14px 36px
+    color-mix(in srgb, var(--primary-color) 10%, transparent);
 }
 
 .abt-highlight:hover .abt-icon,
@@ -184,7 +189,8 @@
 
 .abt-clarity li:hover {
   transform: translateX(6px);
-  box-shadow: 0 14px 36px color-mix(in srgb, var(--primary-color) 10%, transparent);
+  box-shadow: 0 14px 36px
+    color-mix(in srgb, var(--primary-color) 10%, transparent);
 }
 
 .abt-clarity-number {
@@ -227,7 +233,8 @@
 .abt-card:hover {
   transform: translateY(-6px);
   border-color: var(--primary-color);
-  box-shadow: 0 18px 44px color-mix(in srgb, var(--primary-color) 12%, transparent);
+  box-shadow: 0 18px 44px
+    color-mix(in srgb, var(--primary-color) 12%, transparent);
 }
 
 .abt-card .abt-icon {
@@ -251,7 +258,7 @@
 /* ---------- who we serve + values ---------- */
 .abt-panel {
   height: 100%;
-  padding: 32px;
+  padding: 24px;
   border-radius: 18px;
   background-color: #fff;
 }
@@ -326,7 +333,11 @@
   padding: 48px;
   border-radius: 24px;
   background:
-    radial-gradient(circle at 100% 0%, color-mix(in srgb, #9fe8ff 35%, transparent), transparent 45%),
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in srgb, #9fe8ff 35%, transparent),
+      transparent 45%
+    ),
     linear-gradient(135deg, var(--primary-color), #1d3f8f);
 }
 
@@ -377,6 +388,45 @@
   color: var(--primary-color);
 }
 
+/* ---------- approach image ---------- */
+.abt-visual {
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 18px 44px
+    color-mix(in srgb, var(--primary-color) 14%, transparent);
+}
+
+.abt-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s ease;
+}
+
+.abt-visual:hover img {
+  transform: scale(1.04);
+}
+
+/* ---------- who we are photo ---------- */
+.abt-photo {
+  margin-top: 24px;
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 18px 44px
+    color-mix(in srgb, var(--primary-color) 14%, transparent);
+}
+
+.abt-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s ease;
+}
+
+.abt-photo:hover img {
+  transform: scale(1.04);
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 991px) {
   .abt-banner {
@@ -403,13 +453,58 @@
   .abt-cta-title {
     font-size: 24px;
   }
+
+  .abt-visual {
+    max-width: 100%;
+    max-height: 600px;
+  }
 }
 
-@media (max-width: 575px) {
-  .abt-banner {
-    padding: 56px 0 44px;
+@media (max-width: 767px) {
+  .abt-card {
+    padding: 16px;
+    border-radius: 12px;
   }
 
+  .abt-banner {
+    padding: 40px 0;
+  }
+
+  .abt-section {
+    padding: 40px 0;
+  }
+
+  .abt-highlight {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .abt-clarity li {
+    padding: 16px;
+  }
+
+  .abt-panel {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .abt-cta {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  
+  .abt-heading {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .abt-head{
+    margin-bottom: 16px;
+  }
+
+
+}
+
+@media (max-width: 576px) {
   .abt-banner-title {
     font-size: 30px;
   }
@@ -419,32 +514,9 @@
     line-height: 26px;
   }
 
-  .abt-section {
-    padding: 56px 0;
-  }
-
-  .abt-heading {
-    font-size: 28px;
-  }
-
-  .abt-highlight {
-    padding: 20px;
-  }
-
-  .abt-clarity li {
-    padding: 16px 18px;
-  }
 
   .abt-clarity-text {
     font-size: 15px;
-  }
-
-  .abt-panel {
-    padding: 24px;
-  }
-
-  .abt-cta {
-    padding: 32px 22px;
   }
 
   .abt-cta-title {
@@ -453,29 +525,5 @@
 
   .abt-btn {
     width: 100%;
-  }
-}
-
-/* ---------- approach image ---------- */
-.abt-visual {
-  overflow: hidden;
-  border-radius: 18px;
-  box-shadow: 0 18px 44px color-mix(in srgb, var(--primary-color) 14%, transparent);
-}
-
-.abt-visual img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 0.6s ease;
-}
-
-.abt-visual:hover img {
-  transform: scale(1.04);
-}
-
-@media (max-width: 991px) {
-  .abt-visual {
-    max-width: 440px;
   }
 }

@@ -127,7 +127,7 @@ function Intake() {
       <section className="int-section">
         <div className="container">
           <div className="row">
-            <div className="col-lg-4 mb-4 mb-lg-0">
+            <div className="col-lg-4 mb-3 mb-lg-0">
               <div className="int-side">
                 <span className="int-eyebrow">Why We Ask</span>
                 <h2 className="int-side-title">

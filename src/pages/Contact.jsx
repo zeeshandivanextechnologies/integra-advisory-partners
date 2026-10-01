@@ -119,7 +119,7 @@ function Contact() {
         <div className="container">
           <div className="row ">
 
-             <div className="col-lg-4">
+             <div className="col-lg-4 mb-3 mb-lg-0">
               <div className="cnt-side">
                 <div className="cnt-info">
                   <span className="cnt-info-icon">

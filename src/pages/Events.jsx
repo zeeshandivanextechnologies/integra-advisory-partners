@@ -131,9 +131,9 @@ function Events() {
             </div>
           </div>
 
-          <div className="row g-4">
+          <div className="row">
             {formats.map(({ icon: Icon, title, text, tag }) => (
-              <div className="col-lg-3 col-md-6" key={title}>
+              <div className="col-lg-3 col-md-6 mb-3" key={title}>
                 <div className="evt-card">
                   <div className="evt-card-top">
                     <span className="evt-icon">
@@ -195,8 +195,8 @@ function Events() {
       {/* ---------- upcoming events ---------- */}
       <section className="evt-section">
         <div className="container">
-          <div className="row align-items-center gy-4">
-            <div className="col-lg-5">
+          <div className="row align-items-center">
+            <div className="col-lg-5 mb-3 mb-lg-0">
               <span className="evt-eyebrow">Upcoming Events</span>
               <h2 className="evt-heading">Be the first to know.</h2>
               <p className="evt-lead">
@@ -216,6 +216,7 @@ function Events() {
                       </div>
                       <div className="evt-item-body">
                         <span className="evt-tag">{event.format}</span>
+                        {event.draft && <span className="evt-draft">Draft</span>}
                         <h3 className="evt-item-title">{event.title}</h3>
                         <div className="evt-item-meta">
                           {event.time && (
@@ -230,7 +231,9 @@ function Events() {
                               {event.location}
                             </span>
                           )}
-                          {event.mode && <span>{event.mode}</span>}
+                          {event.mode && event.mode !== event.location && (
+                            <span>{event.mode}</span>
+                          )}
                         </div>
                       </div>
                       <RegisterLink
@@ -268,8 +271,8 @@ function Events() {
       <section className="evt-section pt-0">
         <div className="container">
           <div className="evt-cta">
-            <div className="row align-items-center gy-4">
-              <div className="col-lg-7">
+            <div className="row align-items-center">
+              <div className="col-lg-7 mb-3 mb-lg-0">
                 <h2 className="evt-cta-title">
                   Want to host or partner on an Integra event?
                 </h2>

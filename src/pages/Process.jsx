@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
 import usePageMeta from '../hooks/usePageMeta.js'
+import siteConfig from '../constants/siteConfig.js'
 import '../styles/Process.css'
 
 const steps = [
@@ -51,6 +52,7 @@ const steps = [
     icon: FiCreditCard,
     title: 'Deposit and onboarding',
     text: 'No work starts until contract and deposit are complete.',
+    link: { label: 'Pay your deposit', to: '/deposit' },
   },
   {
     icon: FiPackage,
@@ -176,7 +178,7 @@ function Process() {
 
             <div className="col-lg-8">
               <ol className="prc-timeline">
-                {steps.map(({ icon: Icon, title, text, tags, days }, index) => (
+                {steps.map(({ icon: Icon, title, text, tags, days, link }, index) => (
                   <li className="prc-step" key={title}>
                     <span className="prc-step-number">
                       {String(index + 1).padStart(2, '0')}
@@ -207,6 +209,13 @@ function Process() {
                           ))}
                         </div>
                       )}
+
+                      {link && (
+                        <Link to={link.to} className="prc-step-link">
+                          {link.label}
+                          <FiArrowUpRight />
+                        </Link>
+                      )}
                     </div>
                   </li>
                 ))}
@@ -221,7 +230,7 @@ function Process() {
         <div className="container">
           <div className="prc-cta">
             <div className="row align-items-center ">
-              <div className="col-lg-7 mb-3">
+              <div className="col-lg-7 mb-3 mb-lg-0">
                 <h2 className="prc-cta-title">Ready to take the first step?</h2>
                 <p className="prc-cta-text">
                   Complete the intake form so Integra can prepare for a focused
@@ -234,9 +243,20 @@ function Process() {
                     Complete Intake Form
                     <FiArrowUpRight />
                   </Link>
-                  <Link to="/contact" className="prc-btn outline-light">
-                    Request a Call
-                  </Link>
+                  {siteConfig.booking.url ? (
+                    <a
+                      href={siteConfig.booking.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="prc-btn outline-light"
+                    >
+                      Book a Discovery Call
+                    </a>
+                  ) : (
+                    <Link to="/contact" className="prc-btn outline-light">
+                      Request a Call
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

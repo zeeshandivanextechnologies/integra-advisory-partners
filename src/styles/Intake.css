@@ -4,7 +4,11 @@
   overflow: hidden;
   padding: 70px 0;
   background:
-    radial-gradient(circle at 90% 120%, color-mix(in srgb, #9fe8ff 45%, transparent), transparent 40%),
+    radial-gradient(
+      circle at 90% 120%,
+      color-mix(in srgb, #9fe8ff 45%, transparent),
+      transparent 40%
+    ),
     linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
 }
 
@@ -262,7 +266,11 @@
   margin: 0 0 16px !important;
   padding: 12px 14px;
   border-radius: 10px;
-  background-color: color-mix(in srgb, var(--additional-color) 30%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--additional-color) 30%,
+    transparent
+  );
   font-family: var(--secondary-font);
   font-size: 14px !important;
   font-weight: 600 !important;
@@ -301,53 +309,6 @@
   color: color-mix(in srgb, var(--primary-color) 60%, #fff) !important;
 }
 
-/* ---------- responsive ---------- */
-@media (max-width: 991px) {
-  .int-banner-title {
-    font-size: 34px;
-  }
-
-  .int-section {
-    padding: 64px 0;
-  }
-
-  .int-side {
-    position: static;
-  }
-}
-
-@media (max-width: 575px) {
-  .int-banner {
-    padding: 56px 0 44px;
-  }
-
-  .int-banner-title {
-    font-size: 26px;
-  }
-
-  .int-banner-text {
-    font-size: 16px;
-    line-height: 26px;
-  }
-
-  .int-section {
-    padding: 56px 0;
-  }
-
-  .int-side,
-  .int-form {
-    padding: 22px;
-  }
-
-  .int-step-title {
-    font-size: 19px;
-  }
-
-  .int-btn {
-    width: 100%;
-  }
-}
-
 /* ---------- config-driven extras ---------- */
 .int-upload {
   display: inline-flex;
@@ -384,4 +345,64 @@
 .int-btn:disabled {
   opacity: 0.6;
   cursor: wait;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+  .int-banner-title {
+    font-size: 34px;
+  }
+
+  .int-section {
+    padding: 64px 0;
+  }
+
+  .int-side {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  .int-banner {
+    padding: 40px 0;
+  }
+
+  .int-section {
+    padding: 40px 0;
+  }
+
+  .int-side {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .int-form {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .int-step{
+    margin: 0 0 16px;
+    padding: 0 0 16px;
+  }
+
+}
+
+@media (max-width: 575px) {
+  .int-banner-title {
+    font-size: 26px;
+  }
+
+  .int-banner-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .int-step-title {
+    font-size: 19px;
+  }
+
+  .int-btn {
+    width: 100%;
+  }
 }

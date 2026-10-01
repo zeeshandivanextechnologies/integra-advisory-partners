@@ -62,7 +62,14 @@ const CONCERNS = [
 
 // Leave empty to keep "budget" as a short-answer question.
 // If you fill this, add the same list to budgetRanges in siteConfig.js.
-const BUDGET_RANGES = []
+const BUDGET_RANGES = [
+  'Under $5,000',
+  '$5,000 – $15,000',
+  '$15,000 – $30,000',
+  '$30,000+',
+  'Monthly retainer ($2,500+/month)',
+  'Not sure yet',
+]
 
 const EVENT_FORMATS = [
   'Webinars',
