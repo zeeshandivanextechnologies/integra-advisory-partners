@@ -20,7 +20,7 @@ import '../styles/Services.css'
 // paths point at these files; an icon uploaded from the admin is a /uploads/ path
 const bundledPillarIcons = {
   '/src/assets/icons/pillar-market-strategy.webp': pillarMarket,
-  '/src/assets/icons/pillar-compliance.webp': pillarCompliance,
+  '/src/assets/icons/pillar-compliance.webp': pillarCompliance, 
   '/src/assets/icons/pillar-business-intelligence.webp': pillarIntelligence,
   '/src/assets/icons/pillar-partner-matchmaking.webp': pillarPartners,
 }
