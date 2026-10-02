@@ -14,9 +14,38 @@ export const savePage = async (slug, content) => {
   })
 }
 
+// Uploads an image or video and resolves with the address to store in page
+// content. When the backend has Supabase Storage set up, the file goes straight
+// to Storage through a one-time link (large videos would be too big to pass
+// through the backend on Vercel); otherwise it goes to the backend as before.
+export const uploadFile = async (file) => {
+  let signed = null
+  try {
+    signed = await api('uploads/sign', {
+      method: 'POST',
+      body: { contentType: file.type, size: file.size },
+    })
+  } catch (error) {
+    // an older backend without /uploads/sign: fall back to the backend upload
+    if (error.status !== 404) throw error
+  }
+
+  if (signed?.mode === 'direct') {
+    const response = await fetch(signed.uploadUrl, {
+      method: 'PUT',
+      headers: { 'Content-Type': file.type, 'x-upsert': 'false' },
+      body: file,
+    })
+    if (!response.ok) throw new Error('Upload failed. Please try again.')
+    return signed.url
+  }
+
+  return uploadThroughBackend(file)
+}
+
 // Sends an image or video as the raw request body (api() only sends JSON).
 // Resolves with the stored path, e.g. /uploads/abc.webp
-export const uploadFile = async (file) => {
+const uploadThroughBackend = async (file) => {
   const url = API_BASE_URL
     ? `${API_BASE_URL.replace(/\/$/, '')}/uploads`
     : '/api/uploads'

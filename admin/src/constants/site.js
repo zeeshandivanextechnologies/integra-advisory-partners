@@ -1,5 +1,9 @@
-// TODO: point to the live website domain
-export const websiteUrl = 'http://localhost:5173'
+// The public website, for "View on Website" links and previews of its images.
+// Set VITE_WEBSITE_URL for the live site (e.g. https://integraadvisorypartners.com).
+export const websiteUrl = (import.meta.env.VITE_WEBSITE_URL || 'http://localhost:5173').replace(
+  /\/$/,
+  '',
+)
 
 // website pages a button on the site can link to
 export const sitePages = [

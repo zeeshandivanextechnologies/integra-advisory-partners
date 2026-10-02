@@ -22,6 +22,8 @@ const createArticleTable = async () => {
     );
   `;
   await db.query(query);
+  // block Supabase's public REST API; the backend's own connection is not affected
+  await db.query('ALTER TABLE articles ENABLE ROW LEVEL SECURITY');
 };
 
 module.exports = {
