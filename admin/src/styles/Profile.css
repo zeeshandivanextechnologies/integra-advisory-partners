@@ -1,0 +1,86 @@
+/* ---------- admin profile (top of Settings, on top of PageEditor.css) ---------- */
+.prf-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--additional-color);
+  background-color: var(--primary-color);
+}
+
+.prf-role {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+
+.prf-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.prf-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-bottom: 12px;
+}
+
+.prf-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 19px;
+  color: #c4363b;
+}
+
+.prf-error svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* password box with the show / hide button */
+.prf-password {
+  position: relative;
+}
+
+.prf-password .form-control {
+  padding-right: 46px;
+}
+
+.prf-eye {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 17px;
+  color: var(--text-secondary);
+  transform: translateY(-50%);
+}
+
+.prf-eye:hover {
+  color: var(--primary-color);
+  background-color: var(--tertiary-color);
+}

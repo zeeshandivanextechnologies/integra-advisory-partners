@@ -1,0 +1,41 @@
+/* ---------- insights page editor (on top of PageEditor.css) ---------- */
+
+/* a category's key, which links it to articles and topics */
+.ins-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: -4px 0 16px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background-color: var(--tertiary-color);
+  border: 1px solid var(--secondary-color);
+}
+
+.ins-key code {
+  font-size: 12px;
+  color: var(--primary-color);
+}
+
+/* topics whose category was removed */
+.ins-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #8a6418;
+  background-color: color-mix(in srgb, var(--additional-color) 35%, #fff);
+}
+
+.ins-warning svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}

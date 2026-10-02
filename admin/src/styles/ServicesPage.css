@@ -1,0 +1,98 @@
+/* ---------- services page editor (on top of PageEditor.css) ---------- */
+
+/* pick which service cards belong to a pillar */
+.svc-picker-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.svc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.svc-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 50px;
+  border: 1px solid var(--secondary-color);
+  background-color: var(--tertiary-color);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-color);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.svc-chip input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.svc-chip:hover {
+  border-color: var(--primary-color);
+}
+
+.svc-chip.active {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.svc-chip.active svg {
+  color: var(--additional-color);
+}
+
+.svc-chip:has(input:focus-visible) {
+  outline: 2px solid var(--additional-color);
+  outline-offset: 2px;
+}
+
+/* warning when a service card is not under any pillar */
+.svc-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #8a6418;
+  background-color: color-mix(in srgb, var(--additional-color) 35%, #fff);
+}
+
+.svc-warning svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* pillar icons are drawn on a light background, so show them small and centred */
+.svc-pillar-icon .pe-media-preview {
+  aspect-ratio: 1 / 1;
+  max-width: 160px;
+}
+
+.svc-pillar-icon .pe-media-preview img {
+  object-fit: contain;
+  padding: 12px;
+}
+
+@media (max-width: 575.98px) {
+  .svc-pillar-icon .pe-media-preview {
+    max-width: 120px;
+  }
+}

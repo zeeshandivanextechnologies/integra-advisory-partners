@@ -1,0 +1,64 @@
+/* ---------- page loader (inside the layout) ---------- */
+.integra-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  background-color: var(--tertiary-color);
+}
+
+.integra-loader-mark {
+  width: 120px;
+  height: auto;
+  overflow: visible;
+}
+
+.integra-loader-mark path {
+  fill: var(--primary-color);
+  opacity: 0.15;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: integra-pillar 1.4s ease-in-out infinite;
+}
+
+/* ---------- full-screen loader ---------- */
+.integra-loader.full {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  min-height: 0;
+  background:
+    radial-gradient(
+      circle at 85% 110%,
+      color-mix(in srgb, #9fe8ff 40%, transparent),
+      transparent 40%
+    ),
+    linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
+}
+
+.integra-loader.full .integra-loader-mark {
+  width: 150px;
+}
+
+.integra-loader.full .integra-loader-mark path {
+  fill: var(--additional-color);
+}
+
+@keyframes integra-pillar {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scaleY(0.85);
+  }
+  40% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .integra-loader-mark path {
+    opacity: 1;
+    animation: none;
+  }
+}

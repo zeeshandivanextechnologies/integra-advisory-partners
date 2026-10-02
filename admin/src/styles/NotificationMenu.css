@@ -1,0 +1,225 @@
+/* ---------- bell button ---------- */
+.notif-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: var(--primary-color);
+  transition: background-color 0.2s ease;
+}
+
+.notif-toggle:hover,
+.notif-toggle[aria-expanded="true"] {
+  background-color: var(--tertiary-color);
+}
+
+/* red dot when there are unread notifications */
+.notif-dot {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #e5484d;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+/* ---------- dropdown panel ---------- */
+.notif-menu {
+  width: 360px;
+  max-width: calc(100vw - 24px);
+  margin-top: 8px !important;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--secondary-color);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px
+    color-mix(in srgb, var(--primary-color) 14%, transparent);
+}
+
+.notif-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 12px;
+}
+
+.notif-head h6 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.notif-count {
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--primary-color);
+}
+
+/* ---------- list ---------- */
+.notif-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border-top: 1px solid var(--secondary-color);
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+.notif-list li + li {
+  border-top: 1px solid color-mix(in srgb, var(--secondary-color) 60%, transparent);
+}
+
+.notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  background-color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.notif-item.unread {
+  background-color: color-mix(in srgb, var(--secondary-color) 35%, #fff);
+}
+
+.notif-item:hover {
+  background-color: var(--tertiary-color);
+}
+
+.notif-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  font-size: 18px;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+
+.notif-icon.payment {
+  color: #8a6418;
+  background-color: color-mix(in srgb, var(--additional-color) 55%, #fff);
+}
+
+.notif-icon.alert {
+  color: #c4363b;
+  background-color: color-mix(in srgb, #e5484d 12%, #fff);
+}
+
+.notif-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.notif-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--primary-color);
+}
+
+.notif-time {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.notif-unread {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background-color: #e5484d;
+}
+
+.notif-empty {
+  margin: 0;
+  padding: 28px 18px;
+  text-align: center;
+  font-size: 14px;
+  border-top: 1px solid var(--secondary-color);
+}
+
+/* ---------- footer ---------- */
+.notif-foot {
+  padding: 14px 18px 16px;
+}
+
+.notif-foot .thm-btn {
+  padding: 11px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ---------- live notifications ---------- */
+.notif-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notif-mark-all {
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--additional-color);
+}
+
+.notif-mark-all:hover {
+  text-decoration-color: var(--primary-color);
+}
+
+.notif-icon.article {
+  color: #8a6418;
+  background-color: color-mix(in srgb, var(--additional-color) 55%, #fff);
+}
+
+.notif-icon.event {
+  color: #1d7a45;
+  background-color: color-mix(in srgb, #1d7a45 12%, #fff);
+}
+
+/* ---------- phones: full width under the header, inside the screen ---------- */
+@media (max-width: 575.98px) {
+  .notif-menu[data-bs-popper] {
+    position: fixed;
+    top: calc(var(--header-height, 60px) + 8px);
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-width: none;
+    margin-top: 0 !important;
+  }
+
+  .notif-list {
+    max-height: calc(100vh - 230px);
+  }
+
+  .notif-head {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* the full list on the Notifications page grows with its content */
+.notif-list.notif-list-full {
+  max-height: none;
+  border: none;
+}

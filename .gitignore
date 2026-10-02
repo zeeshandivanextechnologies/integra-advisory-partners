@@ -1,18 +1,22 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# Integra Advisory Partners: website (frontend), admin panel (admin), API (backend)
 
-node_modules
-dist
-dist-ssr
+# dependencies and builds
+node_modules/
+dist/
+dist-ssr/
 *.local
 
-# Editor directories and files
+# secrets: keep only the .env.example files in git
+.env
+.env.*
+!.env.example
+
+# files uploaded from the admin (content, not code)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# local AI-tool worktrees and editor files
+.kilo/
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -22,3 +26,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
