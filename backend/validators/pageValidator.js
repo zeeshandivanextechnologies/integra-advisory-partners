@@ -13,6 +13,8 @@ const PAGE_SLUGS = [
   'deposit',
   'payment-success',
   'settings',
+  'privacy-policy',
+  'terms-and-conditions',
 ];
 
 const handleErrors = (req, res, next) => {
