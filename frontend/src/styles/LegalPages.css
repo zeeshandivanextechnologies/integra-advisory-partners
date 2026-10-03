@@ -1,0 +1,124 @@
+/* ---------- page banner ---------- */
+.legal-banner {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 0;
+  background:
+    radial-gradient(
+      circle at 90% 120%,
+      color-mix(in srgb, #9fe8ff 45%, transparent),
+      transparent 40%
+    ),
+    linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
+}
+
+.legal-banner-mark {
+  position: absolute;
+  right: -60px;
+  bottom: -80px;
+  width: 420px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.legal-banner .container {
+  position: relative;
+}
+
+.legal-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  color: var(--additional-color);
+}
+
+.legal-breadcrumb a {
+  color: color-mix(in srgb, var(--secondary-color) 80%, transparent);
+}
+
+.legal-breadcrumb a:hover {
+  color: #fff;
+}
+
+.legal-breadcrumb span {
+  color: var(--additional-color);
+}
+
+.legal-banner-title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.legal-banner-text {
+  max-width: 620px;
+  font-family: var(--secondary-font);
+  font-size: 18px;
+  line-height: 30px;
+  color: color-mix(in srgb, var(--secondary-color) 85%, transparent);
+  margin: 0;
+}
+
+/* ---------- sections ---------- */
+.legal-section {
+  padding: 60px 0;
+  background-color: var(--background-color);
+}
+
+.legal-body {
+  font-family: var(--secondary-font);
+  font-size: 16px;
+  line-height: 28px;
+  color: var(--text-color);
+}
+
+.legal-body h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+}
+
+.legal-body p {
+  margin-bottom:16px;
+}
+
+.legal-body ul{
+  margin-bottom: 16px;
+}
+
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+  .legal-banner-title {
+    font-size: 38px;
+  }
+  .legal-section {
+    padding: 64px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .legal-banner {
+    padding: 40px 0;
+  }
+  .legal-section {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .legal-banner-title {
+    font-size: 30px;
+  }
+  .legal-banner-text {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}

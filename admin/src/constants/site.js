@@ -17,4 +17,6 @@ export const sitePages = [
   { value: '/contact', label: 'Contact' },
   { value: '/intake', label: 'Market Entry Review (intake form)' },
   { value: '/deposit', label: 'Pay Your Deposit' },
+  { value: '/privacy-policy', label: 'Privacy Policy' },
+  { value: '/terms-and-conditions', label: 'Terms & Conditions' },
 ]

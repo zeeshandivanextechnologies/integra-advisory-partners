@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FiArrowUpRight, FiHome, FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
 import {
   FaFacebookF,
@@ -160,11 +160,28 @@ function Footer() {
             relevant jurisdiction.
           </p>
         </div>
+   <div className="footer-bottom">
+<div className='row'>
+  <div className='col-lg-4'>
+ <p>&copy; {year} Integra Advisory Partners. All rights reserved.</p>
+  </div>
 
-        <div className="footer-bottom">
-          <p>&copy; {year} Integra Advisory Partners. All rights reserved.</p>
-          <p>Doha, Qatar</p>
-        </div>
+  <div className='col-lg-4'>
+ <p className="footer-legal-links text-lg-end">
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <span className="mx-2">|</span>
+            <Link to="/terms-and-conditions">Terms & Conditions</Link>
+          </p>
+  </div>
+
+  <div className='col-lg-4'>
+ <p className='text-lg-end'>Doha, Qatar</p>
+  </div>
+  </div>
+
+
+
+</div>
       </div>
     </footer>
   )

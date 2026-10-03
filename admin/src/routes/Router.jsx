@@ -18,6 +18,8 @@ import PaymentSuccessPage from '../pages/PaymentSuccessPage.jsx'
 import NotificationsPage from '../pages/NotificationsPage.jsx'
 import ArticleEditor from '../pages/ArticleEditor.jsx'
 import Login from '../pages/Login.jsx'
+import PrivacyPolicyPage from '../pages/PrivacyPolicyPage.jsx'
+import TermsConditionsPage from '../pages/TermsConditionsPage.jsx'
 
 // Placeholder screens until the real pages are added in src/pages
 const Placeholder = ({ title }) => <h2>{title}</h2>
@@ -42,6 +44,8 @@ const router = createBrowserRouter([
       { path: 'pages/events', element: <EventsPage /> },
       { path: 'pages/deposit', element: <DepositPage /> },
       { path: 'pages/payment-success', element: <PaymentSuccessPage /> },
+      { path: 'pages/privacy-policy', element: <PrivacyPolicyPage /> },
+      { path: 'pages/terms-and-conditions', element: <TermsConditionsPage /> },
       { path: 'articles', element: <ArticlesList /> },
       { path: 'articles/new', element: <ArticleEditor /> },
       { path: 'articles/:id', element: <ArticleEditor /> },

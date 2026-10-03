@@ -14,6 +14,8 @@ const Contact = lazy(() => import('../pages/Contact.jsx'))
 const Intake = lazy(() => import('../pages/Intake.jsx'))
 const Deposit = lazy(() => import('../pages/Deposit.jsx'))
 const PaymentSuccess = lazy(() => import('../pages/PaymentSuccess.jsx'))
+const PrivacyPolicy = lazy(() => import('../pages/PrivacyPolicy.jsx'))
+const TermsConditions = lazy(() => import('../pages/TermsConditions.jsx'))
 const NotFound = lazy(() => import('../pages/NotFound.jsx'))
 
 const router = createBrowserRouter([
@@ -33,6 +35,8 @@ const router = createBrowserRouter([
       { path: 'intake', element: <Intake /> },
       { path: 'deposit', element: <Deposit /> },
       { path: 'payment-success', element: <PaymentSuccess /> },
+      { path: 'privacy-policy', element: <PrivacyPolicy /> },
+      { path: 'terms-and-conditions', element: <TermsConditions /> },
       { path: '*', element: <NotFound /> },
     ],
   },

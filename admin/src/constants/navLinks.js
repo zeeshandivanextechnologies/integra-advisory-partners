@@ -40,6 +40,8 @@ export const navMenu = [
     children: [
       { label: 'Articles', to: '/articles', icon: FiFileText },
       { label: 'Events', to: '/events', icon: FiCalendar },
+      { label: 'Privacy Policy', to: '/pages/privacy-policy', icon: FiFileText },
+      { label: 'Terms & Conditions', to: '/pages/terms-and-conditions', icon: FiFileText },
       // add FiInbox / FiCreditCard to the import above before turning these on
       // { label: 'Inquiries', to: '/inquiries', icon: FiInbox },
       // { label: 'Payments', to: '/payments', icon: FiCreditCard },
