@@ -155,6 +155,7 @@
   border: 1px solid var(--secondary-color);
   overflow: hidden;
   transition: all 0.35s ease;
+  scroll-margin-top: 100px;
 }
 
 /* .srv-card::after {

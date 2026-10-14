@@ -20,6 +20,9 @@ import '../styles/Home.css'
 // icon saved from the admin by name, e.g. "FiFlag"
 const PageIcon = ({ name }) => createElement(icons[name] || FiCheck)
 
+const slug = (text) =>
+  text ? text.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : ''
+
 function Home() {
   // site-wide links from the admin (Settings)
   const siteConfig = useSiteConfig()
@@ -46,6 +49,7 @@ function Home() {
         <section className="home-hero">
           {hero.video && (
             <video
+              key={hero.video}
               className="hero-video"
               src={mediaUrl(hero.video)}
               poster={mediaUrl(hero.poster) || undefined}
@@ -333,15 +337,12 @@ function Home() {
             <div className="row">
               {services.items.map(({ id, icon, title, text }) => (
                 <div className="col-xl-3 col-lg-4 col-md-6 mb-3" key={id}>
-                  <Link to="/services" className="service-card">
+                  <Link to={`/services#${slug(title)}`} className="service-card">
                     <span className="service-icon">
                       <PageIcon name={icon} />
                     </span>
                     <h3 className="service-title">{title}</h3>
-                    <p className="service-text">{text}</p>
-                    <span className="service-link">
-                      Learn more <FiArrowUpRight />
-                    </span>
+                    <p className="service-text mb-0">{text}</p>
                   </Link>
                 </div>
               ))}

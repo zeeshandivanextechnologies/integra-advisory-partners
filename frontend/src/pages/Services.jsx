@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import {
   FiArrowUpRight,
   FiChevronRight,
@@ -48,6 +49,23 @@ function Services() {
   )
 
   usePageMeta(seo.title, seo.description)
+
+  const location = useLocation()
+
+  // Scroll to targeted service card when hash is present
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace('#', '')
+      // Allow slight timeout for content/DOM rendering
+      const timer = setTimeout(() => {
+        const el = document.getElementById(targetId)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [location.hash, advisory, network])
 
   // pillars list their services by id
   const allServices = [...advisory.items, ...network.items]

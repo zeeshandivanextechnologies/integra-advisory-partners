@@ -56,7 +56,7 @@ function MediaField({ id, label, src, alt, onChange, onUpload, video = false, hi
     <div className="pe-media">
       <div className={`pe-media-preview ${src ? '' : 'empty'}`}>
         {src && video && (
-          <video src={previewUrl(src)} muted loop autoPlay playsInline />
+          <video key={src} src={previewUrl(src)} muted loop autoPlay playsInline />
         )}
         {src && !video && <img src={previewUrl(src)} alt="" />}
         {!src && (
