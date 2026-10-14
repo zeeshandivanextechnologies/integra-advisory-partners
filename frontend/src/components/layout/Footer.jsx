@@ -22,6 +22,9 @@ const quickLinks = [
   { label: 'Contact', to: '/contact' },
 ]
 
+const slug = (text) =>
+  text ? text.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : ''
+
 const services = [
   'Market Entry Blueprint',
   'Regulatory & KYC Readiness Review',
@@ -105,7 +108,7 @@ function Footer() {
             <ul className="footer-links">
               {services.map((service) => (
                 <li key={service}>
-                  <Link to="/services">{service}</Link>
+                  <Link to={`/services#${slug(service)}`}>{service}</Link>
                 </li>
               ))}
             </ul>
