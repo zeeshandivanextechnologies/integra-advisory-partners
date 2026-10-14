@@ -16,6 +16,7 @@ const withDefaults = (defaults, saved) =>
 // was never saved or the backend cannot be reached, the defaults stay.
 function usePageContent(slug, defaults) {
   const [content, setContent] = useState(defaults)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -27,13 +28,16 @@ function usePageContent(slug, defaults) {
       .catch(() => {
         // keep the defaults
       })
+      .finally(() => {
+        if (active) setLoaded(true)
+      })
 
     return () => {
       active = false
     }
   }, [slug, defaults])
 
-  return content
+  return { ...content, _loaded: loaded }
 }
 
 export default usePageContent

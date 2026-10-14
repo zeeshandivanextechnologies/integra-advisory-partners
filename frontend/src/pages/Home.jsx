@@ -28,7 +28,7 @@ function Home() {
   const siteConfig = useSiteConfig()
 
   // managed from the admin (Home Page); built-in content until it is saved there
-  const { hero, audience, challenge, why, services, cta, seo } = usePageContent(
+  const { hero, audience, challenge, why, services, cta, seo, _loaded } = usePageContent(
     'home',
     homeContent,
   )
@@ -47,7 +47,7 @@ function Home() {
       {/* ---------- hero ---------- */}
       {hero.visible !== false && (
         <section className="home-hero">
-          {hero.video && (
+          {_loaded && hero.video ? (
             <video
               key={hero.video}
               className="hero-video"
@@ -60,6 +60,16 @@ function Home() {
               preload="metadata"
               aria-hidden="true"
             />
+          ) : (
+            hero.poster && (
+              <img
+                src={mediaUrl(hero.poster)}
+                alt=""
+                className="hero-video"
+                style={{ objectFit: 'cover' }}
+                aria-hidden="true"
+              />
+            )
           )}
           {/* <img src={markGold} alt="" className="hero-mark" aria-hidden="true" /> */}
 
