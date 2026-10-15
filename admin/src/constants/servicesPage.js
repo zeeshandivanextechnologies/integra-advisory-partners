@@ -98,8 +98,8 @@ const servicesPage = {
     eyebrow: 'Network & Relationships',
     heading: 'The right relationships, introduced with discipline.',
     lead: 'Curated networks and structured introductions instead of unfocused networking.',
-    image: '/images/partnerships.webp',
-    alt: 'Business partners connecting, representing partnerships that create opportunities',
+    image: '/service_02.jpg',
+    alt: 'Curated ecosystem introductions and corporate partnerships in Qatar and the GCC',
     items: [
       {
         id: 'net-1',

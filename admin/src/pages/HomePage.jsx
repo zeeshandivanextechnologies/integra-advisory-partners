@@ -54,7 +54,7 @@ const sections = [
     key: 'why',
     title: 'Why Integra',
     icon: FiAward,
-    description: 'Team photo, four reason tiles, and the wide feature card.',
+    description: 'Team photo and four reason tiles.',
   },
   {
     key: 'services',
@@ -632,71 +632,6 @@ function HomePage() {
                 </div>
               )}
             />
-
-            <h4 className="pe-subhead">Feature card</h4>
-            <div className="pe-group">
-              <div className="row">
-                <div className="col-sm-5">
-                  <IconSelect
-                    id="home-why-feature-icon"
-                    value={why.feature.icon}
-                    onChange={(icon) => updateNested('why', 'feature', { icon })}
-                  />
-                </div>
-                <div className="col-sm-7">
-                  <TextField
-                    id="home-why-feature-title"
-                    label="Title"
-                    value={why.feature.title}
-                    onChange={(title) => updateNested('why', 'feature', { title })}
-                  />
-                </div>
-                <div className="col-12">
-                  <TextField
-                    id="home-why-feature-text"
-                    label="Description"
-                    multiline
-                    rows={2}
-                    value={why.feature.text}
-                    onChange={(text) => updateNested('why', 'feature', { text })}
-                  />
-                </div>
-                <div className="col-md-6">
-                  <div className="pe-split">
-                    <span className="pe-split-label">Left box</span>
-                    <TextField
-                      id="home-why-feature-left-label"
-                      label="Small label"
-                      value={why.feature.leftLabel}
-                      onChange={(leftLabel) => updateNested('why', 'feature', { leftLabel })}
-                    />
-                    <TextField
-                      id="home-why-feature-left-value"
-                      label="Text"
-                      value={why.feature.leftValue}
-                      onChange={(leftValue) => updateNested('why', 'feature', { leftValue })}
-                    />
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="pe-split">
-                    <span className="pe-split-label">Right box</span>
-                    <TextField
-                      id="home-why-feature-right-label"
-                      label="Small label"
-                      value={why.feature.rightLabel}
-                      onChange={(rightLabel) => updateNested('why', 'feature', { rightLabel })}
-                    />
-                    <TextField
-                      id="home-why-feature-right-value"
-                      label="Text"
-                      value={why.feature.rightValue}
-                      onChange={(rightValue) => updateNested('why', 'feature', { rightValue })}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
           </EditorSection>
 
           {/* service pathways */}

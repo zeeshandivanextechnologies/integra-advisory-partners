@@ -17,7 +17,7 @@ function Process() {
   const siteConfig = useSiteConfig()
 
   // managed from the admin (Process Page); built-in content until it is saved there
-  const { banner, facts, steps, cta, seo } = usePageContent('process', processContent)
+  const { banner, steps, cta, seo } = usePageContent('process', processContent)
 
   usePageMeta(seo.title, seo.description)
 
@@ -41,29 +41,6 @@ function Process() {
 
                 <p className="prc-banner-text">{banner.text}</p>
               </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ---------- key facts ---------- */}
-      {facts.visible !== false && (
-        <section className="prc-facts">
-          <div className="container">
-            <div className="row">
-              {facts.items.map(({ id, icon, value, label }) => (
-                <div className="col-lg-3 col-sm-6 mb-3 mb-lg-0" key={id}>
-                  <div className="prc-fact">
-                    <span className="prc-fact-icon">
-                      <PageIcon name={icon} />
-                    </span>
-                    <div>
-                      <span className="prc-fact-value">{value}</span>
-                      <span className="prc-fact-label">{label}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </section>

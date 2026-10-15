@@ -2,17 +2,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   FiArrowUpRight,
-  FiBriefcase,
   FiChevronRight,
   FiClipboard,
-  FiCompass,
   FiInfo,
-  FiMail,
-  FiMapPin,
-  FiMessageCircle,
   FiPhoneCall,
   FiSend,
-  FiUsers,
 } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
 import usePageMeta from '../hooks/usePageMeta.js'
@@ -26,33 +20,6 @@ const statusMessages = {
   error: 'Something went wrong. Please try again in a moment.',
   offline: 'This form is not connected yet. Please check back soon.',
 }
-
-const inquiryTypes = [
-  {
-    key: 'discovery',
-    icon: FiCompass,
-    title: 'Discovery',
-    text: 'Early questions about entering Qatar or the GCC.',
-  },
-  {
-    key: 'advisory',
-    icon: FiMessageCircle,
-    title: 'Advisory',
-    text: 'Ongoing guidance, a retainer, or a specific decision.',
-  },
-  {
-    key: 'incorporation',
-    icon: FiBriefcase,
-    title: 'Incorporation',
-    text: 'Formal Qatar setup, visas, and bank readiness.',
-  },
-  {
-    key: 'partner',
-    icon: FiUsers,
-    title: 'Partner',
-    text: 'Law firms, banks, embassies, accelerators, and referrers.',
-  },
-]
 
 function Contact() {
   // site-wide links from the admin (Settings)
@@ -123,20 +90,28 @@ function Contact() {
 
              <div className="col-lg-4 mb-4 mb-lg-0">
               <div className="cnt-side">
-                <div className="cnt-info">
-                  <span className="cnt-info-icon">
-                    <FiMapPin />
+                <div className="cnt-intake">
+                  <span className="cnt-info-icon gold">
+                    <FiClipboard />
                   </span>
-                  <div>
-                    <h3 className="cnt-info-title">Based in Doha</h3>
-                    <p className="cnt-info-text">
-                      Built for serious international operators entering MENA
-                      and the GCC.
-                    </p>
-                  </div>
+                  <h3 className="cnt-intake-title">
+                    Ready for a full market-entry review?
+                  </h3>
+                  <p className="cnt-intake-text">
+                    Complete the intake form with your sector, target market,
+                    budget, documents, and timeline.
+                  </p>
+                  <Link to="/intake" className="cnt-btn gold">
+                    Complete Intake Form
+                    <FiArrowUpRight />
+                  </Link>
                 </div>
+              </div>
+            </div>
 
-                <div className="cnt-info">
+            <div className="col-lg-8">
+              <div className="cnt-form-wrapper">
+                 <div className="cnt-info mb-4">
                   <span className="cnt-info-icon">
                     <FiPhoneCall />
                   </span>
@@ -160,87 +135,15 @@ function Contact() {
                   </div>
                 </div>
 
-                {(contact.email || contact.phone || contact.address) && (
-                  <div className="cnt-info">
-                    <span className="cnt-info-icon">
-                      <FiMail />
-                    </span>
-                    <div>
-                      <h3 className="cnt-info-title">Reach us directly</h3>
-                      {contact.email && (
-                        <a href={`mailto:${contact.email}`} className="cnt-info-link">
-                          {contact.email}
-                        </a>
-                      )}
-                      {contact.phone && (
-                        <a
-                          href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`}
-                          className="cnt-info-link"
-                        >
-                          {contact.phone}
-                        </a>
-                      )}
-                      {contact.address && (
-                        <p className="cnt-info-text mt-2">{contact.address}</p>
-                      )}
-                    </div>
-                  </div>
-                )}
 
-                <div className="cnt-intake">
-                  <span className="cnt-info-icon gold">
-                    <FiClipboard />
-                  </span>
-                  <h3 className="cnt-intake-title">
-                    Ready for a full market-entry review?
-                  </h3>
-                  <p className="cnt-intake-text">
-                    Complete the intake form with your sector, target market,
-                    budget, documents, and timeline.
+                <form className="cnt-form" onSubmit={handleSubmit}>
+                  <input type="hidden" name="inquiryType" value="General Inquiry" />
+                  <h2 className="cnt-form-title">Contact Us</h2>
+                  <p className="cnt-form-text">
+                    Share a few details about your plans and our team will get in touch.
                   </p>
-                  <Link to="/intake" className="cnt-btn gold">
-                    Complete Intake Form
-                    <FiArrowUpRight />
-                  </Link>
-                </div>
-              </div>
-            </div>
 
-            <div className="col-lg-8">
-              <form className="cnt-form" onSubmit={handleSubmit}>
-                <h2 className="cnt-form-title">Request a Call</h2>
-                <p className="cnt-form-text">
-                  Choose the type of inquiry that fits best.
-                </p>
-
-                
-
-                <div className="row " role="radiogroup">
-                  {inquiryTypes.map(({ key, icon: Icon, title, text }) => (
-                    <div className="col-md-6 mb-3" key={key}>
-                      <label
-                        className={`cnt-type ${inquiryType === key ? 'active' : ''}`}
-                      >
-                        <input
-                          type="radio"
-                          name="inquiryType"
-                          value={title}
-                          checked={inquiryType === key}
-                          onChange={() => setInquiryType(key)}
-                        />
-                        <span className="cnt-type-icon">
-                          <Icon />
-                        </span>
-                        <span>
-                          <span className="cnt-type-title">{title}</span>
-                          <span className="cnt-type-text">{text}</span>
-                        </span>
-                      </label>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="row ">
+                  <div className="row ">
                   <div className="col-md-6">
                     <div className="custom-frm-bx">
                       <label htmlFor="cnt-name">Full name</label>
@@ -318,15 +221,14 @@ function Contact() {
                   disabled={status === 'sending'}
                 >
                   <FiSend />
-                  Request a Call
+                  Send Message
                 </button>
               </form>
             </div>
-
-           
           </div>
         </div>
-      </section>
+      </div>
+    </section>
     </>
   )
 }

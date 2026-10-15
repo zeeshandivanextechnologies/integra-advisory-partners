@@ -8,21 +8,6 @@ const processPage = {
     text: 'Seven structured steps that keep every engagement focused, transparent, and accountable.',
   },
 
-  facts: {
-    visible: true,
-    items: [
-      { id: 'fact-1', icon: 'FiClock', value: '45 min', label: 'Structured discovery call' },
-      {
-        id: 'fact-2',
-        icon: 'FiLock',
-        value: 'Contract first',
-        label: 'No work starts before contract and deposit',
-      },
-      { id: 'fact-3', icon: 'FiCalendar', value: 'Weekly', label: 'Status updates during delivery' },
-      { id: 'fact-4', icon: 'FiRepeat', value: '5 follow-ups', label: 'At day 7, 30, 60, 90, and 180' },
-    ],
-  },
-
   steps: {
     visible: true,
     eyebrow: 'How It Works',
@@ -30,8 +15,8 @@ const processPage = {
     lead: 'Every engagement follows the same disciplined path, so you always know what happens next and what is expected from both sides.',
     buttonLabel: 'Complete Intake Form',
     buttonLink: '/intake',
-    image: '/images/strategic-growth.webp',
-    alt: 'Rising gold bars and an upward arrow, representing strategic clarity and lasting growth',
+    image: '/process_001.jpg',
+    alt: 'Structured advisory roadmap and disciplined project delivery',
     // tags, days, and the link are optional; leave them empty to hide them
     items: [
       {

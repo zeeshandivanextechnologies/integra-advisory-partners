@@ -1,5 +1,4 @@
 import {
-  FiBarChart2,
   FiFlag,
   FiLayout,
   FiList,
@@ -25,12 +24,6 @@ const sections = [
     title: 'Page banner',
     icon: FiLayout,
     description: 'The navy banner at the top with the page headline.',
-  },
-  {
-    key: 'facts',
-    title: 'Key facts',
-    icon: FiBarChart2,
-    description: 'The small cards that overlap the bottom of the banner.',
   },
   {
     key: 'steps',
@@ -61,13 +54,13 @@ function ProcessPage() {
   // loads from and saves to the backend; the website Process page reads the same content
   const editor = usePageEditor(initialContent, sections, 'process', { slug: 'process' })
   const { content, update, bind, sectionProps } = editor
-  const { facts, steps, seo } = content
+  const { steps, seo } = content
 
   return (
     <PageEditorLayout
       pageName="Process"
       path="/process"
-      intro="Edit the key facts and the step-by-step client journey on the website Process page. Sections are listed in the order visitors see them."
+      intro="Edit the step-by-step client journey on the website Process page. Sections are listed in the order visitors see them."
       sections={sections}
       editor={editor}
     >
@@ -88,52 +81,6 @@ function ProcessPage() {
             <TextField label="Intro text" multiline maxLength={200} {...bind('banner', 'text')} />
           </div>
         </div>
-      </EditorSection>
-
-      {/* key facts */}
-      <EditorSection {...sectionProps('facts')}>
-        <h4 className="pe-subhead mt-0 pt-0 border-0">
-          Fact cards
-          <span className="pe-subhead-count">{facts.items.length}</span>
-        </h4>
-        <ListEditor
-          items={facts.items}
-          onChange={(items) => update('facts', { items })}
-          itemTitle={(item) => [item.value, item.label].filter(Boolean).join(' · ')}
-          addLabel="Add fact"
-          max={4}
-          createItem={() => ({ id: newId(), icon: 'FiCheck', value: '', label: '' })}
-          renderItem={(item, setItem) => (
-            <div className="row">
-              <div className="col-sm-5">
-                <IconSelect
-                  id={`fact-${item.id}-icon`}
-                  value={item.icon}
-                  onChange={(icon) => setItem({ icon })}
-                />
-              </div>
-              <div className="col-sm-7">
-                <TextField
-                  id={`fact-${item.id}-value`}
-                  label="Value"
-                  placeholder="45 min"
-                  maxLength={20}
-                  value={item.value}
-                  onChange={(value) => setItem({ value })}
-                />
-              </div>
-              <div className="col-12">
-                <TextField
-                  id={`fact-${item.id}-label`}
-                  label="Label"
-                  maxLength={60}
-                  value={item.label}
-                  onChange={(label) => setItem({ label })}
-                />
-              </div>
-            </div>
-          )}
-        />
       </EditorSection>
 
       {/* steps */}

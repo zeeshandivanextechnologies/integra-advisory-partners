@@ -1,0 +1,312 @@
+/* ---------- admin 404 error page ---------- */
+
+.adm-nf-wrapper {
+  padding-bottom: 30px;
+}
+
+/* ---------- 404 hero banner ---------- */
+.adm-nf-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 60px 30px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  background:
+    radial-gradient(
+      circle at 85% 110%,
+      color-mix(in srgb, #9fe8ff 45%, transparent),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 15% -20%,
+      color-mix(in srgb, var(--secondary-color) 35%, transparent),
+      transparent 45%
+    ),
+    linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
+}
+
+.adm-nf-mark {
+  position: absolute;
+  left: 50%;
+  bottom: -90px;
+  width: 480px;
+  opacity: 0.07;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.adm-nf-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  font-family: var(--primary-font);
+  font-size: 110px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #fff;
+  gap: 6px;
+  animation: adm-nf-rise 0.8s ease both;
+}
+
+.adm-nf-code-mark {
+  color: var(--additional-color);
+  animation: adm-nf-float 4s ease-in-out infinite;
+}
+
+.adm-nf-title {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 12px;
+  animation: adm-nf-rise 0.8s ease 0.1s both;
+}
+
+.adm-nf-text {
+  max-width: 540px;
+  margin: 0 auto 16px !important;
+  font-family: var(--secondary-font);
+  font-size: 16px !important;
+  line-height: 26px !important;
+  color: color-mix(in srgb, var(--secondary-color) 85%, transparent) !important;
+  animation: adm-nf-rise 0.8s ease 0.2s both;
+}
+
+.adm-nf-path {
+  margin-bottom: 28px !important;
+  font-family: var(--secondary-font);
+  font-size: 14px !important;
+  color: color-mix(in srgb, var(--secondary-color) 70%, transparent) !important;
+  word-break: break-all;
+  animation: adm-nf-rise 0.8s ease 0.25s both;
+}
+
+.adm-nf-path code {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background-color: color-mix(in srgb, #fff 10%, transparent);
+  font-size: 13px;
+  color: var(--additional-color);
+}
+
+.adm-nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  animation: adm-nf-rise 0.8s ease 0.3s both;
+}
+
+.adm-nf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.adm-nf-btn.gold {
+  background-color: var(--additional-color);
+  border-color: var(--additional-color);
+  color: var(--primary-color);
+}
+
+.adm-nf-btn.gold:hover {
+  background-color: #fff;
+  border-color: #fff;
+  color: var(--primary-color);
+}
+
+.adm-nf-btn.gold svg {
+  transition: transform 0.3s ease;
+}
+
+.adm-nf-btn.gold:hover svg {
+  transform: translateX(-3px);
+}
+
+.adm-nf-btn.outline-light {
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--secondary-color) 50%, transparent);
+  color: #fff;
+}
+
+.adm-nf-btn.outline-light:hover {
+  background-color: color-mix(in srgb, #fff 10%, transparent);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* ---------- shortcuts section ---------- */
+.adm-nf-section {
+  padding: 24px 0 10px;
+}
+
+.adm-nf-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: var(--secondary-font);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+}
+
+.adm-nf-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--additional-color);
+}
+
+.adm-nf-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  border-radius: 18px;
+  background-color: #fff;
+  border: 1px solid var(--secondary-color);
+  text-decoration: none;
+  transition: all 0.35s ease;
+}
+
+.adm-nf-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary-color);
+  box-shadow: 0 18px 44px
+    color-mix(in srgb, var(--primary-color) 12%, transparent);
+}
+
+.adm-nf-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background-color: var(--primary-color);
+  font-size: 20px;
+  color: var(--additional-color);
+  transition: transform 0.35s ease;
+}
+
+.adm-nf-card:hover .adm-nf-card-icon {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.adm-nf-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 6px;
+}
+
+.adm-nf-card-text {
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  line-height: 22px;
+  color: color-mix(in srgb, var(--primary-color) 70%, #fff);
+  margin-bottom: 16px !important;
+}
+
+.adm-nf-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.adm-nf-card-link svg {
+  color: var(--additional-color);
+  transition: transform 0.3s ease;
+}
+
+.adm-nf-card:hover .adm-nf-card-link svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- animations ---------- */
+@keyframes adm-nf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes adm-nf-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adm-nf-code,
+  .adm-nf-code-mark,
+  .adm-nf-title,
+  .adm-nf-text,
+  .adm-nf-path,
+  .adm-nf-actions {
+    animation: none;
+  }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 991px) {
+  .adm-nf-code {
+    font-size: 90px;
+  }
+
+  .adm-nf-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .adm-nf-hero {
+    padding: 36px 20px;
+  }
+
+  .adm-nf-card {
+    padding: 18px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 575px) {
+  .adm-nf-code {
+    font-size: 76px;
+  }
+
+  .adm-nf-title {
+    font-size: 24px;
+  }
+
+  .adm-nf-btn {
+    width: 100%;
+  }
+}

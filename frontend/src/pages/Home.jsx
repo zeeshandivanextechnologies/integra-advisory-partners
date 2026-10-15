@@ -28,7 +28,7 @@ function Home() {
   const siteConfig = useSiteConfig()
 
   // managed from the admin (Home Page); built-in content until it is saved there
-  const { hero, audience, challenge, why, services, cta, seo, _loaded } = usePageContent(
+  const { hero, audience, challenge, why, services, cta, seo, _loaded, _updatedAt } = usePageContent(
     'home',
     homeContent,
   )
@@ -41,6 +41,14 @@ function Home() {
     if (seo.title) document.title = seo.title
   }, [seo.title, seo.description])
 
+  // Cache-busting URL helper for hero video so browser doesn't play old cached video
+  const freshVideoUrl = (src) => {
+    const base = mediaUrl(src)
+    if (!base) return base
+    const version = _updatedAt ? new Date(_updatedAt).getTime() : ''
+    if (!version) return base
+    return base.includes('?') ? `${base}&v=${version}` : `${base}?v=${version}`
+  }
 
   return (
     <>
@@ -49,9 +57,9 @@ function Home() {
         <section className="home-hero">
           {_loaded && hero.video ? (
             <video
-              key={hero.video}
+              key={`${hero.video}-${_updatedAt || ''}`}
               className="hero-video"
-              src={mediaUrl(hero.video)}
+              src={freshVideoUrl(hero.video)}
               poster={mediaUrl(hero.poster) || undefined}
               autoPlay
               muted
@@ -289,39 +297,6 @@ function Home() {
                   ))}
                 </div>
               </div>
-
-              {why.feature && (
-                <div className="col-12">
-                  <div className="why-feature">
-                    <div className="row align-items-center">
-                      <div className="col-lg-7 mb-3 mb-lg-0">
-                        <div className="why-feature-head">
-                          <span className="why-feature-icon">
-                            <PageIcon name={why.feature.icon} />
-                          </span>
-                          <div>
-                            <span className="why-feature-number">05</span>
-                            <h3 className="why-feature-title">{why.feature.title}</h3>
-                          </div>
-                        </div>
-                        <p className="why-feature-text">{why.feature.text}</p>
-                      </div>
-                      <div className="col-lg-5">
-                        <div className="why-feature-split">
-                          <div>
-                            <span>{why.feature.leftLabel}</span>
-                            <strong>{why.feature.leftValue}</strong>
-                          </div>
-                          <div>
-                            <span>{why.feature.rightLabel}</span>
-                            <strong>{why.feature.rightValue}</strong>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </section>

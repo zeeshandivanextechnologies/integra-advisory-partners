@@ -51,8 +51,8 @@ const aboutPage = {
     eyebrow: 'Our Approach',
     heading: 'Real market conditions, not generic opportunity reports.',
     lead: 'Integra is built for operators who need real market conditions. The firm helps clients understand:',
-    image: '/images/open-gates.webp',
-    alt: 'Open gates leading to a city skyline, representing new business horizons',
+    image: '/about_02.jpg',
+    alt: 'Integra Advisory Partners market clarity and strategic approach',
     items: [
       { id: 'clr-1', text: 'What to expect in the first 12 months' },
       { id: 'clr-2', text: 'Which documents matter' },

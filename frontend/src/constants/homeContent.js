@@ -117,15 +117,6 @@ const homeContent = {
         text: 'Clients leave with a practical plan, not just a report.',
       },
     ],
-    feature: {
-      icon: 'FiCpu',
-      title: 'Human diligence with AI efficiency',
-      text: 'AI and templates accelerate research, while local judgment verifies the decision-making points that matter.',
-      leftLabel: 'AI and templates',
-      leftValue: 'Accelerate research',
-      rightLabel: 'Local judgment',
-      rightValue: 'Verifies key decisions',
-    },
   },
 
   services: {

@@ -73,6 +73,24 @@ function Services() {
   const pillarFor = (serviceId) =>
     pillars.items.find((pillar) => pillar.services.includes(serviceId))
 
+  // Map focus areas to matching target element IDs
+  const focusTargetMap = {
+    'market-entry intelligence': 'market-entry-blueprint',
+    'regulatory & kyc readiness': 'regulatory-and-kyc-readiness-review',
+    'incorporation coordination': 'qatar-incorporation-and-bank-opening-pathway',
+    'advisory': 'executive-advisory-retainer',
+    'ecosystem introductions': 'network-relationships',
+  }
+
+  const handleFocusClick = (area) => {
+    const key = area.toLowerCase().trim()
+    const targetId = focusTargetMap[key] || slug(area)
+    const el = document.getElementById(targetId)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <>
       {/* ---------- page banner ---------- */}
@@ -97,7 +115,15 @@ function Services() {
 
             <ul className="srv-focus">
               {banner.focusAreas.map((area) => (
-                <li key={area}>{area}</li>
+                <li key={area}>
+                  <button
+                    type="button"
+                    className="srv-focus-btn"
+                    onClick={() => handleFocusClick(area)}
+                  >
+                    {area}
+                  </button>
+                </li>
               ))}
             </ul>
           </div>
@@ -200,7 +226,7 @@ function Services() {
 
       {/* ---------- network services ---------- */}
       {network.visible !== false && (
-        <section className="srv-section srv-network">
+        <section className="srv-section srv-network" id="network-relationships">
           <div className="container">
             <div className="row align-items-center srv-head">
               <div className="col-lg-7">

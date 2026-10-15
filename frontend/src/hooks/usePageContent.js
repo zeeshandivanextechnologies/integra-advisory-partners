@@ -17,13 +17,17 @@ const withDefaults = (defaults, saved) =>
 function usePageContent(slug, defaults) {
   const [content, setContent] = useState(defaults)
   const [loaded, setLoaded] = useState(false)
+  const [updatedAt, setUpdatedAt] = useState(null)
 
   useEffect(() => {
     let active = true
 
     getPage(slug)
       .then((result) => {
-        if (active && result?.content) setContent(withDefaults(defaults, result.content))
+        if (active && result?.content) {
+          setContent(withDefaults(defaults, result.content))
+          if (result.updatedAt) setUpdatedAt(result.updatedAt)
+        }
       })
       .catch(() => {
         // keep the defaults
@@ -37,7 +41,7 @@ function usePageContent(slug, defaults) {
     }
   }, [slug, defaults])
 
-  return { ...content, _loaded: loaded }
+  return { ...content, _loaded: loaded, _updatedAt: updatedAt }
 }
 
 export default usePageContent

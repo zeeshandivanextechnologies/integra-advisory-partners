@@ -74,7 +74,7 @@
 /* ---------- form ---------- */
 .cnt-form {
   height: 100%;
-  padding: 36px;
+  padding: 24px;
   border-radius: 20px;
   background-color: #fff;
 }
@@ -351,7 +351,7 @@
 
 /* ---------- config-driven extras ---------- */
 .cnt-info-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   margin-top: 8px;

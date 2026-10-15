@@ -20,6 +20,7 @@ import ArticleEditor from '../pages/ArticleEditor.jsx'
 import Login from '../pages/Login.jsx'
 import PrivacyPolicyPage from '../pages/PrivacyPolicyPage.jsx'
 import TermsConditionsPage from '../pages/TermsConditionsPage.jsx'
+import NotFound from '../pages/NotFound.jsx'
 
 // Placeholder screens until the real pages are added in src/pages
 const Placeholder = ({ title }) => <h2>{title}</h2>
@@ -59,9 +60,10 @@ const router = createBrowserRouter([
       // the profile lives at the top of Settings
       { path: 'profile', element: <Navigate to="/settings" replace /> },
       { path: 'notifications', element: <NotificationsPage /> },
+      { path: '*', element: <NotFound /> },
     ],
   },
-  { path: '*', element: <Placeholder title="Page not found" /> },
+  { path: '*', element: <NotFound /> },
 ])
 
 function Router() {
