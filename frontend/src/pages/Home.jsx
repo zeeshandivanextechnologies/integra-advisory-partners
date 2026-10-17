@@ -55,12 +55,11 @@ function Home() {
       {/* ---------- hero ---------- */}
       {hero.visible !== false && (
         <section className="home-hero">
-          {_loaded && hero.video ? (
+          {hero.video ? (
             <video
               key={`${hero.video}-${_updatedAt || ''}`}
               className="hero-video"
               src={freshVideoUrl(hero.video)}
-              poster={mediaUrl(hero.poster) || undefined}
               autoPlay
               muted
               loop
@@ -68,17 +67,15 @@ function Home() {
               preload="metadata"
               aria-hidden="true"
             />
-          ) : (
-            hero.poster && (
-              <img
-                src={mediaUrl(hero.poster)}
-                alt=""
-                className="hero-video"
-                style={{ objectFit: 'cover' }}
-                aria-hidden="true"
-              />
-            )
-          )}
+          ) : hero.poster ? (
+            <img
+              src={mediaUrl(hero.poster)}
+              alt=""
+              className="hero-video"
+              style={{ objectFit: 'cover' }}
+              aria-hidden="true"
+            />
+          ) : null}
           {/* <img src={markGold} alt="" className="hero-mark" aria-hidden="true" /> */}
 
           <div className="container">

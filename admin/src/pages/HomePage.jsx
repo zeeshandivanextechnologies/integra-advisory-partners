@@ -357,10 +357,10 @@ function HomePage() {
                 <MediaField
                   id="home-hero-poster"
                   label="Poster image"
-                  src={hero.poster || '/images/hero-poster.webp'}
+                  src={hero.poster || ''}
                   onUpload={uploadFile}
                   hint="Shown while the video loads."
-                  onChange={({ src }) => update('hero', { poster: src || '/images/hero-poster.webp' })}
+                  onChange={({ src }) => update('hero', { poster: src || '' })}
                 />
               </div>
             </div>

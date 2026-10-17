@@ -1021,7 +1021,9 @@
 
 @media (max-width: 767px) {
   .hero-video {
-    display: none;
+    object-position: center;
+    opacity: 0.35;
+    filter: brightness(0.9);
   }
 
   .why-visual {
