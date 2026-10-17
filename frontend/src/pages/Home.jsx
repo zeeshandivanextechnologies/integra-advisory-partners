@@ -58,7 +58,7 @@ function Home() {
           {hero.video ? (
             <video
               className="hero-video"
-              src={freshVideoUrl(hero.video)}
+              src={mediaUrl(hero.video)}
               autoPlay
               muted
               loop
