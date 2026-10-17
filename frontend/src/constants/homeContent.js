@@ -13,8 +13,8 @@ const homeContent = {
     secondaryCta: { label: 'Explore Our Service Pathways', link: '/services' },
     trust:
       'Based in Doha. Built for serious international operators entering MENA and the GCC.',
-    video: '/hero_video_01.mp4',
-    poster: '/images/hero-poster.webp',
+    video: '',
+    poster: '',
     cardTitle: 'GCC markets we help you enter',
     markets: ['Qatar', 'Saudi Arabia', 'UAE', 'Bahrain', 'Oman', 'Kuwait'],
     pillars: ['Local judgment', 'Regulatory clarity', 'Relationship access'],

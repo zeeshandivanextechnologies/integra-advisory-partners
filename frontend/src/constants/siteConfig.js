@@ -142,8 +142,8 @@ const siteConfig = {
 
   /* ---------- hero video (file in /public or full URL) ---------- */
   heroVideo: {
-    src: '/hero_video_01.mp4',
-    poster: '/images/hero-poster.webp',
+    src: '',
+    poster: '',
   },
 }
 
