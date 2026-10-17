@@ -57,14 +57,13 @@ function Home() {
         <section className="home-hero">
           {hero.video ? (
             <video
-              key={`${hero.video}-${_updatedAt || ''}`}
               className="hero-video"
               src={freshVideoUrl(hero.video)}
               autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="auto"
               aria-hidden="true"
             />
           ) : hero.poster ? (
