@@ -191,6 +191,26 @@ function SettingsPage() {
               {...bind('contact', 'locationText')}
             />
           </div>
+          <div className="col-12">
+            <TextField
+              label="Footer 'Get Started' Text"
+              placeholder="Before you open in Qatar or the GCC, know what the market, regulators, banks, and partners will actually require."
+              hint="Shown above the 'Start Your Market Entry Review' button in the footer. Leave empty to use default."
+              multiline
+              rows={2}
+              {...bind('contact', 'getStartedText')}
+            />
+          </div>
+          <div className="col-12">
+            <TextField
+              label="Footer Disclaimer"
+              placeholder="Integra Advisory Partners provides business, market-entry, regulatory-navigation, and relationship-development advisory..."
+              hint="Shown in the legal disclaimer bar at the bottom of the website footer. Leave empty to use default."
+              multiline
+              rows={3}
+              {...bind('contact', 'disclaimer')}
+            />
+          </div>
         </div>
       </EditorSection>
 

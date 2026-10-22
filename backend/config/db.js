@@ -9,8 +9,8 @@ const connection = process.env.DATABASE_URL
       // hosted databases require SSL; their certificates are not in Node's default list
       ssl: { rejectUnauthorized: false },
       // serverless functions each open their own pool, so keep it small
-      max: Number(process.env.DB_POOL_MAX) || 3,
-      connectionTimeoutMillis: 10000,
+      max: Number(process.env.DB_POOL_MAX) || 10,
+      connectionTimeoutMillis: 30000,
     }
   : {
       host: process.env.DB_HOST,

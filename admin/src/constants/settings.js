@@ -10,6 +10,10 @@ const settings = {
     address: 'Zone 61, Al Dafna, Doha, Qatar',
     tagline: 'The trusted bridge between global ambition and regional opportunity.',
     locationText: 'Based in Doha. Built for serious international operators entering MENA and the GCC.',
+    getStartedText:
+      'Before you open in Qatar or the GCC, know what the market, regulators, banks, and partners will actually require.',
+    disclaimer:
+      'Integra Advisory Partners provides business, market-entry, regulatory-navigation, and relationship-development advisory. It is not a law firm and does not provide legal advice. Legal drafting, legal opinions, and representation should be performed by licensed counsel in the relevant jurisdiction.',
   },
 
   whatsapp: {

@@ -125,8 +125,8 @@ function Footer() {
           <div className="col-lg-3 col-md-6 col-sm-12">
             <h6 className="footer-title">Get Started</h6>
             <p className="footer-text">
-              Before you open in Qatar or the GCC, know what the market,
-              regulators, banks, and partners will actually require.
+              {contact.getStartedText ||
+                'Before you open in Qatar or the GCC, know what the market, regulators, banks, and partners will actually require.'}
             </p>
             <Link to="/intake" className="footer-cta">
               Start Your Market Entry Review
@@ -163,12 +163,9 @@ function Footer() {
 
         <div className="footer-disclaimer">
           <p>
-            <strong>Disclaimer:</strong> Integra Advisory Partners provides
-            business, market-entry, regulatory-navigation, and
-            relationship-development advisory. It is not a law firm and does not
-            provide legal advice. Legal drafting, legal opinions, and
-            representation should be performed by licensed counsel in the
-            relevant jurisdiction.
+            <strong>Disclaimer:</strong>{' '}
+            {contact.disclaimer ||
+              'Integra Advisory Partners provides business, market-entry, regulatory-navigation, and relationship-development advisory. It is not a law firm and does not provide legal advice. Legal drafting, legal opinions, and representation should be performed by licensed counsel in the relevant jurisdiction.'}
           </p>
         </div>
    <div className="footer-bottom">

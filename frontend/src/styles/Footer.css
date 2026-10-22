@@ -13,11 +13,9 @@
   width: 480px;
   height: 480px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--secondary-color) 18%, transparent),
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      color-mix(in srgb, var(--secondary-color) 18%, transparent),
+      transparent 70%);
   pointer-events: none;
 }
 
@@ -53,7 +51,7 @@
   margin-bottom: 10px !important;
   white-space: pre-line;
 }
- 
+
 .footer-location {
   display: flex;
   gap: 10px;
@@ -91,7 +89,7 @@
   background-color: var(--additional-color);
 }
 
-.footer-links li + li {
+.footer-links li+li {
   margin-top: 10px;
 }
 
@@ -111,6 +109,7 @@
   font-family: var(--secondary-font);
   font-size: 15px !important;
   margin-bottom: 16px !important;
+  white-space: pre-line;
 }
 
 .footer-cta {
@@ -142,8 +141,7 @@
 /* disclaimer + bottom bar */
 .footer-disclaimer {
   padding: 16px 0;
-  border-top: 1px solid
-    color-mix(in srgb, var(--secondary-color) 15%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--secondary-color) 15%, transparent);
 }
 
 .footer-disclaimer p {
@@ -161,14 +159,13 @@
 
 .footer-bottom {
   padding: 12px 0;
-  border-top: 1px solid
-    color-mix(in srgb, var(--secondary-color) 15%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--secondary-color) 15%, transparent);
 }
 
 .footer-bottom p {
   margin: 0;
   font-family: var(--secondary-font);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .footer-legal-links a {
@@ -198,7 +195,7 @@
   font-size: 14px;
 }
 
-.footer-contact li + li {
+.footer-contact li+li {
   margin-top: 8px;
 }
 
@@ -246,30 +243,30 @@
 
 /* mobile/tablet: space between stacked footer columns */
 @media (max-width: 991px) {
-  .footer-top > [class*="col-"] {
+  .footer-top>[class*="col-"] {
     margin-bottom: 32px;
   }
 
-  .footer-top > [class*="col-"]:last-child {
+  .footer-top>[class*="col-"]:last-child {
     margin-bottom: 0;
   }
 
-    .footer-top {
+  .footer-top {
     padding-top: 60px;
     padding-bottom: 40px;
   }
 
 }
 
-@media (max-width: 767px){
- .footer-bottom {
+@media (max-width: 767px) {
+  .footer-bottom {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-   .footer-top {
-padding: 40px 0 20px;
+  .footer-top {
+    padding: 40px 0 20px;
   }
 
   .footer-logo img {
@@ -278,8 +275,4 @@ padding: 40px 0 20px;
 
 }
 
-@media (max-width: 575px) {
-  
-
- 
-}
+@media (max-width: 575px) {}
