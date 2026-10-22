@@ -5,6 +5,7 @@ import {
 } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
 import PageIcon from '../components/common/PageIcon.jsx'
+import Loader from '../components/common/Loader.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
@@ -17,9 +18,13 @@ function Process() {
   const siteConfig = useSiteConfig()
 
   // managed from the admin (Process Page); built-in content until it is saved there
-  const { banner, steps, cta, seo } = usePageContent('process', processContent)
+  const { banner, steps, cta, seo, _loaded, _updatedAt } = usePageContent('process', processContent)
 
   usePageMeta(seo.title, seo.description)
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   return (
     <>
@@ -63,7 +68,7 @@ function Process() {
                   {steps.image && (
                     <div className="prc-visual">
                       <img
-                        src={mediaUrl(steps.image)}
+                        src={mediaUrl(steps.image, _updatedAt)}
                         alt={steps.alt}
                         width="1000"
                         height="1000"

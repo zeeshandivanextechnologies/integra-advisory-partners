@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
 import PageIcon from '../components/common/PageIcon.jsx'
+import Loader from '../components/common/Loader.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import useEvents from '../hooks/useEvents.js'
@@ -49,7 +50,7 @@ function RegisterLink({ href, className, children }) {
 
 function Events() {
   // managed from the admin (Events Page); built-in content until it is saved there
-  const { banner, formats, spotlight, upcoming, cta, seo } = usePageContent(
+  const { banner, formats, spotlight, upcoming, cta, seo, _loaded } = usePageContent(
     'events',
     eventsContent,
   )
@@ -61,6 +62,10 @@ function Events() {
   const upcomingEvents = events
     .filter((event) => event.date >= today)
     .sort((a, b) => a.date.localeCompare(b.date))
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   return (
     <>

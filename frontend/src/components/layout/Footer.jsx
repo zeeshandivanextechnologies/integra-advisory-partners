@@ -58,15 +58,23 @@ function Footer() {
               <img src={logo} alt="Integra Advisory Partners" />
             </Link>
             <p className="footer-tagline">
-              The trusted bridge between global <span className='d-lg-block d-sm-inline'>ambition and regional opportunity.</span>
+              {contact.tagline || (
+                <>
+                  The trusted bridge between global <span className='d-lg-block d-sm-inline'>ambition and regional opportunity.</span>
+                </>
+              )}
             </p> 
             <p className="footer-location">
               <span>
                 <FiMapPin />
               </span>
               <span>
-                Based in Doha. Built for serious international <span className='d-lg-block d-sm-inline'>operators entering
-              MENA and the GCC.</span>
+                {contact.locationText || (
+                  <>
+                    Based in Doha. Built for serious international <span className='d-lg-block d-sm-inline'>operators entering
+                  MENA and the GCC.</span>
+                  </>
+                )}
               </span>
             </p>
 

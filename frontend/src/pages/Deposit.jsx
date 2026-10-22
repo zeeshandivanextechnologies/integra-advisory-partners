@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
 import PageIcon from '../components/common/PageIcon.jsx'
+import Loader from '../components/common/Loader.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
@@ -20,9 +21,13 @@ function Deposit() {
   const { deposit } = useSiteConfig()
 
   // managed from the admin (Deposit Page); built-in content until it is saved there
-  const { banner, steps, payment, seo } = usePageContent('deposit', depositContent)
+  const { banner, steps, payment, seo, _loaded } = usePageContent('deposit', depositContent)
 
   usePageMeta(seo.title, seo.description)
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   return (
     <>

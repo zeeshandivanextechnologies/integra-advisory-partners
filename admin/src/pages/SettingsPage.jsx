@@ -20,7 +20,7 @@ import usePageEditor from '../hooks/usePageEditor.js'
 const sections = [
   {
     key: 'contact',
-    title: 'Contact details',
+    title: 'Contact details & Footer',
     icon: FiPhone,
     description: 'Shown in the footer, on the Contact page, and after payment.',
   },
@@ -170,6 +170,26 @@ function SettingsPage() {
           </div>
           <div className="col-12">
             <TextField label="Address" hint={leaveEmpty} {...bind('contact', 'address')} />
+          </div>
+          <div className="col-12">
+            <TextField
+              label="Footer Tagline"
+              placeholder="The trusted bridge between global ambition and regional opportunity."
+              hint="Shown under the logo in the website footer. Leave empty to use default."
+              multiline
+              rows={2}
+              {...bind('contact', 'tagline')}
+            />
+          </div>
+          <div className="col-12">
+            <TextField
+              label="Footer Location / Subtext"
+              placeholder="Based in Doha. Built for serious international operators entering MENA and the GCC."
+              hint="Shown next to the location pin in the website footer. Leave empty to use default."
+              multiline
+              rows={2}
+              {...bind('contact', 'locationText')}
+            />
           </div>
         </div>
       </EditorSection>

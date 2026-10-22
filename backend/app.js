@@ -5,7 +5,15 @@ const { UPLOAD_DIR } = require('./controllers/uploadController');
 
 const setupApp = (app) => {
   setupMiddlewares(app);
-  app.use('/api', routes);
+
+  // Prevent browser/proxy caching for all API responses so edits reflect immediately
+  app.use('/api', (req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Surrogate-Control', 'no-store');
+    next();
+  }, routes);
 
   // uploaded images and videos; the website and admin run on other ports,
   // so allow them to load these files (helmet blocks it by default)

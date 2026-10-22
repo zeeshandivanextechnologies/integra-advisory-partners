@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
 import PageIcon from '../components/common/PageIcon.jsx'
+import Loader from '../components/common/Loader.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import useArticles from '../hooks/useArticles.js'
@@ -35,7 +36,7 @@ function Insights() {
   const { mailingList } = useSiteConfig()
 
   // managed from the admin (Insights Page); built-in content until it is saved there
-  const { banner, publish, latest, topics, brief, seo } = usePageContent(
+  const { banner, publish, latest, topics, brief, seo, _loaded } = usePageContent(
     'insights',
     insightsContent,
   )
@@ -76,6 +77,10 @@ function Insights() {
 
   const categoryTitle = (key) =>
     categories.find((category) => category.key === key)?.title
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   return (
     <>

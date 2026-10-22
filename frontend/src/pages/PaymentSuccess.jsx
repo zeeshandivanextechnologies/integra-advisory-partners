@@ -7,6 +7,7 @@ import {
 import markGold from '../assets/logos/mark-gold.svg'
 import PageIcon from '../components/common/PageIcon.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
+import Loader from '../components/common/Loader.jsx'
 import usePageContent from '../hooks/usePageContent.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
 import paymentSuccessContent from '../constants/paymentSuccessContent.js'
@@ -17,9 +18,13 @@ function PaymentSuccess() {
   const { booking, contact } = useSiteConfig()
 
   // managed from the admin (Payment Success Page); built-in content until it is saved there
-  const { banner, nextSteps, seo } = usePageContent('payment-success', paymentSuccessContent)
+  const { banner, nextSteps, seo, _loaded } = usePageContent('payment-success', paymentSuccessContent)
 
   usePageMeta(seo.title, seo.description)
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   return (
     <>

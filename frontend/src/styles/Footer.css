@@ -51,6 +51,7 @@
   font-weight: 500 !important;
   color: var(--tertiary-color) !important;
   margin-bottom: 10px !important;
+  white-space: pre-line;
 }
  
 .footer-location {
@@ -58,6 +59,7 @@
   gap: 10px;
   font-size: 14px !important;
   line-height: 22px !important;
+  white-space: pre-line;
 }
 
 .footer-location svg {

@@ -14,6 +14,7 @@ import usePageContent from '../hooks/usePageContent.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
 import homeContent from '../constants/homeContent.js'
 import icons from '../constants/icons.js'
+import Loader from '../components/common/Loader.jsx'
 import { mediaUrl } from '../utils/media.js'
 import '../styles/Home.css'
 
@@ -43,11 +44,11 @@ function Home() {
 
   // Cache-busting URL helper for hero video so browser doesn't play old cached video
   const freshVideoUrl = (src) => {
-    const base = mediaUrl(src)
-    if (!base) return base
-    const version = _updatedAt ? new Date(_updatedAt).getTime() : ''
-    if (!version) return base
-    return base.includes('?') ? `${base}&v=${version}` : `${base}?v=${version}`
+    return mediaUrl(src, _updatedAt)
+  }
+
+  if (!_loaded) {
+    return <Loader />
   }
 
   return (
@@ -58,7 +59,7 @@ function Home() {
           {hero.video ? (
             <video
               className="hero-video"
-              src={mediaUrl(hero.video)}
+              src={freshVideoUrl(hero.video)}
               autoPlay
               muted
               loop
@@ -68,7 +69,7 @@ function Home() {
             />
           ) : hero.poster ? (
             <img
-              src={mediaUrl(hero.poster)}
+              src={freshVideoUrl(hero.poster)}
               alt=""
               className="hero-video"
               style={{ objectFit: 'cover' }}
@@ -148,7 +149,7 @@ function Home() {
                     {image && (
                       <div className="audience-photo">
                         <img
-                          src={mediaUrl(image)}
+                          src={mediaUrl(image, _updatedAt)}
                           alt={alt}
                           width="800"
                           height="600"
@@ -238,11 +239,11 @@ function Home() {
             <div className='row align-items-center'>
 
               <div className='col-lg-6'>
-<span className="home-eyebrow">{why.eyebrow}</span>
-                  <h2 className="home-heading">{why.heading}</h2>
+                <span className="home-eyebrow">{why.eyebrow}</span>
+                <h2 className="home-heading">{why.heading}</h2>
               </div>
               <div className='col-lg-6'>
-    <p className="home-lead">{why.lead}</p>
+                <p className="home-lead">{why.lead}</p>
               </div>
 
             </div>
@@ -252,7 +253,7 @@ function Home() {
               <div className="col-lg-4 mb-4 mb-lg-0">
                 <div className="why-photo">
                   <img
-                    src={mediaUrl(why.image)}
+                    src={mediaUrl(why.image, _updatedAt)}
                     alt={why.alt}
                     width="800"
                     height="1000"

@@ -9,6 +9,7 @@ import {
 import markGold from '../assets/logos/mark-gold.svg'
 import logoWhite from '../assets/logos/primary-gold-white.svg'
 import PageIcon from '../components/common/PageIcon.jsx'
+import Loader from '../components/common/Loader.jsx'
 import aboutContent from '../constants/aboutContent.js'
 import usePageContent from '../hooks/usePageContent.js'
 import usePageMeta from '../hooks/usePageMeta.js'
@@ -17,12 +18,16 @@ import '../styles/About.css'
 
 function About() {
   // managed from the admin (About Page); built-in content until it is saved there
-  const { banner, whoWeAre, approach, drives, serveWork, cta, seo } = usePageContent(
+  const { banner, whoWeAre, approach, drives, serveWork, cta, seo, _loaded, _updatedAt } = usePageContent(
     'about',
     aboutContent,
   )
 
   usePageMeta(seo.title, seo.description)
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   return (
     <>
@@ -65,7 +70,7 @@ function About() {
                 {whoWeAre.image && (
                   <div className="abt-photo">
                     <img
-                      src={mediaUrl(whoWeAre.image)}
+                      src={mediaUrl(whoWeAre.image, _updatedAt)}
                       alt={whoWeAre.alt}
                       width="1200"
                       height="801"
@@ -122,7 +127,7 @@ function About() {
                 {approach.image && (
                   <div className="abt-visual">
                     <img
-                      src={mediaUrl(approach.image)}
+                      src={mediaUrl(approach.image, _updatedAt)}
                       alt={approach.alt}
                       width="1000"
                       height="1000"

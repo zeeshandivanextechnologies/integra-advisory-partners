@@ -11,6 +11,7 @@ import pillarCompliance from '../assets/icons/pillar-compliance.webp'
 import pillarIntelligence from '../assets/icons/pillar-business-intelligence.webp'
 import pillarPartners from '../assets/icons/pillar-partner-matchmaking.webp'
 import PageIcon from '../components/common/PageIcon.jsx'
+import Loader from '../components/common/Loader.jsx'
 import servicesContent from '../constants/servicesContent.js'
 import usePageContent from '../hooks/usePageContent.js'
 import usePageMeta from '../hooks/usePageMeta.js'
@@ -43,7 +44,7 @@ function PillarLabel({ pillar }) {
 
 function Services() {
   // managed from the admin (Services Page); built-in content until it is saved there
-  const { banner, pillars, advisory, network, cta, seo } = usePageContent(
+  const { banner, pillars, advisory, network, cta, seo, _loaded, _updatedAt } = usePageContent(
     'services',
     servicesContent,
   )
@@ -89,6 +90,10 @@ function Services() {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
+  }
+
+  if (!_loaded) {
+    return <Loader />
   }
 
   return (
@@ -243,7 +248,7 @@ function Services() {
                 {network.image && (
                   <div className="srv-visual">
                     <img
-                      src={mediaUrl(network.image)}
+                      src={mediaUrl(network.image, _updatedAt)}
                       alt={network.alt}
                       width="1000"
                       height="1000"

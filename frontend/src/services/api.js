@@ -1,15 +1,32 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
 const apiRequest = async (endpoint, options = {}) => {
-  const url = endpoint.startsWith('http')
+  let url = endpoint.startsWith('http')
     ? endpoint
     : API_BASE_URL
     ? `${API_BASE_URL.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}`
     : `/api/${endpoint.replace(/^\//, '')}`;
 
+  const method = (options.method || 'GET').toUpperCase();
+  const isGet = method === 'GET';
+
+  // Bust cache for GET requests so updated content from admin shows immediately
+  if (isGet) {
+    const sep = url.includes('?') ? '&' : '?';
+    url = `${url}${sep}_t=${Date.now()}`;
+  }
+
   const config = {
+    cache: isGet ? 'no-store' : options.cache,
     headers: {
       'Content-Type': 'application/json',
+      ...(isGet
+        ? {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            Pragma: 'no-cache',
+            Expires: '0',
+          }
+        : {}),
       ...options.headers,
     },
     ...options,

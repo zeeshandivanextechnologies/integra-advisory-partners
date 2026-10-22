@@ -7,6 +7,7 @@ import {
   FiInfo,
 } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
+import Loader from '../components/common/Loader.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
@@ -27,12 +28,16 @@ function Packages() {
   const siteConfig = useSiteConfig()
 
   // managed from the admin (Packages Page); built-in content until it is saved there
-  const { banner, packages, compare, cta, seo } = usePageContent(
+  const { banner, packages, compare, cta, seo, _loaded } = usePageContent(
     'packages',
     packagesContent,
   )
 
   usePageMeta(seo.title, seo.description)
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   return (
     <>

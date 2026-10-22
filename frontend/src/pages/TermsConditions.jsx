@@ -1,15 +1,20 @@
 import { Link } from 'react-router-dom'
 import { FiChevronRight } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
+import Loader from '../components/common/Loader.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import termsConditionsContent from '../constants/termsConditionsContent.js'
 import '../styles/LegalPages.css'
 
 function TermsConditions() {
-  const { banner, content, seo } = usePageContent('terms-and-conditions', termsConditionsContent)
+  const { banner, content, seo, _loaded } = usePageContent('terms-and-conditions', termsConditionsContent)
   
   usePageMeta(seo.title, seo.description)
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   return (
     <>

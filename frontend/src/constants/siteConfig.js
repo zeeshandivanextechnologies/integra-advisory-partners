@@ -14,6 +14,10 @@ const siteConfig = {
     phone: '+91 98765 41230',
     address:
       'Zone 61, Al Dafna, Doha, Qatar',
+    tagline:
+      'The trusted bridge between global ambition and regional opportunity.',
+    locationText:
+      'Based in Doha. Built for serious international operators entering MENA and the GCC.',
   },
 
   /* ---------- whatsapp (digits only, with country code) ---------- */
