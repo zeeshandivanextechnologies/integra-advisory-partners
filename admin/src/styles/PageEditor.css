@@ -6,11 +6,9 @@
   padding: 28px 30px;
   border-radius: 20px;
   background:
-    radial-gradient(
-      circle at 90% 120%,
+    radial-gradient(circle at 90% 120%,
       color-mix(in srgb, #9fe8ff 35%, transparent),
-      transparent 45%
-    ),
+      transparent 45%),
     linear-gradient(135deg, var(--primary-color) 0%, #10205a 55%, #1d3f8f 100%);
 }
 
@@ -112,8 +110,7 @@
   border-radius: 16px;
   background-color: #fff;
   border: 1px solid var(--secondary-color);
-  box-shadow: 0 12px 30px
-    color-mix(in srgb, var(--primary-color) 5%, transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--primary-color) 5%, transparent);
 }
 
 .pe-nav-label {
@@ -126,7 +123,7 @@
   color: var(--text-secondary);
 }
 
-.pe-nav li + li {
+.pe-nav li+li {
   margin-top: 2px;
 }
 
@@ -157,6 +154,7 @@
 .pe-nav-text {
   flex-grow: 1;
   /* white-space: nowrap; */
+  word-break: break-all;
 }
 
 .pe-nav-badge {
@@ -184,8 +182,7 @@
   border-radius: 16px;
   background-color: #fff;
   border: 1px solid var(--secondary-color);
-  box-shadow: 0 12px 30px
-    color-mix(in srgb, var(--primary-color) 5%, transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--primary-color) 5%, transparent);
 }
 
 .pe-section-head {
@@ -323,16 +320,16 @@
   transition: transform 0.2s ease;
 }
 
-.pe-switch input:checked + .pe-switch-track {
+.pe-switch input:checked+.pe-switch-track {
   background-color: var(--primary-color);
 }
 
-.pe-switch input:checked + .pe-switch-track::after {
+.pe-switch input:checked+.pe-switch-track::after {
   transform: translateX(16px);
   background-color: var(--additional-color);
 }
 
-.pe-switch input:focus-visible + .pe-switch-track {
+.pe-switch input:focus-visible+.pe-switch-track {
   outline: 2px solid var(--additional-color);
   outline-offset: 2px;
 }
@@ -648,7 +645,7 @@
   transition: border-color 0.2s ease;
 }
 
-.pe-item + .pe-item {
+.pe-item+.pe-item {
   margin-top: 12px;
 }
 
@@ -799,8 +796,7 @@
   border-radius: 14px;
   background-color: #fff;
   border: 1px solid var(--secondary-color);
-  box-shadow: 0 16px 40px
-    color-mix(in srgb, var(--primary-color) 14%, transparent);
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--primary-color) 14%, transparent);
   transition: border-color 0.2s ease;
 }
 
@@ -855,7 +851,7 @@
     overflow-x: auto;
   }
 
-  .pe-nav li + li {
+  .pe-nav li+li {
     margin-top: 0;
   }
 }
@@ -903,6 +899,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .pe-collapse svg,
   .pe-switch-track,
   .pe-switch-track::after {
