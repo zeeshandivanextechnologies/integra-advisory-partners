@@ -211,6 +211,16 @@ function SettingsPage() {
               {...bind('contact', 'disclaimer')}
             />
           </div>
+          <div className="col-12">
+            <TagsField
+              id="settings-footer-services"
+              label="Footer Services Links"
+              values={content?.contact?.footerServices || initialContent.contact.footerServices}
+              placeholder="Add a service name"
+              hint="Services shown under the 'Services' column in the website footer. Type a service name and press Enter to add."
+              onChange={(services) => update('contact', { footerServices: services })}
+            />
+          </div>
         </div>
       </EditorSection>
 

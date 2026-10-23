@@ -25,7 +25,7 @@ const quickLinks = [
 const slug = (text) =>
   text ? text.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : ''
 
-const services = [
+const defaultServices = [
   'Market Entry Blueprint',
   'Regulatory & KYC Readiness Review',
   'Qatar Incorporation & Bank Opening Pathway',
@@ -47,6 +47,9 @@ const year = new Date().getFullYear()
 
 function Footer() {
   const { contact, social } = useSiteConfig()
+  const services = contact?.footerServices && contact.footerServices.length > 0
+    ? contact.footerServices
+    : defaultServices
   const socialLinks = Object.entries(social).filter(([, url]) => url)
 
   return (

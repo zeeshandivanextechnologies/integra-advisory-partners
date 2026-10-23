@@ -22,6 +22,15 @@ const siteConfig = {
       'Before you open in Qatar or the GCC, know what the market, regulators, banks, and partners will actually require.',
     disclaimer:
       'Integra Advisory Partners provides business, market-entry, regulatory-navigation, and relationship-development advisory. It is not a law firm and does not provide legal advice. Legal drafting, legal opinions, and representation should be performed by licensed counsel in the relevant jurisdiction.',
+    footerServices: [
+      'Market Entry Blueprint',
+      'Regulatory & KYC Readiness Review',
+      'Qatar Incorporation & Bank Opening Pathway',
+      'Executive Advisory Retainer',
+      'Integra Innovators',
+      'Integra Nights',
+      'Integra Gold',
+    ],
   },
 
   /* ---------- whatsapp (digits only, with country code) ---------- */
