@@ -137,7 +137,7 @@ function Contact() {
 
 
                 <form className="cnt-form" onSubmit={handleSubmit}>
-                  <input type="hidden" name="inquiryType" value="General Inquiry" />
+                  <input type="hidden" name="inquiryType" value="Discovery" />
                   <h2 className="cnt-form-title">Contact Us</h2>
                   <p className="cnt-form-text">
                     Share a few details about your plans and our team will get in touch.
