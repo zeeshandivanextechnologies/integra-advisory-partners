@@ -34,12 +34,19 @@ function Home() {
     homeContent,
   )
 
+  // Default full SEO title (59 characters, ideal for Google SEO ranking)
+  const defaultFullTitle = 'Integra Advisory Partners | Qatar & GCC Market Entry Advisory'
+
   usePageMeta(null, seo.description)
 
   // the admin sets the full tab title for the home page; this runs after
   // usePageMeta (which sets the site name), so it wins
   useEffect(() => {
-    if (seo.title) document.title = seo.title
+    if (seo.title && seo.title.trim() !== 'Integra Advisory Partners') {
+      document.title = seo.title
+    } else {
+      document.title = defaultFullTitle
+    }
   }, [seo.title, seo.description])
 
   // Cache-busting URL helper for hero video so browser doesn't play old cached video

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://frontend-one-wheat-e2c0qr66jf.vercel.app/sitemap.xml
