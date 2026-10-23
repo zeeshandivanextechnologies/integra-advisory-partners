@@ -12,6 +12,7 @@ import markGold from '../assets/logos/mark-gold.svg'
 import usePageMeta from '../hooks/usePageMeta.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
 import { isGoogleFormReady, submitToGoogleForm } from '../utils/googleForm.js'
+import Loader from '../components/common/Loader.jsx'
 import '../styles/Contact.css'
 
 const statusMessages = {
@@ -24,7 +25,7 @@ const statusMessages = {
 function Contact() {
   // site-wide links from the admin (Settings)
   const siteConfig = useSiteConfig()
-  const { contact, booking } = siteConfig
+  const { contact, booking, _loaded } = siteConfig
   const contactForm = siteConfig.googleForms.contact
 
   usePageMeta(
@@ -34,6 +35,10 @@ function Contact() {
 
   const [inquiryType, setInquiryType] = useState('discovery')
   const [status, setStatus] = useState('idle')
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()

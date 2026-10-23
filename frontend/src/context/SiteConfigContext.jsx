@@ -34,12 +34,13 @@ const mergeSettings = (base, saved) => {
   }
 }
 
-export const SiteConfigContext = createContext(siteConfig)
+export const SiteConfigContext = createContext({ ...siteConfig, _loaded: false })
 
 // Starts with siteConfig.js so the site renders straight away, then swaps in
 // the admin's settings. If the backend cannot be reached, siteConfig.js stays.
 export function SiteConfigProvider({ children }) {
   const [config, setConfig] = useState(siteConfig)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -51,11 +52,18 @@ export function SiteConfigProvider({ children }) {
       .catch(() => {
         // keep siteConfig.js
       })
+      .finally(() => {
+        if (active) setLoaded(true)
+      })
 
     return () => {
       active = false
     }
   }, [])
 
-  return <SiteConfigContext.Provider value={config}>{children}</SiteConfigContext.Provider>
+  return (
+    <SiteConfigContext.Provider value={{ ...config, _loaded: loaded }}>
+      {children}
+    </SiteConfigContext.Provider>
+  )
 }

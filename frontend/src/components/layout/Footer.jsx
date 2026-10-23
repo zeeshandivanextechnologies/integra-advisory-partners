@@ -46,11 +46,15 @@ const socialIcons = {
 const year = new Date().getFullYear()
 
 function Footer() {
-  const { contact, social } = useSiteConfig()
+  const { contact, social, _loaded } = useSiteConfig()
   const services = contact?.footerServices && contact.footerServices.length > 0
     ? contact.footerServices
     : defaultServices
   const socialLinks = Object.entries(social).filter(([, url]) => url)
+
+  if (!_loaded) {
+    return null
+  }
 
   return (
     <footer className="site-footer">

@@ -5,6 +5,7 @@ import markGold from '../assets/logos/mark-gold.svg'
 import usePageMeta from '../hooks/usePageMeta.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
 import { isGoogleFormReady, submitToGoogleForm } from '../utils/googleForm.js'
+import Loader from '../components/common/Loader.jsx'
 import '../styles/Intake.css'
 
 const statusMessages = {
@@ -67,8 +68,8 @@ const concerns = [
 function Intake() {
   // site-wide links from the admin (Settings)
   const siteConfig = useSiteConfig()
+  const { budgetRanges, documentUpload, _loaded } = siteConfig
   const intakeForm = siteConfig.googleForms.intake
-  const { budgetRanges, documentUpload } = siteConfig
 
   usePageMeta(
     'Market Entry Review',
@@ -76,6 +77,10 @@ function Intake() {
   )
 
   const [status, setStatus] = useState('idle')
+
+  if (!_loaded) {
+    return <Loader />
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
