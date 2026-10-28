@@ -34,7 +34,9 @@ const subscribe = async (req, res) => {
 // Admin: Get all subscribers
 const listAll = async (req, res) => {
   try {
-    const result = await db.query('SELECT * FROM subscribers ORDER BY created_at DESC');
+    const result = await db.query(
+      "SELECT id, email, status, created_at AT TIME ZONE 'UTC' as created_at FROM subscribers ORDER BY id DESC"
+    );
     res.json({ subscribers: result.rows });
   } catch (error) {
     console.error('List subscribers error:', error);

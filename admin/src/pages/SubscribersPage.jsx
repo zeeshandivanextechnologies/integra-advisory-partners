@@ -17,12 +17,19 @@ import '../styles/Articles.css'
 const formatDate = (value) => {
   if (!value) return '-'
   try {
-    return new Date(value).toLocaleDateString('en-US', {
+    const raw = typeof value === 'string' && !value.endsWith('Z') && !value.includes('+')
+      ? value.replace(' ', 'T') + 'Z'
+      : value
+    const date = new Date(raw)
+    if (isNaN(date.getTime())) return value
+
+    return date.toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
+      hour12: true,
     })
   } catch {
     return value
