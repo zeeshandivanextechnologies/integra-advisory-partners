@@ -49,6 +49,12 @@ const sections = [
     description: 'The Stripe link on the Pay Your Deposit page.',
   },
   {
+    key: 'documentUpload',
+    title: 'Document upload',
+    icon: FiUpload,
+    description: 'The secure upload link on the intake form.',
+  },
+  {
     key: 'googleForms',
     title: 'Google Forms',
     icon: FiFileText,
@@ -272,6 +278,17 @@ function SettingsPage() {
           hint="In Stripe, set 'After payment' to open /payment-success on the website. Links starting with buy.stripe.com/test_ are test mode. Leave empty to show 'Request Your Deposit Link' instead."
           {...bind('deposit', 'url')}
           onChange={(url) => update('deposit', { url: url.trim() })}
+        />
+      </EditorSection>
+
+      {/* document upload */}
+      <EditorSection {...sectionProps('documentUpload')}>
+        <TextField
+          label="Upload link"
+          placeholder="https://tally.so/r/... or a Google Form with file upload"
+          hint="Shown as 'Upload your documents securely' on the intake form. Leave empty to hide it."
+          {...bind('documentUpload', 'url')}
+          onChange={(url) => update('documentUpload', { url: url.trim() })}
         />
       </EditorSection>
 

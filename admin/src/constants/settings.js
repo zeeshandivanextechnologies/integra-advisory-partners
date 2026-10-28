@@ -47,7 +47,7 @@ const settings = {
   },
 
   documentUpload: {
-    url: 'https://docs.google.com/forms/d/e/1FAIpQLSczaq-qUYDCLZvzagPbu6snqaVsnJpfPVFjyOXI4fa1ohu_Dg/viewform',
+    url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmFpTRErXS7DdKdxW1my8ysrBaqRxxPQWu8phFuO_WE_TMgA/viewform',
   },
 
   mailingList: {

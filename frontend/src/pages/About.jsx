@@ -230,13 +230,15 @@ function About() {
           <div className="container">
             <div className="abt-cta">
               <div className="row align-items-center">
-                <div className="col-lg-3 text-center text-lg-start mb-3">
+                <div className="col-lg-2 text-center text-lg-start mb-3 mb-lg-0">
                   <img src={logoWhite} alt="Integra Advisory Partners" className="abt-cta-logo" />
                 </div>
-                <div className="col-lg-6 mb-3">
-                  <h2 className="abt-cta-title">{cta.title}</h2>
+                <div className="col-lg-6 mb-3 mb-lg-0">
+                  <div className='text-center'>
+                     <h2 className="abt-cta-title">{cta.title}</h2>
+                  </div>
                 </div>
-                <div className="col-lg-3 text-lg-end mb-3">
+                <div className="col-lg-4 text-lg-end ">
                   <Link to={cta.link} className="abt-btn gold">
                     {cta.buttonLabel}
                     <FiArrowUpRight />
