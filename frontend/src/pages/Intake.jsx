@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowUpRight, FiChevronRight, FiInfo, FiSend, FiUpload } from 'react-icons/fi'
+import { FiArrowUpRight, FiChevronRight, FiInfo, FiSend, FiUpload, FiX, FiCheck } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
@@ -85,6 +85,21 @@ function Intake() {
   )
 
   const [status, setStatus] = useState('idle')
+  const [selectedFiles, setSelectedFiles] = useState([])
+  const fileInputRef = useRef(null)
+
+  const handleFileChange = (e) => {
+    if (e.target.files) {
+      setSelectedFiles(Array.from(e.target.files))
+    }
+  }
+
+  const removeFile = (indexToRemove) => {
+    setSelectedFiles((prev) => prev.filter((_, idx) => idx !== indexToRemove))
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
 
   if (!siteConfigLoaded || !contentLoaded) {
     return <Loader />
@@ -103,6 +118,8 @@ function Intake() {
     try {
       await submitToGoogleForm(intakeForm, formElement)
       formElement.reset()
+      setSelectedFiles([])
+      if (fileInputRef.current) fileInputRef.current.value = ''
       setStatus('sent')
     } catch {
       setStatus('error')
@@ -336,18 +353,59 @@ function Intake() {
                     ))}
                   </div>
 
-                  {documentUpload.url && (
-                    <a
-                      href={documentUpload.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="int-upload"
+                  <div className="int-upload-card">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      id="int-file-upload"
+                      name="uploaded_document"
+                      multiple
+                      style={{ display: 'none' }}
+                      onChange={handleFileChange}
+                      accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.zip"
+                    />
+
+                    {/* <div className="int-upload-card-header">
+                      <span className="int-upload-card-title">Upload your Document</span>
+                      <span className="int-upload-card-sub">
+                        Upload up to 10 supported files. Max 10 MB per file.
+                      </span>
+                    </div> */}
+
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="int-upload-btn"
                     >
                       <FiUpload />
-                      Upload your documents securely
-                      <FiArrowUpRight />
-                    </a>
-                  )}
+                      Upload your documents securely 
+
+                    </button>
+
+                    {selectedFiles.length > 0 && (
+                      <div className="int-files-list">
+                        {selectedFiles.map((file, idx) => (
+                          <div key={idx} className="int-file-item">
+                            <span className="int-file-icon">
+                              <FiCheck />
+                            </span>
+                            <span className="int-file-name">{file.name}</span>
+                            <span className="int-file-size">
+                              ({(file.size / 1024).toFixed(0)} KB)
+                            </span>
+                            <button
+                              type="button"
+                              className="int-file-remove"
+                              onClick={() => removeFile(idx)}
+                              title="Remove"
+                            >
+                              <FiX />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
 
                   <span className="int-group-label">Timeline</span>
                   <div className="int-chips">

@@ -98,8 +98,8 @@ const siteConfig = {
 
   /* ---------- secure document upload (Google Form, Jotform, Tally...) ---------- */
   documentUpload: {
-    // Google Form with a file upload question (visitors sign in with Google to upload)
-    url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmFpTRErXS7DdKdxW1my8ysrBaqRxxPQWu8phFuO_WE_TMgA/viewform',
+    // Main Intake Google Form (file upload question incorporated directly)
+    url: 'https://docs.google.com/forms/d/e/1FAIpQLSczaq-qUYDCLZvzagPbu6snqaVsnJpfPVFjyOXI4fa1ohu_Dg/viewform',
   },
 
   /* ---------- mailing list (Mailchimp / Brevo embed form action URL) ---------- */
