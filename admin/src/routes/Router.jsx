@@ -7,6 +7,7 @@ import AboutPage from '../pages/AboutPage.jsx'
 import ServicesPage from '../pages/ServicesPage.jsx'
 import PackagesPage from '../pages/PackagesPage.jsx'
 import ProcessPage from '../pages/ProcessPage.jsx'
+import IntakePage from '../pages/IntakePage.jsx'
 import InsightsPage from '../pages/InsightsPage.jsx'
 import ArticlesList from '../pages/ArticlesList.jsx'
 import EventsPage from '../pages/EventsPage.jsx'
@@ -17,6 +18,7 @@ import DepositPage from '../pages/DepositPage.jsx'
 import PaymentSuccessPage from '../pages/PaymentSuccessPage.jsx'
 import NotificationsPage from '../pages/NotificationsPage.jsx'
 import ArticleEditor from '../pages/ArticleEditor.jsx'
+import SubscribersPage from '../pages/SubscribersPage.jsx'
 import Login from '../pages/Login.jsx'
 import PrivacyPolicyPage from '../pages/PrivacyPolicyPage.jsx'
 import TermsConditionsPage from '../pages/TermsConditionsPage.jsx'
@@ -41,6 +43,7 @@ const router = createBrowserRouter([
       { path: 'pages/services', element: <ServicesPage /> },
       { path: 'pages/packages', element: <PackagesPage /> },
       { path: 'pages/process', element: <ProcessPage /> },
+      { path: 'pages/intake', element: <IntakePage /> },
       { path: 'pages/insights', element: <InsightsPage /> },
       { path: 'pages/events', element: <EventsPage /> },
       { path: 'pages/deposit', element: <DepositPage /> },
@@ -53,6 +56,7 @@ const router = createBrowserRouter([
       { path: 'events', element: <EventsList /> },
       { path: 'events/new', element: <EventEditor /> },
       { path: 'events/:id', element: <EventEditor /> },
+      { path: 'subscribers', element: <SubscribersPage /> },
       { path: 'packages', element: <Placeholder title="Packages" /> },
       { path: 'inquiries', element: <Placeholder title="Inquiries" /> },
       { path: 'payments', element: <Placeholder title="Payments" /> },

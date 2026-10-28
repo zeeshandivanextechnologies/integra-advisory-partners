@@ -54,6 +54,7 @@
   height: 100%;
   margin: 0;
   font-size: 14px;
+  gap: 5px;
 }
 
 .arl-table {

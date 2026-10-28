@@ -5,6 +5,7 @@ const { createAdminTable } = require('./models/Admin');
 const { createPageTable } = require('./models/Page');
 const { createArticleTable } = require('./models/Article');
 const { createEventTable } = require('./models/Event');
+const { createSubscriberTable } = require('./models/Subscriber');
 const { seedAdmin } = require('./services/authService');
 
 const app = express();
@@ -20,6 +21,7 @@ const startServer = async () => {
     await createPageTable();
     await createArticleTable();
     await createEventTable();
+    await createSubscriberTable();
   } catch (err) {
     console.error('❌ DB init error:', err.message);
   }

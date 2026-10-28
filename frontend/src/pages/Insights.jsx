@@ -15,12 +15,13 @@ import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import useArticles from '../hooks/useArticles.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
+import apiRequest from '../services/api.js'
 import insightsContent from '../constants/insightsContent.js'
 import '../styles/Insights.css'
 
 const subscribeMessages = {
   sending: 'Subscribing...',
-  sent: 'Thank you. Please check your inbox to confirm your subscription.',
+  sent: 'Thank you for subscribing to our monthly brief!',
   error: 'Something went wrong. Please try again in a moment.',
 }
 
@@ -52,14 +53,31 @@ function Insights() {
   const handleSubscribe = async (event) => {
     event.preventDefault()
     const formElement = event.currentTarget
+    const formData = new FormData(formElement)
+    const email = formData.get('email') || formData.get(mailingList.emailField) || ''
+
     setSubscribeStatus('sending')
 
     try {
-      await fetch(mailingList.action, {
+      // 1. Save to our own backend database
+      await apiRequest('subscribers/subscribe', {
         method: 'POST',
-        mode: 'no-cors',
-        body: new URLSearchParams(new FormData(formElement)),
+        body: { email },
       })
+
+      // 2. Also send to external provider (Brevo) if configured
+      if (mailingList.action) {
+        try {
+          await fetch(mailingList.action, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: new URLSearchParams(formData),
+          })
+        } catch (extErr) {
+          console.warn('External mailing list submission warning:', extErr)
+        }
+      }
+
       formElement.reset()
       setSubscribeStatus('sent')
     } catch {
@@ -242,7 +260,7 @@ function Insights() {
 
       {/* ---------- monthly brief ---------- */}
       {brief.visible !== false && (
-        <section className="ins-section pt-0 ins-light">
+        <section className="ins-section  ins-light">
           <div className="container">
             <div className="ins-cta">
               <div className="row align-items-center ">
@@ -256,45 +274,37 @@ function Insights() {
                   <p className="ins-cta-text">{brief.text}</p>
                 </div>
                 <div className="col-lg-4 text-lg-end">
-                  {mailingList.action ? (
-                    <form className="ins-subscribe" onSubmit={handleSubscribe}>
-                      {Object.entries(mailingList.hiddenFields || {}).map(
-                        ([name, value]) => (
-                          <input key={name} type="hidden" name={name} value={value} />
-                        ),
-                      )}
-                      <label htmlFor="ins-email" className="visually-hidden">
-                        Email address
-                      </label>
-                      <input
-                        id="ins-email"
-                        type="email"
-                        name={mailingList.emailField}
-                        placeholder="you@company.com"
-                        required
-                      />
-                      <button
-                        type="submit"
-                        className="ins-btn gold"
-                        disabled={subscribeStatus === 'sending'}
-                      >
-                        {brief.buttonLabel}
-                        <FiArrowUpRight />
-                      </button>
-
-                      {subscribeStatus !== 'idle' && (
-                        <p className={`ins-subscribe-status ${subscribeStatus}`} role="status">
-                          {subscribeStatus === 'sent' ? <FiCheck /> : <FiInfo />}
-                          {subscribeMessages[subscribeStatus]}
-                        </p>
-                      )}
-                    </form>
-                  ) : (
-                    <Link to="/contact" className="ins-btn gold">
-                      {brief.fallbackLabel}
+                  <form className="ins-subscribe" onSubmit={handleSubscribe}>
+                    {mailingList.hiddenFields &&
+                      Object.entries(mailingList.hiddenFields).map(([name, value]) => (
+                        <input key={name} type="hidden" name={name} value={value} />
+                      ))}
+                    <label htmlFor="ins-email" className="visually-hidden">
+                      Email address
+                    </label>
+                    <input
+                      id="ins-email"
+                      type="email"
+                      name={mailingList.emailField || 'email'}
+                      placeholder="you@company.com"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      className="ins-btn gold"
+                      disabled={subscribeStatus === 'sending'}
+                    >
+                      {brief.buttonLabel}
                       <FiArrowUpRight />
-                    </Link>
-                  )}
+                    </button>
+
+                    {subscribeStatus !== 'idle' && (
+                      <p className={`ins-subscribe-status ${subscribeStatus}`} role="status">
+                        {subscribeStatus === 'sent' ? <FiCheck /> : <FiInfo />}
+                        {subscribeMessages[subscribeStatus]}
+                      </p>
+                    )}
+                  </form>
                 </div>
               </div>
             </div>

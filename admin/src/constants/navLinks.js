@@ -14,6 +14,7 @@ import {
   FiMonitor,
   FiSettings,
   FiTag,
+  FiUsers,
 } from 'react-icons/fi'
 
 // Sidebar menu. An item with `children` is a group that opens a submenu.
@@ -28,6 +29,7 @@ export const navMenu = [
       { label: 'Services Page', to: '/pages/services', icon: FiLayers },
       { label: 'Packages Page', to: '/pages/packages', icon: FiTag },
       { label: 'Process Page', to: '/pages/process', icon: FiList },
+      { label: 'Intake Page', to: '/pages/intake', icon: FiFileText },
       { label: 'Insights Page', to: '/pages/insights', icon: FiBookOpen },
       { label: 'Events Page', to: '/pages/events', icon: FiMonitor },
       { label: 'Deposit Page', to: '/pages/deposit', icon: FiDollarSign },
@@ -40,6 +42,7 @@ export const navMenu = [
     children: [
       { label: 'Articles', to: '/articles', icon: FiFileText },
       { label: 'Events', to: '/events', icon: FiCalendar },
+      { label: 'Subscribers', to: '/subscribers', icon: FiUsers },
       { label: 'Privacy Policy', to: '/pages/privacy-policy', icon: FiFileText },
       { label: 'Terms & Conditions', to: '/pages/terms-and-conditions', icon: FiFileText },
       // add FiInbox / FiCreditCard to the import above before turning these on

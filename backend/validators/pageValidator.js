@@ -8,6 +8,7 @@ const PAGE_SLUGS = [
   'services',
   'packages',
   'process',
+  'intake',
   'insights',
   'events',
   'deposit',

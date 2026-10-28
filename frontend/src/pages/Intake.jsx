@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom'
 import { FiArrowUpRight, FiChevronRight, FiInfo, FiSend, FiUpload } from 'react-icons/fi'
 import markGold from '../assets/logos/mark-gold.svg'
 import usePageMeta from '../hooks/usePageMeta.js'
+import usePageContent from '../hooks/usePageContent.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
 import { isGoogleFormReady, submitToGoogleForm } from '../utils/googleForm.js'
 import Loader from '../components/common/Loader.jsx'
+import intakeContent from '../constants/intakeContent.js'
 import '../styles/Intake.css'
 
 const statusMessages = {
@@ -15,7 +17,7 @@ const statusMessages = {
   offline: 'This form is not connected yet. Please check back soon.',
 }
 
-const reasons = [
+const defaultReasons = [
   { field: 'Name, company, role', reason: 'Identify decision maker and authority.' },
   { field: 'Country of origin', reason: 'Segment Nigeria, Morocco, diaspora, and other international markets.' },
   { field: 'Target market', reason: 'Qatar, Saudi Arabia, UAE, Bahrain, Oman, Kuwait, or multiple GCC markets.' },
@@ -68,17 +70,23 @@ const concerns = [
 function Intake() {
   // site-wide links from the admin (Settings)
   const siteConfig = useSiteConfig()
-  const { budgetRanges, documentUpload, _loaded } = siteConfig
+  const { budgetRanges, documentUpload, _loaded: siteConfigLoaded } = siteConfig
   const intakeForm = siteConfig.googleForms.intake
 
+  // dynamic page content managed from the admin (Intake Page)
+  const { banner, whyWeAsk, seo, _loaded: contentLoaded } = usePageContent('intake', intakeContent)
+
+  const reasonsList = whyWeAsk?.reasons?.length > 0 ? whyWeAsk.reasons : defaultReasons
+
   usePageMeta(
-    'Market Entry Review',
-    'Start your Qatar and GCC market entry review. Share your market, sector, budget, documents, and timeline before a structured discovery call.',
+    seo?.title || 'Market Entry Review',
+    seo?.description ||
+      'Start your Qatar and GCC market entry review. Share your market, sector, budget, documents, and timeline before a structured discovery call.',
   )
 
   const [status, setStatus] = useState('idle')
 
-  if (!_loaded) {
+  if (!siteConfigLoaded || !contentLoaded) {
     return <Loader />
   }
 
@@ -104,31 +112,33 @@ function Intake() {
   return (
     <>
       {/* ---------- page banner ---------- */}
-      <section className="int-banner">
-        <img src={markGold} alt="" className="int-banner-mark" aria-hidden="true" />
+      {banner?.visible !== false && (
+        <section className="int-banner">
+          <img src={markGold} alt="" className="int-banner-mark" aria-hidden="true" />
 
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-9">
-              <nav className="int-breadcrumb" aria-label="breadcrumb">
-                <Link to="/">Home</Link>
-                <FiChevronRight />
-                <span>Market Entry Review</span>
-              </nav>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-9">
+                <nav className="int-breadcrumb" aria-label="breadcrumb">
+                  <Link to="/">Home</Link>
+                  <FiChevronRight />
+                  <span>Market Entry Review</span>
+                </nav>
 
-              <h1 className="int-banner-title">
-                Before you open in Qatar or the GCC, know what the market,
-                regulators, banks, and partners will actually require.
-              </h1>
+                <h1 className="int-banner-title">
+                  {banner?.title ||
+                    'Before you open in Qatar or the GCC, know what the market, regulators, banks, and partners will actually require.'}
+                </h1>
 
-              <p className="int-banner-text">
-                Complete this short intake so Integra can prepare for a focused,
-                structured discovery call.
-              </p>
+                <p className="int-banner-text">
+                  {banner?.text ||
+                    'Complete this short intake so Integra can prepare for a focused, structured discovery call.'}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ---------- why we ask + form ---------- */}
       <section className="int-section">
@@ -136,14 +146,14 @@ function Intake() {
           <div className="row">
             <div className="col-lg-4 mb-3 mb-lg-0">
               <div className="int-side">
-                <span className="int-eyebrow">Why We Ask</span>
+                <span className="int-eyebrow">{whyWeAsk?.eyebrow || 'Why We Ask'}</span>
                 <h2 className="int-side-title">
-                  Every question has a purpose.
+                  {whyWeAsk?.heading || 'Every question has a purpose.'}
                 </h2>
 
                 <ul className="int-reasons">
-                  {reasons.map(({ field, reason }, index) => (
-                    <li key={field}>
+                  {reasonsList.map(({ field, reason }, index) => (
+                    <li key={field + index}>
                       <span className="int-reason-number">
                         {String(index + 1).padStart(2, '0')}
                       </span>

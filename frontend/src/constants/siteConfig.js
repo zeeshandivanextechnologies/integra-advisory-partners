@@ -63,43 +63,43 @@ const siteConfig = {
   googleForms: {
     contact: {
       action:
-        'https://docs.google.com/forms/d/e/1FAIpQLSer1rCPs516hO7ICSuT4eUQFFP2v0FuhxYTOAmSR61FeIMimQ/formResponse',
+        'https://docs.google.com/forms/d/e/1FAIpQLScEAXEskPjjuOTuMv4wES0XeL3_2Ad2Z3jGkjhrtQFrMXMCtw/formResponse',
       fields: {
-        inquiryType: 'entry.1571110673',
-        name: 'entry.526797033',
-        email: 'entry.1047342294',
-        company: 'entry.819956255',
-        role: 'entry.1636811960',
-        message: 'entry.808375202',
+        inquiryType: 'entry.2097364244',
+        name: 'entry.1826819302',
+        email: 'entry.626398558',
+        company: 'entry.178197135',
+        role: 'entry.1042828859',
+        message: 'entry.394026855',
       },
     },
     intake: {
       action:
-        'https://docs.google.com/forms/d/e/1FAIpQLSd-24fLNmp1YGwQ3WS5r8g8Ca6dfolWwV-2f_wpGfajik1PTQ/formResponse',
+        'https://docs.google.com/forms/d/e/1FAIpQLSczaq-qUYDCLZvzagPbu6snqaVsnJpfPVFjyOXI4fa1ohu_Dg/formResponse',
       fields: {
-        name: 'entry.2104664601',
-        email: 'entry.1158545637',
-        company: 'entry.77940272',
-        role: 'entry.2089416962',
-        origin: 'entry.554513365',
-        sector: 'entry.876195094',
-        markets: 'entry.7075385',
-        budget: 'entry.1282595326',
-        documents: 'entry.1610922256',
-        timeline: 'entry.84894969',
-        concern: 'entry.925730649',
+        name: 'entry.1909760470',
+        email: 'entry.84385025',
+        company: 'entry.1359866818',
+        role: 'entry.134477832',
+        origin: 'entry.1856030378',
+        sector: 'entry.497311146',
+        markets: 'entry.2003224434',
+        budget: 'entry.1141064733',
+        documents: 'entry.1970009756',
+        timeline: 'entry.2147344925',
+        concern: 'entry.609493868',
       },
     },
     events: {
       viewUrl:
-        'https://docs.google.com/forms/d/e/1FAIpQLSfUt3iDpUlL40SIlc9tsQ7LYE5jO62Kxy3vORg-ep5n_o4rNA/viewform', // Register Interest form link
+        'https://docs.google.com/forms/d/e/1FAIpQLSe763QuUCLdnNCxQeG8c3LH4LsrTxmcNtJ0BsebYRlN7a0iEg/viewform', // Register Interest form link
     },
   },
 
   /* ---------- secure document upload (Google Form, Jotform, Tally...) ---------- */
   documentUpload: {
     // Google Form with a file upload question (visitors sign in with Google to upload)
-    url: 'https://docs.google.com/forms/d/e/1FAIpQLSf40I-PH1H8QWcD7lsVqy5p5Dx44D2bFdm-PGMJ7Gq5H-3K9Q/viewform',
+    url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmFpTRErXS7DdKdxW1my8ysrBaqRxxPQWu8phFuO_WE_TMgA/viewform',
   },
 
   /* ---------- mailing list (Mailchimp / Brevo embed form action URL) ---------- */

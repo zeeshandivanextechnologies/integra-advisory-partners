@@ -13,10 +13,28 @@ function ListEditor({
   min = 0,
   max = Infinity,
 }) {
-  const setItem = (id, changes) =>
-    onChange(items.map((item) => (item.id === id ? { ...item, ...changes } : item)))
+  const setItem = (id, changes, index) =>
+    onChange(
+      items.map((item, idx) => {
+        if (item.id !== undefined && id !== undefined && item.id === id) {
+          return { ...item, ...changes }
+        }
+        if (index !== undefined && idx === index) {
+          return { ...item, ...changes }
+        }
+        return item
+      })
+    )
 
-  const removeItem = (id) => onChange(items.filter((item) => item.id !== id))
+  const removeItem = (id, index) =>
+    onChange(
+      items.filter((item, idx) => {
+        if (item.id !== undefined && id !== undefined) {
+          return item.id !== id
+        }
+        return idx !== index
+      })
+    )
 
   const moveItem = (index, step) => {
     const next = [...items]
@@ -29,8 +47,9 @@ function ListEditor({
     <div className="pe-list">
       {items.map((item, index) => {
         const number = String(index + 1).padStart(2, '0')
+        const itemKey = item.id || `item-${index}`
         return (
-          <div className="pe-item" key={item.id}>
+          <div className="pe-item" key={itemKey}>
             <div className="pe-item-head">
               <span className="pe-item-number">{number}</span>
               <span className="pe-item-title">{itemTitle(item) || 'Untitled'}</span>
@@ -58,7 +77,7 @@ function ListEditor({
                   className="pe-icon-btn danger"
                   aria-label={`Remove item ${number}`}
                   disabled={items.length <= min}
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => removeItem(item.id, index)}
                 >
                   <FiTrash2 />
                 </button>
@@ -66,7 +85,7 @@ function ListEditor({
             </div>
 
             <div className="pe-item-body">
-              {renderItem(item, (changes) => setItem(item.id, changes))}
+              {renderItem(item, (changes) => setItem(item.id, changes, index))}
             </div>
           </div>
         )

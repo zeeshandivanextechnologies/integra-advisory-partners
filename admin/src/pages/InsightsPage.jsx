@@ -65,12 +65,17 @@ function InsightsPage() {
   const { content, update, bind, sectionProps } = editor
   const { publish, topics, seo } = content
 
-  const categoryOptions = publish.categories.map((category) => ({
+  // Ensure every topic card has a stable unique ID so it can be updated individually without collision
+  const topicItems = (topics.items || []).map((item, index) =>
+    item.id ? item : { ...item, id: `topic-${index + 1}` }
+  )
+
+  const categoryOptions = (publish.categories || []).map((category) => ({
     value: category.key,
     label: category.title || 'Untitled category',
   }))
-  const categoryKeys = new Set(publish.categories.map((category) => category.key))
-  const orphanTopics = topics.items.filter((topic) => !categoryKeys.has(topic.category))
+  const categoryKeys = new Set((publish.categories || []).map((category) => category.key))
+  const orphanTopics = topicItems.filter((topic) => !categoryKeys.has(topic.category))
 
   return (
     <PageEditorLayout
@@ -209,7 +214,7 @@ function InsightsPage() {
 
         <h4 className="pe-subhead">
           Topic cards
-          <span className="pe-subhead-count">{topics.items.length}</span>
+          <span className="pe-subhead-count">{topicItems.length}</span>
         </h4>
 
         {orphanTopics.length > 0 && (
@@ -226,7 +231,7 @@ function InsightsPage() {
         )}
 
         <ListEditor
-          items={topics.items}
+          items={topicItems}
           onChange={(items) => update('topics', { items })}
           itemTitle={(item) => item.title}
           addLabel="Add topic"

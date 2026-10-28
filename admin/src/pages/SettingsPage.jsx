@@ -55,12 +55,6 @@ const sections = [
     description: 'The secure upload link on the intake form.',
   },
   {
-    key: 'mailingList',
-    title: 'Monthly brief sign-up',
-    icon: FiMail,
-    description: 'The mailing list behind the Subscribe form on the Insights page.',
-  },
-  {
     key: 'googleForms',
     title: 'Google Forms',
     icon: FiFileText,
@@ -296,29 +290,6 @@ function SettingsPage() {
           {...bind('documentUpload', 'url')}
           onChange={(url) => update('documentUpload', { url: url.trim() })}
         />
-      </EditorSection>
-
-      {/* mailing list */}
-      <EditorSection {...sectionProps('mailingList')}>
-        <div className="row">
-          <div className="col-md-8">
-            <TextField
-              label="Form action link"
-              placeholder="https://....sibforms.com/serve/..."
-              hint="From the Brevo (or Mailchimp) sign-up form. Leave empty and the button opens the Contact page."
-              {...bind('mailingList', 'action')}
-              onChange={(action) => update('mailingList', { action: action.trim() })}
-            />
-          </div>
-          <div className="col-md-4">
-            <TextField
-              label="Email field name"
-              placeholder="EMAIL"
-              hint="Brevo uses EMAIL."
-              {...bind('mailingList', 'emailField')}
-            />
-          </div>
-        </div>
       </EditorSection>
 
       {/* google forms */}
