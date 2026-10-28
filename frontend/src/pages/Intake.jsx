@@ -29,11 +29,11 @@ const defaultReasons = [
 ]
 
 const origins = [
-  'United States',
-  'Nigeria',
-  'Morocco',
-  'Diaspora',
-  'Other international market',
+  { label: 'United States', value: 'United State' },
+  { label: 'Nigeria', value: 'Nigeria' },
+  { label: 'Morocco', value: 'Morocco' },
+  { label: 'Diaspora', value: 'Diaspora' },
+  { label: 'Other international market', value: 'Other international market' },
 ]
 
 const markets = [
@@ -55,16 +55,16 @@ const documents = [
   'Business plan',
 ]
 
-const timelines = ['Immediate', '30 days', '90 days', '6 months', 'Exploratory']
+const timelines = ['Immediately', '30 days', '90 days', '6 months', 'Exploratory']
 
 const concerns = [
-  'Banking',
-  'Legal / regulatory',
-  'Market validation',
-  'Partner introductions',
-  'Visas',
-  'Operating costs',
-  'Sales pipeline',
+  { label: 'Banking', value: 'Banking' },
+  { label: 'Legal / regulatory', value: 'Legal/ regulatory' },
+  { label: 'Market validation', value: 'Market validation' },
+  { label: 'Partner introductions', value: 'Partner introductions' },
+  { label: 'Visas', value: 'Visas' },
+  { label: 'Operating costs', value: 'Operating costs' },
+  { label: 'Sales pipeline', value: 'Sales pipeline' },
 ]
 
 function Intake() {
@@ -254,8 +254,8 @@ function Intake() {
                             Select one
                           </option>
                           {origins.map((origin) => (
-                            <option key={origin} value={origin}>
-                              {origin}
+                            <option key={origin.value} value={origin.value}>
+                              {origin.label}
                             </option>
                           ))}
                         </select>
@@ -374,14 +374,14 @@ function Intake() {
                   <span className="int-group-label">Biggest concern</span>
                   <div className="int-chips">
                     {concerns.map((concern) => (
-                      <label className="int-chip" key={concern}>
+                      <label className="int-chip" key={concern.value}>
                         <input
                           type="radio"
                           name="concern"
-                          value={concern}
+                          value={concern.value}
                           required
                         />
-                        {concern}
+                        {concern.label}
                       </label>
                     ))}
                   </div>
