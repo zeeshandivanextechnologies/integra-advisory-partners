@@ -14,7 +14,6 @@ import usePageMeta from '../hooks/usePageMeta.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
 import { isGoogleFormReady, submitToGoogleForm } from '../utils/googleForm.js'
 import Loader from '../components/common/Loader.jsx'
-import { submitContactInquiry } from '../services/inquiries.js'
 import '../styles/Contact.css'
 
 const statusMessages = {
@@ -45,44 +44,21 @@ function Contact() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const formElement = event.currentTarget
-    const formData = new FormData(formElement)
-    const payload = {
-      name: formData.get('name') || '',
-      email: formData.get('email') || '',
-      company: formData.get('company') || '',
-      role: formData.get('role') || '',
-      inquiryType: formData.get('inquiryType') || inquiryType,
-      message: formData.get('message') || '',
+
+    if (!isGoogleFormReady(contactForm)) {
+      setStatus('offline')
+      toast.error('This form is not connected yet. Please check back soon.')
+      return
     }
 
     setStatus('sending')
     try {
-      // 1. Save to Database and trigger email notification
-      await submitContactInquiry(payload)
-
-      // 2. Also submit to Google Form if configured (seamless backup)
-      if (isGoogleFormReady(contactForm)) {
-        try {
-          await submitToGoogleForm(contactForm, formElement)
-        } catch (_) {}
-      }
-
+      await submitToGoogleForm(contactForm, formElement)
       formElement.reset()
       setInquiryType('discovery')
       setStatus('sent')
-      toast.success('Thank you! Your request has been sent successfully. Integra will be in touch soon.')
-    } catch (err) {
-      // Fallback: If backend is unreachable but Google Form is ready
-      if (isGoogleFormReady(contactForm)) {
-        try {
-          await submitToGoogleForm(contactForm, formElement)
-          formElement.reset()
-          setInquiryType('discovery')
-          setStatus('sent')
-          toast.success('Thank you! Your request has been sent successfully.')
-          return
-        } catch (_) {}
-      }
+      toast.success('Thank you! Your request has been sent and Integra will be in touch.')
+    } catch {
       setStatus('error')
       toast.error('Something went wrong. Please try again in a moment.')
     }

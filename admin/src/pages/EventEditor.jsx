@@ -4,6 +4,7 @@ import {
   FiAlertCircle,
   FiArrowLeft,
   FiCalendar,
+  FiLink,
   FiMapPin,
   FiSave,
   FiSend,
@@ -46,6 +47,9 @@ const validate = (form) => {
   if (!form.title.trim()) return 'Add a title.'
   if (!form.format) return 'Choose a format.'
   if (!form.date) return 'Choose a date.'
+  if (form.registerUrl && !/^https?:\/\//.test(form.registerUrl)) {
+    return 'The registration link must start with http:// or https://'
+  }
   return ''
 }
 
@@ -281,6 +285,24 @@ function EventEditor() {
               options={statusOptions}
               value={form.status}
               onChange={(status) => setField({ status })}
+            />
+          </EditorSection>
+
+          {/* registration */}
+          <EditorSection
+            id="event-register"
+            number={4}
+            icon={FiLink}
+            title="Registration link (optional)"
+            description="Where the Register button sends people."
+          >
+            <TextField
+              id="event-register-url"
+              label="Link"
+              placeholder="https://"
+              hint="Leave empty to use the Register Interest form from the website settings."
+              value={form.registerUrl}
+              onChange={(registerUrl) => setField({ registerUrl: registerUrl.trim() })}
             />
           </EditorSection>
         </div>

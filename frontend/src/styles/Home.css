@@ -1160,6 +1160,10 @@
     white-space: normal;
   }
 
+  .section-head .home-btn {
+    width: 100%;
+  }
+
   .why-feature-split {
     grid-template-columns: 1fr;
   }

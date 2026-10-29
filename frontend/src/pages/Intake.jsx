@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowUpRight, FiChevronRight, FiInfo, FiSend, FiUpload, FiX, FiCheck } from 'react-icons/fi'
+import { FiArrowUpRight, FiChevronRight, FiInfo, FiSend, FiUpload, FiX, FiCheck, FiFileText } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 import markGold from '../assets/logos/mark-gold.svg'
 import usePageMeta from '../hooks/usePageMeta.js'
@@ -87,10 +87,33 @@ function Intake() {
   )
 
   const [status, setStatus] = useState('idle')
-  const [uploadedFile, setUploadedFile] = useState(null)
+  const [uploadedFiles, setUploadedFiles] = useState([])
 
   if (!siteConfigLoaded || !contentLoaded) {
     return <Loader />
+  }
+
+  const handleFileSelect = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selected = Array.from(e.target.files)
+      // Allow user to select multiple files without replacing already added files
+      setUploadedFiles((prev) => {
+        const combined = [...prev]
+        for (const file of selected) {
+          // Avoid duplicate by name & size
+          if (!combined.some((f) => f.name === file.name && f.size === file.size)) {
+            combined.push(file)
+          }
+        }
+        return combined.slice(0, 10) // Max 10 files
+      })
+      // Reset input value so same file can be re-selected if removed
+      e.target.value = ''
+    }
+  }
+
+  const handleRemoveFile = (indexToRemove) => {
+    setUploadedFiles((prev) => prev.filter((_, idx) => idx !== indexToRemove))
   }
 
   const handleSubmit = async (event) => {
@@ -111,9 +134,12 @@ function Intake() {
     formData.set('markets', checkedMarkets)
     formData.set('documents', checkedDocs)
 
-    if (uploadedFile) {
-      formData.set('document', uploadedFile)
-    }
+    // Remove any previous file entries and append each uploaded file
+    formData.delete('documents')
+    formData.delete('document')
+    uploadedFiles.forEach((file) => {
+      formData.append('documents', file)
+    })
 
     setStatus('sending')
     try {
@@ -128,7 +154,7 @@ function Intake() {
       }
 
       formElement.reset()
-      setUploadedFile(null)
+      setUploadedFiles([])
       setStatus('sent')
       toast.success('Thank you! Your market entry intake has been submitted successfully.')
     } catch (err) {
@@ -137,7 +163,7 @@ function Intake() {
         try {
           await submitToGoogleForm(intakeForm, formElement)
           formElement.reset()
-          setUploadedFile(null)
+          setUploadedFiles([])
           setStatus('sent')
           toast.success('Thank you! Your market entry intake has been submitted successfully.')
           return
@@ -376,29 +402,45 @@ function Intake() {
                   </div>
 
                   <div className="mt-3 mb-2">
-                    <label htmlFor="int-file-upload" className="int-upload" style={{ cursor: 'pointer', display: 'inline-flex' }}>
+                    <label
+                      htmlFor="int-file-upload"
+                      className="int-upload"
+                      style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                    >
                       <FiUpload />
-                      <span>{uploadedFile ? uploadedFile.name : 'Attach documents securely (PDF, Word, Deck max 25MB)'}</span>
+                      <span>Attach documents / images (PDF, Word, Deck, Images max 25MB each)</span>
                     </label>
                     <input
                       id="int-file-upload"
                       type="file"
+                      multiple
                       style={{ display: 'none' }}
-                      accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip"
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                          setUploadedFile(e.target.files[0])
-                        }
-                      }}
+                      accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.jpeg,.png,.webp,.gif,image/*"
+                      onChange={handleFileSelect}
                     />
-                    {uploadedFile && (
-                      <button
-                        type="button"
-                        className="btn btn-sm text-danger ms-2"
-                        onClick={() => setUploadedFile(null)}
-                      >
-                        Remove file
-                      </button>
+
+                    {uploadedFiles.length > 0 && (
+                      <div className="int-uploaded-files-list mt-2 d-flex flex-wrap gap-2">
+                        {uploadedFiles.map((file, idx) => (
+                          <span
+                            key={`${file.name}-${idx}`}
+                            className="int-uploaded-file-chip"
+                          >
+                            <FiFileText className="int-file-chip-icon" />
+                            <span className="int-file-chip-name text-truncate" title={file.name}>
+                              {file.name}
+                            </span>
+                            <button
+                              type="button"
+                              className="int-file-chip-remove"
+                              aria-label={`Remove ${file.name}`}
+                              onClick={() => handleRemoveFile(idx)}
+                            >
+                              <FiX />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
                     )}
                   </div>
 

@@ -1,5 +1,14 @@
-const { Pool } = require('pg');
+const { Pool, types } = require('pg');
 require('dotenv').config();
+
+// Parse PostgreSQL TIMESTAMP (without time zone, OID 1114) as UTC ISO string so that
+// clients receive the true UTC timestamp rather than being shifted by local server timezone offset.
+types.setTypeParser(1114, (str) => {
+  if (!str) return null;
+  // Format: 'YYYY-MM-DD HH:mm:ss.ssssss' -> 'YYYY-MM-DDTHH:mm:ss.ssssssZ'
+  const isoStr = str.includes('T') ? (str.endsWith('Z') ? str : `${str}Z`) : `${str.replace(' ', 'T')}Z`;
+  return isoStr;
+});
 
 // DATABASE_URL (e.g. Supabase) is used when set, with SSL; otherwise the
 // separate DB_* settings for a local PostgreSQL, exactly as before.

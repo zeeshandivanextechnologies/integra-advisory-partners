@@ -33,7 +33,7 @@ const formatDate = (value) => {
     const date = new Date(raw)
     if (isNaN(date.getTime())) return value
 
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleString('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
@@ -50,27 +50,29 @@ function InquiriesPage() {
   const [inquiries, setInquiries] = useState([])
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState('')
-  const [activeTab, setActiveTab] = useState('all') // 'all', 'contact', 'intake', 'event'
   const [search, setSearch] = useState('')
   const [selectedInquiry, setSelectedInquiry] = useState(null)
   const [deletingId, setDeletingId] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const PAGE_SIZE = 10
 
-  // Reset to first page when changing tab or search query
+  // Reset to first page when changing search query
   useEffect(() => {
     setCurrentPage(1)
-  }, [activeTab, search])
+  }, [search])
 
   const loadData = () => {
     setLoading(true)
     getInquiries()
       .then((res) => {
-        setInquiries(res.inquiries || [])
+        // Only keep intake submissions
+        const all = res.inquiries || []
+        const intakeOnly = all.filter((item) => item.type === 'intake')
+        setInquiries(intakeOnly)
         setLoadError('')
       })
       .catch((err) => {
-        setLoadError(err.message || 'Could not load inquiries.')
+        setLoadError(err.message || 'Could not load intake submissions.')
       })
       .finally(() => setLoading(false))
   }
@@ -174,16 +176,13 @@ function InquiriesPage() {
   const query = search.trim().toLowerCase()
   const filtered = inquiries
     .filter((item) => {
-      if (activeTab === 'all') return true
-      return item.type === activeTab
-    })
-    .filter((item) => {
       if (!query) return true
       return (
         item.name?.toLowerCase().includes(query) ||
         item.email?.toLowerCase().includes(query) ||
         item.company?.toLowerCase().includes(query) ||
-        item.sector?.toLowerCase().includes(query)
+        item.sector?.toLowerCase().includes(query) ||
+        item.origin?.toLowerCase().includes(query)
       )
     })
 
@@ -203,9 +202,9 @@ function InquiriesPage() {
             <span className="pe-banner-crumb">
               Content <FiChevronRight /> Inquiries & Leads <FiChevronRight /> Submissions
             </span>
-            <h2 className="pe-banner-title">Inquiries & Leads</h2>
+            <h2 className="pe-banner-title">Market Entry Inquiries</h2>
             <p className="pe-banner-text">
-              All website inquiries received from the Contact Us form and the Market Entry Review (Intake form).
+              All website market intake review submissions received from the Market Entry Review form.
             </p>
           </div>
 
@@ -230,74 +229,25 @@ function InquiriesPage() {
           </p>
         )}
 
-        {/* ---------- search + count + tabs toolbar (exact SubscribersPage design) ---------- */}
+        {/* ---------- search + count toolbar (exact SubscribersPage design) ---------- */}
         <div className="row g-2 align-items-center arl-toolbar">
-          <div className="col-md-5 col-lg-4">
+          <div className="col-md-6 col-lg-5">
             <div className="arl-search">
               <FiSearch />
               <input
                 type="search"
                 className="form-control"
-                placeholder="Search by name, email, company..."
+                placeholder="Search by name, email, company, sector..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </div>
 
-          <div className="col-md-7 col-lg-8 d-flex flex-wrap align-items-center justify-content-md-end gap-3">
-            <div className="arl-tabs" role="tablist">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeTab === 'all'}
-                className={`arl-tab-btn ${activeTab === 'all' ? 'active' : ''}`}
-                onClick={() => setActiveTab('all')}
-              >
-                All
-                <span className="arl-tab-badge">{inquiries.length}</span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeTab === 'contact'}
-                className={`arl-tab-btn ${activeTab === 'contact' ? 'active' : ''}`}
-                onClick={() => setActiveTab('contact')}
-              >
-                Contact
-                <span className="arl-tab-badge">
-                  {inquiries.filter((i) => i.type === 'contact').length}
-                </span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeTab === 'intake'}
-                className={`arl-tab-btn ${activeTab === 'intake' ? 'active' : ''}`}
-                onClick={() => setActiveTab('intake')}
-              >
-                Intake
-                <span className="arl-tab-badge">
-                  {inquiries.filter((i) => i.type === 'intake').length}
-                </span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeTab === 'event'}
-                className={`arl-tab-btn ${activeTab === 'event' ? 'active' : ''}`}
-                onClick={() => setActiveTab('event')}
-              >
-                Events
-                <span className="arl-tab-badge">
-                  {inquiries.filter((i) => i.type === 'event').length}
-                </span>
-              </button>
-            </div>
-
+          <div className="col-md-6 col-lg-7 d-flex align-items-center justify-content-md-end">
             <p className="arl-count mb-0">
               Showing <strong>{filtered.length}</strong> of{' '}
-              <strong>{inquiries.length}</strong> {inquiries.length === 1 ? 'submission' : 'submissions'}
+              <strong>{inquiries.length}</strong> {inquiries.length === 1 ? 'review submission' : 'review submissions'}
             </p>
           </div>
         </div>
@@ -318,12 +268,12 @@ function InquiriesPage() {
               <thead>
                 <tr>
                   <th scope="col" style={{ width: '50px' }}>#</th>
-                  <th scope="col" style={{ width: '90px' }}>Type</th>
-                  <th scope="col">Name & Contact</th>
+                  <th scope="col">Applicant</th>
                   <th scope="col">Company / Base</th>
-                  <th scope="col">Details / Sector</th>
+                  <th scope="col">Sector & Budget</th>
+                  <th scope="col">Target Markets</th>
                   <th scope="col" style={{ width: '130px' }}>Status</th>
-                  <th scope="col">Received Date</th>
+                  <th scope="col">Submitted Date</th>
                   <th scope="col" className="text-end" style={{ width: '110px' }}>Action</th>
                 </tr>
               </thead>
@@ -331,19 +281,6 @@ function InquiriesPage() {
                 {paginatedData.map((item, index) => (
                   <tr key={item.id}>
                     <td className="text-muted">{startIndex + index + 1}</td>
-                    <td>
-                      <span
-                        className={`badge ${
-                          item.type === 'intake'
-                            ? 'bg-warning text-dark'
-                            : item.type === 'event'
-                            ? 'bg-success'
-                            : 'bg-primary'
-                        }`}
-                      >
-                        {item.type === 'intake' ? 'Intake' : item.type === 'event' ? 'Event' : 'Contact'}
-                      </span>
-                    </td>
                     <td>
                       <div className="d-flex align-items-center gap-2">
                         <FiUser className="text-muted" />
@@ -354,26 +291,17 @@ function InquiriesPage() {
                       </div>
                     </td>
                     <td>
-                      <div>{item.company || '-'}</div>
-                      <small className="text-muted">{item.role || item.origin || ''}</small>
+                      <div className="fw-500">{item.company || '-'}</div>
+                      <small className="text-muted">{item.role ? `${item.role} · ` : ''}{item.origin || ''}</small>
                     </td>
                     <td>
-                      {item.type === 'intake' ? (
-                        <div>
-                          <span className="fw-500">{item.sector || 'Intake Review'}</span>
-                          {item.budget && <small className="text-muted d-block">{item.budget}</small>}
-                        </div>
-                      ) : item.type === 'event' ? (
-                        <div className="text-truncate" style={{ maxWidth: '220px' }}>
-                          <span className="fw-500">{item.inquiry_type || 'Event Registration'}</span>
-                          {item.sector && <small className="text-muted d-block text-truncate">Interests: {item.sector}</small>}
-                        </div>
-                      ) : (
-                        <div className="text-truncate" style={{ maxWidth: '200px' }}>
-                          <span>{item.inquiry_type || 'General'}</span>
-                          {item.message && <small className="text-muted d-block text-truncate">{item.message}</small>}
-                        </div>
-                      )}
+                      <div>
+                        <span className="fw-500">{item.sector || 'Intake Review'}</span>
+                        {item.budget && <small className="text-success d-block fw-500">{item.budget}</small>}
+                      </div>
+                    </td>
+                    <td>
+                      <span className="text-muted small">{item.markets || 'Not specified'}</span>
                     </td>
                     <td style={{minWidth : '120px'}}>
                       <select
@@ -492,22 +420,8 @@ function InquiriesPage() {
             <div className="modal-content">
               <div className="inq-modal-header">
                 <h5 className="inq-modal-title">
-                  {selectedInquiry.type === 'intake' ? (
-                    <>
-                      <FiFileText style={{ color: 'var(--additional-color)' }} />
-                      Market Entry Intake Details
-                    </>
-                  ) : selectedInquiry.type === 'event' ? (
-                    <>
-                      <FiCalendar style={{ color: 'var(--additional-color)' }} />
-                      Event Registration Interest Details
-                    </>
-                  ) : (
-                    <>
-                      <FiMail style={{ color: 'var(--additional-color)' }} />
-                      Contact Inquiry Details
-                    </>
-                  )}
+                  <FiFileText style={{ color: 'var(--additional-color)' }} />
+                  Market Entry Intake Review Details
                 </h5>
                 <button
                   type="button"
@@ -539,98 +453,81 @@ function InquiriesPage() {
                     <div>{selectedInquiry.role || 'Not provided'}</div>
                   </div>
 
-                  {selectedInquiry.type === 'contact' ? (
-                    <>
-                      <div className="col-12">
-                        <label className="text-muted small">Inquiry Type</label>
-                        <div>{selectedInquiry.inquiry_type || 'General'}</div>
-                      </div>
-                      <div className="col-12">
-                        <label className="text-muted small">Message</label>
-                        <div className="p-3 bg-light rounded" style={{ whiteSpace: 'pre-wrap' }}>
-                          {selectedInquiry.message || 'No message provided'}
-                        </div>
-                      </div>
-                    </>
-                  ) : selectedInquiry.type === 'event' ? (
-                    <>
-                      <div className="col-12">
-                        <label className="text-muted small">Registered Event / Subject</label>
-                        <div className="fw-bold">{selectedInquiry.inquiry_type || 'Event Interest Registration'}</div>
-                      </div>
-                      <div className="col-12">
-                        <label className="text-muted small">Event Formats Interested In</label>
-                        <div>
-                          {selectedInquiry.sector ? (
-                            <span className="badge bg-light text-dark border p-2">
-                              {selectedInquiry.sector}
-                            </span>
-                          ) : (
-                            'General'
-                          )}
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <label className="text-muted small">Comments / Questions</label>
-                        <div className="p-3 bg-light rounded" style={{ whiteSpace: 'pre-wrap' }}>
-                          {selectedInquiry.message || 'No additional comments provided'}
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="col-md-6">
-                        <label className="text-muted small">Country of Origin / Base</label>
-                        <div>{selectedInquiry.origin || 'Not provided'}</div>
-                      </div>
-                      <div className="col-md-6">
-                        <label className="text-muted small">Sector</label>
-                        <div>{selectedInquiry.sector || 'Not provided'}</div>
-                      </div>
-                      <div className="col-md-6">
-                        <label className="text-muted small">Target Markets</label>
-                        <div>{selectedInquiry.markets || 'Not specified'}</div>
-                      </div>
-                      <div className="col-md-6">
-                        <label className="text-muted small">Capital Available / Budget</label>
-                        <div className="fw-bold text-success">{selectedInquiry.budget || 'Not provided'}</div>
-                      </div>
-                      <div className="col-md-6">
-                        <label className="text-muted small">Timeline</label>
-                        <div>{selectedInquiry.timeline || 'Not specified'}</div>
-                      </div>
-                      <div className="col-12">
-                        <label className="text-muted small">Current Documents Ready</label>
-                        <div>{selectedInquiry.documents || 'None checked'}</div>
-                      </div>
+                  <div className="col-md-6">
+                    <label className="text-muted small">Country of Origin / Base</label>
+                    <div>{selectedInquiry.origin || 'Not provided'}</div>
+                  </div>
+                  <div className="col-md-6">
+                    <label className="text-muted small">Sector</label>
+                    <div>{selectedInquiry.sector || 'Not provided'}</div>
+                  </div>
+                  <div className="col-md-6">
+                    <label className="text-muted small">Target Markets</label>
+                    <div>{selectedInquiry.markets || 'Not specified'}</div>
+                  </div>
+                  <div className="col-md-6">
+                    <label className="text-muted small">Capital Available / Budget</label>
+                    <div className="fw-bold text-success">{selectedInquiry.budget || 'Not provided'}</div>
+                  </div>
+                  <div className="col-md-6">
+                    <label className="text-muted small">Timeline</label>
+                    <div>{selectedInquiry.timeline || 'Not specified'}</div>
+                  </div>
+                  <div className="col-12">
+                    <label className="text-muted small">Current Documents Ready</label>
+                    <div>{selectedInquiry.documents || 'None checked'}</div>
+                  </div>
 
-                      {/* Download attached document if present */}
-                      {selectedInquiry.documents && selectedInquiry.documents.startsWith('/uploads/') && (
-                        <div className="col-12">
-                          <label className="text-muted small">Attached Document</label>
-                          <div>
-                            <a
-                              href={`${BACKEND_URL}${selectedInquiry.documents}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="pe-btn gold-solid"
-                              style={{ display: 'inline-flex', padding: '6px 14px', fontSize: '13px' }}
-                            >
-                              <FiDownload /> Download Attached File
-                            </a>
-                          </div>
+                  {/* Download attached document(s) if present */}
+                  {selectedInquiry.documents &&
+                    selectedInquiry.documents.split(',').some((p) => p.trim().startsWith('/uploads/')) && (
+                      <div className="col-12">
+                        <label className="text-muted small">Attached File(s) - Click to Download</label>
+                        <div className="d-flex flex-wrap gap-2 mt-1">
+                          {selectedInquiry.documents
+                            .split(',')
+                            .map((p) => p.trim())
+                            .filter((p) => p.startsWith('/uploads/'))
+                            .map((filePath, fileIdx) => {
+                              const filename = filePath.replace('/uploads/', '')
+                              const downloadUrl = `${API_BASE_URL}/inquiries/download/${encodeURIComponent(filename)}`
+                              const directUrl = `${BACKEND_URL}${filePath}`
+                              return (
+                                <a
+                                  key={filePath + fileIdx}
+                                  href={downloadUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  download={filename}
+                                  className="pe-btn gold-solid"
+                                  style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    padding: '7px 14px',
+                                    fontSize: '13px',
+                                    borderRadius: '8px',
+                                  }}
+                                  title={`Download ${filename}`}
+                                >
+                                  <FiDownload />
+                                  <span className="text-truncate" style={{ maxWidth: '240px' }}>
+                                    {filename.length > 30 ? filename.slice(0, 27) + '...' : filename}
+                                  </span>
+                                </a>
+                              )
+                            })}
                         </div>
-                      )}
+                      </div>
+                    )}
 
-                      {selectedInquiry.concern && (
-                        <div className="col-12">
-                          <label className="text-muted small">Primary Question / Concern</label>
-                          <div className="p-3 bg-light rounded" style={{ whiteSpace: 'pre-wrap' }}>
-                            {selectedInquiry.concern}
-                          </div>
-                        </div>
-                      )}
-                    </>
+                  {selectedInquiry.concern && (
+                    <div className="col-12">
+                      <label className="text-muted small">Primary Question / Concern</label>
+                      <div className="p-3 bg-light rounded" style={{ whiteSpace: 'pre-wrap' }}>
+                        {selectedInquiry.concern}
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>

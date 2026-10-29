@@ -44,7 +44,7 @@ const submitContact = async (req, res) => {
   }
 };
 
-// Submit Intake Form (handles multipart/form-data for document attachment)
+// Submit Intake Form (handles multipart/form-data for multiple document/image attachments)
 const submitIntake = async (req, res) => {
   try {
     const {
@@ -64,11 +64,24 @@ const submitIntake = async (req, res) => {
       return res.status(400).json({ message: 'Name and email are required.' });
     }
 
-    // If file was uploaded with the intake form
+    // Collect all uploaded files (single or multiple) from multer
+    let uploadedFilesList = [];
+    if (req.files) {
+      if (Array.isArray(req.files.documents)) {
+        uploadedFilesList.push(...req.files.documents);
+      }
+      if (Array.isArray(req.files.document)) {
+        uploadedFilesList.push(...req.files.document);
+      }
+    } else if (req.file) {
+      uploadedFilesList.push(req.file);
+    }
+
     let documentPath = '';
-    if (req.file) {
-      documentPath = `/uploads/${req.file.filename}`;
-    } else if (req.body.documents) {
+    if (uploadedFilesList.length > 0) {
+      // Store paths comma-separated: e.g. "/uploads/file1.pdf, /uploads/file2.jpg"
+      documentPath = uploadedFilesList.map((f) => `/uploads/${f.filename}`).join(', ');
+    } else if (req.body.documents && typeof req.body.documents === 'string') {
       documentPath = req.body.documents;
     }
 

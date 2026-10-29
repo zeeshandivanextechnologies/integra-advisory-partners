@@ -2,6 +2,7 @@ import {
   FiCalendar,
   FiClipboard,
   FiCreditCard,
+  FiFileText,
   FiMail,
   FiMessageCircle,
   FiPhone,
@@ -54,6 +55,12 @@ const sections = [
     description: 'The Stripe link on the Pay Your Deposit page.',
   },
   {
+    key: 'googleForms',
+    title: 'Google Forms',
+    icon: FiFileText,
+    description: 'Where the contact form and events form send their answers.',
+  },
+  {
     key: 'intake',
     title: 'Intake form options',
     icon: FiSliders,
@@ -84,7 +91,54 @@ function SettingsPage() {
     savedMessage: 'Settings saved successfully!',
   })
   const { content, update, bind, sectionProps } = editor
-  const { social, intake } = content
+  const { social, googleForms, intake } = content
+
+  const updateForm = (name, changes) =>
+    update('googleForms', { [name]: { ...googleForms?.[name], ...changes } })
+
+  const updateFormField = (name, field, value) =>
+    updateForm(name, { fields: { ...googleForms?.[name]?.fields, [field]: value.trim() } })
+
+  const updateEventsForm = (viewUrl) => {
+    update('googleForms', {
+      events: {
+        ...googleForms?.events,
+        viewUrl: viewUrl.trim(),
+      },
+    })
+  }
+
+  // Google Form editor for contact page: response link and entry ids
+  const formEditor = (name, title, page) => (
+    <div className="pe-group mb-3">
+      <span className="pe-group-label">
+        {title} <span className="fw-400">· {page}</span>
+      </span>
+      <TextField
+        id={`settings-form-${name}-action`}
+        label="Form response link"
+        placeholder="https://docs.google.com/forms/d/e/.../formResponse"
+        hint="Ends with /formResponse. Leave empty and the form shows a 'not connected yet' message."
+        value={googleForms?.[name]?.action || ''}
+        onChange={(action) => updateForm(name, { action: action.trim() })}
+      />
+      <span className="pe-split-label">Entry ids</span>
+      <div className="row">
+        {googleForms?.[name]?.fields &&
+          Object.entries(googleForms[name].fields).map(([field, entry]) => (
+            <div className="col-md-6" key={field}>
+              <TextField
+                id={`settings-form-${name}-${field}`}
+                label={fieldLabel(field)}
+                placeholder="entry.123456789"
+                value={entry}
+                onChange={(value) => updateFormField(name, field, value)}
+              />
+            </div>
+          ))}
+      </div>
+    </div>
+  )
 
   return (
     <PageEditorLayout
@@ -305,6 +359,27 @@ function SettingsPage() {
           {...bind('deposit', 'url')}
           onChange={(url) => update('deposit', { url: url.trim() })}
         />
+      </EditorSection>
+
+      {/* google forms */}
+      <EditorSection {...sectionProps('googleForms')}>
+        <p className="pe-hint mt-0 mb-3">
+          Configure where the Contact and Events forms send their submissions.
+        </p>
+        {formEditor('contact', 'Request a Call form', 'Contact page')}
+        <div className="pe-group">
+          <span className="pe-group-label">
+            Register Interest form <span className="fw-400">· Events page</span>
+          </span>
+          <TextField
+            id="settings-form-events-view"
+            label="Form link"
+            placeholder="https://docs.google.com/forms/d/e/.../viewform"
+            hint="Opened by every Register Interest button. Leave empty and they open the Contact page."
+            value={googleForms?.events?.viewUrl || ''}
+            onChange={updateEventsForm}
+          />
+        </div>
       </EditorSection>
 
       {/* intake options */}
