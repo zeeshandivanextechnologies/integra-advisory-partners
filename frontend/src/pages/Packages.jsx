@@ -141,14 +141,14 @@ function Packages() {
               })}
             </div>
 
-            <p className="pkg-disclaimer">
+            <div className="pkg-disclaimer">
               <div>
                 <FiInfo className=''/>
               </div>
              <span>
                {packages.disclaimer} <span className='d-lg-block d-sm-inline'>{packages.disclaimerEnd}</span>
              </span>
-            </p>
+            </div>
           </div>
         </section>
       )}
