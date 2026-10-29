@@ -231,7 +231,7 @@ function About() {
             <div className="abt-cta">
               <div className="row align-items-center">
                 <div className="col-lg-2 text-center text-lg-start mb-3 mb-lg-0">
-                  <img src={logoWhite} alt="Integra Advisory Partners" className="abt-cta-logo" />
+                  <img src={logoWhite} alt="Integra Advisory Partners" className="abt-cta-logo" loading="lazy" />
                 </div>
                 <div className="col-lg-6 mb-3 mb-lg-0">
                   <div className='text-center'>

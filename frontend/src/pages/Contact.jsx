@@ -25,7 +25,7 @@ const statusMessages = {
 function Contact() {
   // site-wide links from the admin (Settings)
   const siteConfig = useSiteConfig()
-  const { contact, booking, _loaded } = siteConfig
+  const { contact, booking, contactIntakeCard, _loaded } = siteConfig
   const contactForm = siteConfig.googleForms.contact
 
   usePageMeta(
@@ -100,14 +100,17 @@ function Contact() {
                     <FiClipboard />
                   </span>
                   <h3 className="cnt-intake-title">
-                    Ready for a full market-entry review?
+                    {contactIntakeCard?.title || 'Ready for a full market-entry review?'}
                   </h3>
                   <p className="cnt-intake-text">
-                    Complete the intake form with your sector, target market,
-                    budget, documents, and timeline.
+                    {contactIntakeCard?.text ||
+                      'Complete the intake form with your sector, target market, budget, documents, and timeline.'}
                   </p>
-                  <Link to="/intake" className="cnt-btn gold">
-                    Complete Intake Form
+                  <Link
+                    to={contactIntakeCard?.buttonLink || '/intake'}
+                    className="cnt-btn gold"
+                  >
+                    {contactIntakeCard?.buttonLabel || 'Complete Intake Form'}
                     <FiArrowUpRight />
                   </Link>
                 </div>
@@ -121,10 +124,12 @@ function Contact() {
                     <FiPhoneCall />
                   </span>
                   <div>
-                    <h3 className="cnt-info-title">45-minute discovery call</h3>
+                    <h3 className="cnt-info-title">
+                      {booking.title || '45-minute discovery call'}
+                    </h3>
                     <p className="cnt-info-text">
-                      A structured call to identify whether Integra can help and
-                      what pathway fits.
+                      {booking.text ||
+                        'A structured call to identify whether Integra can help and what pathway fits.'}
                     </p>
                     {booking.url && (
                       <a
@@ -133,7 +138,7 @@ function Contact() {
                         rel="noopener noreferrer"
                         className="cnt-info-link"
                       >
-                        Book a time
+                        {booking.buttonLabel || 'Book a time'}
                         <FiArrowUpRight />
                       </a>
                     )}

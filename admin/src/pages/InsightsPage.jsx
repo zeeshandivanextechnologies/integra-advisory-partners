@@ -66,9 +66,11 @@ function InsightsPage() {
   const { publish, topics, seo } = content
 
   // Ensure every topic card has a stable unique ID so it can be updated individually without collision
-  const topicItems = (topics.items || []).map((item, index) =>
-    item.id ? item : { ...item, id: `topic-${index + 1}` }
-  )
+  const topicItems = (topics.items || []).map((item, index) => ({
+    ...item,
+    id: item.id || `topic-${index + 1}`,
+    status: item.status !== undefined ? item.status : (item.statusMessage !== undefined ? item.statusMessage : 'Coming soon'),
+  }))
 
   const categoryOptions = (publish.categories || []).map((category) => ({
     value: category.key,
@@ -129,7 +131,7 @@ function InsightsPage() {
           createItem={() => {
             const id = newId()
             // a new category gets a fixed key so renaming it never breaks links
-            return { id, key: id, icon: 'FiBookOpen', title: '', text: '' }
+            return { id, key: id, icon: 'FiBookOpen', title: '', statusMessage: '', text: '' }
           }}
           renderItem={(item, setItem) => (
             <div className="row">
@@ -145,13 +147,23 @@ function InsightsPage() {
                   onChange={(icon) => setItem({ icon })}
                 />
               </div>
-              <div className="col-sm-7">
+              <div className="col-sm-4">
                 <TextField
                   id={`cat-${item.id}-title`}
                   label="Title"
-                  hint="Also used for the tab and the tag on articles and topics."
+                  hint="Used for tab & tags."
                   value={item.title}
                   onChange={(title) => setItem({ title })}
+                />
+              </div>
+              <div className="col-sm-3">
+                <TextField
+                  id={`cat-${item.id}-status`}
+                  label="Status message"
+                  hint="e.g. Coming soon"
+                  maxLength={30}
+                  value={item.statusMessage || ''}
+                  onChange={(statusMessage) => setItem({ statusMessage })}
                 />
               </div>
               <div className="col-12">
@@ -196,18 +208,11 @@ function InsightsPage() {
           <div className="col-md-8">
             <TextField label="Heading" maxLength={90} {...bind('topics', 'heading')} />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
             <TextField
               label="First tab text"
               hint="The tab that shows every topic."
               {...bind('topics', 'allLabel')}
-            />
-          </div>
-          <div className="col-md-6">
-            <TextField
-              label="Status text"
-              hint="Shown at the bottom of each topic card."
-              {...bind('topics', 'statusLabel')}
             />
           </div>
         </div>
@@ -240,6 +245,7 @@ function InsightsPage() {
             id: newId(),
             category: publish.categories[0]?.key || '',
             title: '',
+            status: 'Coming soon',
           })}
           renderItem={(item, setItem) => (
             <div className="row">
@@ -256,12 +262,22 @@ function InsightsPage() {
                   onChange={(category) => setItem({ category })}
                 />
               </div>
-              <div className="col-sm-7">
+              <div className="col-sm-4">
                 <TextField
                   id={`top-${item.id}-title`}
                   label="Title"
                   value={item.title}
                   onChange={(title) => setItem({ title })}
+                />
+              </div>
+              <div className="col-sm-3">
+                <TextField
+                  id={`top-${item.id}-status`}
+                  label="Status text"
+                  hint="Leave empty if you don't want a status."
+                  maxLength={30}
+                  value={item.status ?? ''}
+                  onChange={(status) => setItem({ status, statusMessage: status })}
                 />
               </div>
             </div>

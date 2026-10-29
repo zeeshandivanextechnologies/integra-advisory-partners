@@ -40,6 +40,16 @@ const settings = {
 
   booking: {
     url: 'https://calendly.com/zeeshandivanextechnologies/30min',
+    title: '45-minute discovery call',
+    text: 'A structured call to identify whether Integra can help and what pathway fits.',
+    buttonLabel: 'Book a time',
+  },
+
+  contactIntakeCard: {
+    title: 'Ready for a full market-entry review?',
+    text: 'Complete the intake form with your sector, target market, budget, documents, and timeline.',
+    buttonLabel: 'Complete Intake Form',
+    buttonLink: '/intake',
   },
 
   deposit: {

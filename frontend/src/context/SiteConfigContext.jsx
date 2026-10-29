@@ -21,6 +21,7 @@ const mergeSettings = (base, saved) => {
     whatsapp: { ...base.whatsapp, ...saved.whatsapp },
     social: { ...base.social, ...saved.social },
     booking: { ...base.booking, ...saved.booking },
+    contactIntakeCard: { ...base.contactIntakeCard, ...saved.contactIntakeCard },
     googleForms: {
       ...base.googleForms,
       contact: form('contact'),

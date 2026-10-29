@@ -93,8 +93,16 @@ function Insights() {
       ? topics.items
       : topics.items.filter((topic) => topic.category === activeTab)
 
-  const categoryTitle = (key) =>
-    categories.find((category) => category.key === key)?.title
+  const categoryByKey = (key) =>
+    categories.find((category) => category.key === key)
+
+  const categoryTitle = (key) => categoryByKey(key)?.title
+
+  const topicStatus = (topic) => {
+    if (topic.status !== undefined) return topic.status
+    if (topic.statusMessage !== undefined) return topic.statusMessage
+    return categoryByKey(topic.category)?.statusMessage || topics.statusLabel || 'Coming soon'
+  }
 
   if (!_loaded) {
     return <Loader />
@@ -246,10 +254,12 @@ function Insights() {
                       {categoryTitle(topic.category)}
                     </span>
                     <h3 className="ins-topic-title">{topic.title}</h3>
-                    <span className="ins-topic-status">
-                      <FiClock />
-                      {topics.statusLabel}
-                    </span>
+                    {topicStatus(topic) && (
+                      <span className="ins-topic-status">
+                        <FiClock />
+                        {topicStatus(topic)}
+                      </span>
+                    )}
                   </div>
                 </div>
               ))}

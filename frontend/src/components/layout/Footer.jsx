@@ -62,7 +62,7 @@ function Footer() {
         <div className="row footer-top">
           <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
             <Link to="/" className="footer-logo">
-              <img src={logo} alt="Integra Advisory Partners" />
+              <img src={logo} alt="Integra Advisory Partners" loading="lazy" />
             </Link>
             <p className="footer-tagline">
               {contact.tagline || (

@@ -368,7 +368,7 @@ function Home() {
         <section className="home-section pt-0">
           <div className="container">
             <div className="cta-box">
-              <img src={markWhite} alt="" className="cta-mark" aria-hidden="true" />
+              <img src={markWhite} alt="" className="cta-mark" aria-hidden="true" loading="lazy" />
 
               <div className="row align-items-center">
                 <div className="col-lg-8 mb-3 mb-lg-0">

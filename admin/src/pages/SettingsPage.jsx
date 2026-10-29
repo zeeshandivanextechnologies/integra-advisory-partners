@@ -1,5 +1,6 @@
 import {
   FiCalendar,
+  FiClipboard,
   FiCreditCard,
   FiFileText,
   FiMail,
@@ -41,6 +42,12 @@ const sections = [
     title: 'Discovery call booking',
     icon: FiCalendar,
     description: 'Calendly or similar, used by every "Book a Discovery Call" button.',
+  },
+  {
+    key: 'contactIntakeCard',
+    title: 'Contact page intake card',
+    icon: FiClipboard,
+    description: 'The sidebar card on the Contact page inviting visitors to complete the intake form.',
   },
   {
     key: 'deposit',
@@ -261,13 +268,83 @@ function SettingsPage() {
 
       {/* booking */}
       <EditorSection {...sectionProps('booking')}>
-        <TextField
-          label="Booking link"
-          placeholder="https://calendly.com/..."
-          hint="Leave empty and the buttons say 'Request a Call' and open the Contact page instead."
-          {...bind('booking', 'url')}
-          onChange={(url) => update('booking', { url: url.trim() })}
-        />
+        <div className="row">
+          <div className="col-12">
+            <TextField
+              label="Booking link"
+              placeholder="https://calendly.com/..."
+              hint="Leave empty and the buttons say 'Request a Call' and open the Contact page instead."
+              {...bind('booking', 'url')}
+              onChange={(url) => update('booking', { url: url.trim() })}
+            />
+          </div>
+          <div className="col-md-7">
+            <TextField
+              label="Contact page call card title"
+              placeholder="45-minute discovery call"
+              hint="Heading on the discovery call card (Contact page)."
+              {...bind('booking', 'title')}
+            />
+          </div>
+          <div className="col-md-5">
+            <TextField
+              label="Button label"
+              placeholder="Book a time"
+              hint="Button text on the call card."
+              {...bind('booking', 'buttonLabel')}
+            />
+          </div>
+          <div className="col-12">
+            <TextField
+              label="Call card description"
+              placeholder="A structured call to identify whether Integra can help and what pathway fits."
+              hint="Subtext shown on the discovery call card (Contact page)."
+              multiline
+              rows={2}
+              {...bind('booking', 'text')}
+            />
+          </div>
+        </div>
+      </EditorSection>
+
+      {/* contact page intake sidebar card */}
+      <EditorSection {...sectionProps('contactIntakeCard')}>
+        <div className="row">
+          <div className="col-md-7">
+            <TextField
+              label="Card title"
+              placeholder="Ready for a full market-entry review?"
+              hint="Heading on the sidebar intake card (Contact page)."
+              {...bind('contactIntakeCard', 'title')}
+            />
+          </div>
+          <div className="col-md-5">
+            <TextField
+              label="Button label"
+              placeholder="Complete Intake Form"
+              hint="Button text on the card."
+              {...bind('contactIntakeCard', 'buttonLabel')}
+            />
+          </div>
+          <div className="col-12">
+            <TextField
+              label="Card description"
+              placeholder="Complete the intake form with your sector, target market, budget, documents, and timeline."
+              hint="Subtext shown on the card."
+              multiline
+              rows={2}
+              {...bind('contactIntakeCard', 'text')}
+            />
+          </div>
+          <div className="col-12">
+            <TextField
+              label="Button link"
+              placeholder="/intake"
+              hint="Where the button points (e.g. /intake)."
+              {...bind('contactIntakeCard', 'buttonLink')}
+            />
+          </div>
+        </div>
       </EditorSection>
 
       {/* deposit */}

@@ -36,7 +36,7 @@ function PillarLabel({ pillar }) {
   if (!pillar) return null
   return (
     <span className="srv-pillar">
-      <img src={pillarIcon(pillar.image)} alt="" aria-hidden="true" />
+      <img src={pillarIcon(pillar.image)} alt="" aria-hidden="true" loading="lazy" />
       {pillar.title}
     </span>
   )
@@ -159,6 +159,7 @@ function Services() {
                         alt=""
                         className="srv-pillar-icon"
                         aria-hidden="true"
+                        loading="lazy"
                       />
                     )}
                     <h3 className="srv-pillar-title">{title}</h3>
