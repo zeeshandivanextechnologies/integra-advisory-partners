@@ -1,12 +1,14 @@
 import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowUpRight, FiChevronRight, FiInfo, FiSend, FiUpload, FiX, FiCheck } from 'react-icons/fi'
+import { toast } from 'react-toastify'
 import markGold from '../assets/logos/mark-gold.svg'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import useSiteConfig from '../hooks/useSiteConfig.js'
 import { isGoogleFormReady, submitToGoogleForm } from '../utils/googleForm.js'
 import Loader from '../components/common/Loader.jsx'
+import { submitIntakeForm } from '../services/inquiries.js'
 import intakeContent from '../constants/intakeContent.js'
 import '../styles/Intake.css'
 
@@ -85,6 +87,7 @@ function Intake() {
   )
 
   const [status, setStatus] = useState('idle')
+  const [uploadedFile, setUploadedFile] = useState(null)
 
   if (!siteConfigLoaded || !contentLoaded) {
     return <Loader />
@@ -93,19 +96,55 @@ function Intake() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const formElement = event.currentTarget
+    const formData = new FormData(formElement)
 
-    if (!isGoogleFormReady(intakeForm)) {
-      setStatus('offline')
-      return
+    // Append target market checkbox choices
+    const checkedMarkets = Array.from(
+      formElement.querySelectorAll('input[name="markets"]:checked')
+    ).map((el) => el.value).join(', ')
+
+    // Append documents checkbox choices
+    const checkedDocs = Array.from(
+      formElement.querySelectorAll('input[name="documents"]:checked')
+    ).map((el) => el.value).join(', ')
+
+    formData.set('markets', checkedMarkets)
+    formData.set('documents', checkedDocs)
+
+    if (uploadedFile) {
+      formData.set('document', uploadedFile)
     }
 
     setStatus('sending')
     try {
-      await submitToGoogleForm(intakeForm, formElement)
+      // 1. Submit directly to our Backend Database & File Storage
+      await submitIntakeForm(formData)
+
+      // 2. Also send to Google Form if configured (silent backup)
+      if (isGoogleFormReady(intakeForm)) {
+        try {
+          await submitToGoogleForm(intakeForm, formElement)
+        } catch (_) {}
+      }
+
       formElement.reset()
+      setUploadedFile(null)
       setStatus('sent')
-    } catch {
+      toast.success('Thank you! Your market entry intake has been submitted successfully.')
+    } catch (err) {
+      // Fallback: If backend is down but Google Form is ready
+      if (isGoogleFormReady(intakeForm)) {
+        try {
+          await submitToGoogleForm(intakeForm, formElement)
+          formElement.reset()
+          setUploadedFile(null)
+          setStatus('sent')
+          toast.success('Thank you! Your market entry intake has been submitted successfully.')
+          return
+        } catch (_) {}
+      }
       setStatus('error')
+      toast.error('Something went wrong. Please try again in a moment.')
     }
   }
 
@@ -336,18 +375,32 @@ function Intake() {
                     ))}
                   </div>
 
-                  {documentUpload.url && (
-                    <a
-                      href={documentUpload.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="int-upload"
-                    >
+                  <div className="mt-3 mb-2">
+                    <label htmlFor="int-file-upload" className="int-upload" style={{ cursor: 'pointer', display: 'inline-flex' }}>
                       <FiUpload />
-                      Upload your documents securely
-                      <FiArrowUpRight />
-                    </a>
-                  )}
+                      <span>{uploadedFile ? uploadedFile.name : 'Attach documents securely (PDF, Word, Deck max 25MB)'}</span>
+                    </label>
+                    <input
+                      id="int-file-upload"
+                      type="file"
+                      style={{ display: 'none' }}
+                      accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setUploadedFile(e.target.files[0])
+                        }
+                      }}
+                    />
+                    {uploadedFile && (
+                      <button
+                        type="button"
+                        className="btn btn-sm text-danger ms-2"
+                        onClick={() => setUploadedFile(null)}
+                      >
+                        Remove file
+                      </button>
+                    )}
+                  </div>
 
                   <span className="int-group-label">Timeline</span>
                   <div className="int-chips">
@@ -362,6 +415,7 @@ function Intake() {
                         {timeline}
                       </label>
                     ))}
+                    
                   </div>
                 </fieldset>
 

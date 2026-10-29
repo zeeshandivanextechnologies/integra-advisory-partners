@@ -19,6 +19,7 @@ import PaymentSuccessPage from '../pages/PaymentSuccessPage.jsx'
 import NotificationsPage from '../pages/NotificationsPage.jsx'
 import ArticleEditor from '../pages/ArticleEditor.jsx'
 import SubscribersPage from '../pages/SubscribersPage.jsx'
+import InquiriesPage from '../pages/InquiriesPage.jsx'
 import Login from '../pages/Login.jsx'
 import PrivacyPolicyPage from '../pages/PrivacyPolicyPage.jsx'
 import TermsConditionsPage from '../pages/TermsConditionsPage.jsx'
@@ -57,8 +58,8 @@ const router = createBrowserRouter([
       { path: 'events/new', element: <EventEditor /> },
       { path: 'events/:id', element: <EventEditor /> },
       { path: 'subscribers', element: <SubscribersPage /> },
+      { path: 'inquiries', element: <InquiriesPage /> },
       { path: 'packages', element: <Placeholder title="Packages" /> },
-      { path: 'inquiries', element: <Placeholder title="Inquiries" /> },
       { path: 'payments', element: <Placeholder title="Payments" /> },
       { path: 'settings', element: <SettingsPage /> },
       // the profile lives at the top of Settings

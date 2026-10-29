@@ -16,10 +16,12 @@ const apiRequest = async (endpoint, options = {}) => {
     url = `${url}${sep}_t=${Date.now()}`;
   }
 
+  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
+
   const config = {
     cache: isGet ? 'no-store' : options.cache,
     headers: {
-      'Content-Type': 'application/json',
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       ...(isGet
         ? {
             'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -32,7 +34,9 @@ const apiRequest = async (endpoint, options = {}) => {
     ...options,
   };
 
-  if (config.body && typeof config.body !== 'string') {
+  if (isFormData) {
+    delete config.headers['Content-Type'];
+  } else if (config.body && typeof config.body !== 'string') {
     config.body = JSON.stringify(config.body);
   }
 

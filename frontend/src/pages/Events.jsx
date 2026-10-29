@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   FiArrowUpRight,
@@ -7,16 +8,26 @@ import {
   FiChevronRight,
   FiClock,
   FiMapPin,
+  FiSend,
+  FiX,
 } from 'react-icons/fi'
+import { toast } from 'react-toastify'
 import markGold from '../assets/logos/mark-gold.svg'
 import PageIcon from '../components/common/PageIcon.jsx'
 import Loader from '../components/common/Loader.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
 import usePageContent from '../hooks/usePageContent.js'
 import useEvents from '../hooks/useEvents.js'
-import useSiteConfig from '../hooks/useSiteConfig.js'
 import eventsContent from '../constants/eventsContent.js'
+import { submitEventInterest } from '../services/inquiries.js'
 import '../styles/Events.css'
+
+const EVENT_FORMAT_OPTIONS = [
+  'Webinars',
+  'Integra Nights',
+  'Discovery Visits',
+  'Sector Briefings',
+]
 
 const today = new Date().toISOString().slice(0, 10)
 
@@ -27,26 +38,6 @@ const formatDate = (value) =>
     day: 'numeric',
     year: 'numeric',
   })
-
-function RegisterLink({ href, className, children }) {
-  // the Register Interest form from the admin (Settings)
-  const registerUrl = useSiteConfig().googleForms.events.viewUrl
-  const url = href || registerUrl
-
-  if (url) {
-    return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className={className}>
-        {children}
-      </a>
-    )
-  }
-
-  return (
-    <Link to="/contact" className={className}>
-      {children}
-    </Link>
-  )
-}
 
 function Events() {
   // managed from the admin (Events Page); built-in content until it is saved there
@@ -62,6 +53,68 @@ function Events() {
   const upcomingEvents = events
     .filter((event) => event.date >= today)
     .sort((a, b) => a.date.localeCompare(b.date))
+
+  // Modal State for Registering Interest
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalEventTitle, setModalEventTitle] = useState('')
+  const [selectedFormats, setSelectedFormats] = useState([])
+  const [submitting, setSubmitting] = useState(false)
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (modalOpen) {
+      const originalOverflow = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      return () => {
+        document.body.style.overflow = originalOverflow
+      }
+    }
+  }, [modalOpen])
+
+  const handleOpenRegister = (eventTitle = '') => {
+    setModalEventTitle(eventTitle)
+    // Pre-check if matching format
+    if (eventTitle) {
+      setSelectedFormats([eventTitle])
+    } else {
+      setSelectedFormats(['Webinars', 'Integra Nights'])
+    }
+    setModalOpen(true)
+  }
+
+  const handleFormatToggle = (format) => {
+    setSelectedFormats((prev) =>
+      prev.includes(format) ? prev.filter((item) => item !== format) : [...prev, format]
+    )
+  }
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault()
+    const formElement = e.currentTarget
+    const formData = new FormData(formElement)
+
+    const payload = {
+      name: formData.get('name') || '',
+      email: formData.get('email') || '',
+      company: formData.get('company') || '',
+      role: formData.get('role') || '',
+      events: selectedFormats,
+      eventTitle: modalEventTitle,
+      message: formData.get('message') || '',
+    }
+
+    setSubmitting(true)
+    try {
+      await submitEventInterest(payload)
+      toast.success('Thank you! Your event registration interest has been submitted successfully.')
+      setModalOpen(false)
+      formElement.reset()
+    } catch (err) {
+      toast.error('Something went wrong. Please try again in a moment.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   if (!_loaded) {
     return <Loader />
@@ -134,10 +187,14 @@ function Events() {
                     <span className="evt-eyebrow light">{spotlight.eyebrow}</span>
                     <h2 className="evt-spotlight-title">{spotlight.title}</h2>
                     <p className="evt-spotlight-text">{spotlight.text}</p>
-                    <RegisterLink className="evt-btn gold">
+                    <button
+                      type="button"
+                      className="evt-btn gold"
+                      onClick={() => handleOpenRegister('Integra Nights')}
+                    >
                       {spotlight.buttonLabel}
                       <FiArrowUpRight />
-                    </RegisterLink>
+                    </button>
                   </div>
                 </div>
 
@@ -205,13 +262,14 @@ function Events() {
                             )}
                           </div>
                         </div>
-                        <RegisterLink
-                          href={event.registerUrl}
+                        <button
+                          type="button"
                           className="evt-btn primary"
+                          onClick={() => handleOpenRegister(event.title)}
                         >
                           {upcoming.registerLabel}
                           <FiArrowUpRight />
-                        </RegisterLink>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -222,10 +280,14 @@ function Events() {
                     </span>
                     <h3 className="evt-empty-title">{upcoming.emptyTitle}</h3>
                     <p className="evt-empty-text">{upcoming.emptyText}</p>
-                    <RegisterLink className="evt-btn primary">
+                    <button
+                      type="button"
+                      className="evt-btn primary"
+                      onClick={() => handleOpenRegister('General Event Interest')}
+                    >
                       <FiBell />
                       {upcoming.emptyButtonLabel}
-                    </RegisterLink>
+                    </button>
                   </div>
                 )}
               </div>
@@ -246,10 +308,14 @@ function Events() {
                 </div>
                 <div className="col-lg-5">
                   <div className="evt-cta-actions">
-                    <RegisterLink className="evt-btn gold">
+                    <button
+                      type="button"
+                      className="evt-btn gold"
+                      onClick={() => handleOpenRegister('General Event Interest')}
+                    >
                       {cta.buttonLabel}
                       <FiArrowUpRight />
-                    </RegisterLink>
+                    </button>
                     <Link to={cta.secondaryLink} className="evt-btn outline-light">
                       {cta.secondaryLabel}
                     </Link>
@@ -259,6 +325,150 @@ function Events() {
             </div>
           </div>
         </section>
+      )}
+      {/* ---------- Register Interest Modal ---------- */}
+      {modalOpen && (
+        <div
+          className="evt-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setModalOpen(false)
+          }}
+        >
+          <div className="evt-modal-dialog">
+            <div className="evt-modal-header">
+              <span className="evt-modal-eyebrow">Integra Advisory Partners</span>
+              <h3 className="evt-modal-title">Event Interest Registration</h3>
+              <p className="evt-modal-sub">
+                {modalEventTitle
+                  ? `Registering for: ${modalEventTitle}`
+                  : 'Let us know which event formats you wish to attend.'}
+              </p>
+              <button
+                type="button"
+                className="evt-modal-close"
+                onClick={() => setModalOpen(false)}
+                aria-label="Close"
+              >
+                <FiX size={18} />
+              </button>
+            </div>
+
+            <div className="evt-modal-body">
+              <form onSubmit={handleFormSubmit}>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="custom-frm-bx">
+                      <label htmlFor="evt-name">Full name</label>
+                      <input
+                        id="evt-name"
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        placeholder="Your name"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="custom-frm-bx">
+                      <label htmlFor="evt-email">Email address</label>
+                      <input
+                        id="evt-email"
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        placeholder="you@company.com"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="custom-frm-bx">
+                      <label htmlFor="evt-company">Company</label>
+                      <input
+                        id="evt-company"
+                        type="text"
+                        name="company"
+                        className="form-control"
+                        placeholder="Company name"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="custom-frm-bx">
+                      <label htmlFor="evt-role">Role</label>
+                      <input
+                        id="evt-role"
+                        type="text"
+                        name="role"
+                        className="form-control"
+                        placeholder="Founder, CEO, Investor..."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-12">
+                    <div className="custom-frm-bx">
+                      <label className="mb-1">Which events interest you?</label>
+                      <div className="evt-modal-chips">
+                        {EVENT_FORMAT_OPTIONS.map((format) => {
+                          const isChecked = selectedFormats.includes(format)
+                          return (
+                            <label key={format} className="evt-modal-chip">
+                              <input
+                                type="checkbox"
+                                name="events"
+                                value={format}
+                                checked={isChecked}
+                                onChange={() => handleFormatToggle(format)}
+                              />
+                              {format}
+                            </label>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-12">
+                    <div className="custom-frm-bx">
+                      <label htmlFor="evt-message">How can Integra help? / Comments</label>
+                      <textarea
+                        id="evt-message"
+                        name="message"
+                        className="form-control"
+                        placeholder="Tell us briefly about your plans or any questions..."
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="evt-modal-actions">
+                  <button
+                    type="button"
+                    className="evt-modal-btn-cancel"
+                    onClick={() => setModalOpen(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="evt-modal-btn-submit"
+                    disabled={submitting}
+                  >
+                    <FiSend />
+                    {submitting ? 'Submitting...' : 'Register Interest'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       )}
     </>
   )

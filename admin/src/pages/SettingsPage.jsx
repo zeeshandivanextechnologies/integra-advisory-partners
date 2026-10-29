@@ -2,13 +2,11 @@ import {
   FiCalendar,
   FiClipboard,
   FiCreditCard,
-  FiFileText,
   FiMail,
   FiMessageCircle,
   FiPhone,
   FiShare2,
   FiSliders,
-  FiUpload,
 } from 'react-icons/fi'
 import EditorSection from '../components/editor/EditorSection.jsx'
 import ProfileSection from '../components/settings/ProfileSection.jsx'
@@ -56,18 +54,6 @@ const sections = [
     description: 'The Stripe link on the Pay Your Deposit page.',
   },
   {
-    key: 'documentUpload',
-    title: 'Document upload',
-    icon: FiUpload,
-    description: 'The secure upload link on the intake form.',
-  },
-  {
-    key: 'googleForms',
-    title: 'Google Forms',
-    icon: FiFileText,
-    description: 'Where the contact, intake, and event forms send their answers.',
-  },
-  {
     key: 'intake',
     title: 'Intake form options',
     icon: FiSliders,
@@ -98,44 +84,7 @@ function SettingsPage() {
     savedMessage: 'Settings saved successfully!',
   })
   const { content, update, bind, sectionProps } = editor
-  const { social, googleForms, intake } = content
-
-  const updateForm = (name, changes) =>
-    update('googleForms', { [name]: { ...googleForms[name], ...changes } })
-
-  const updateFormField = (name, field, value) =>
-    updateForm(name, { fields: { ...googleForms[name].fields, [field]: value.trim() } })
-
-  // one Google Form: its response link and the entry id for each website field
-  const formEditor = (name, title, page) => (
-    <div className="pe-group mb-3">
-      <span className="pe-group-label">
-        {title} <span className="fw-400">· {page}</span>
-      </span>
-      <TextField
-        id={`settings-form-${name}-action`}
-        label="Form response link"
-        placeholder="https://docs.google.com/forms/d/e/.../formResponse"
-        hint="Ends with /formResponse. Leave empty and the form shows a 'not connected yet' message."
-        value={googleForms[name].action}
-        onChange={(action) => updateForm(name, { action: action.trim() })}
-      />
-      <span className="pe-split-label">Entry ids</span>
-      <div className="row">
-        {Object.entries(googleForms[name].fields).map(([field, entry]) => (
-          <div className="col-md-6" key={field}>
-            <TextField
-              id={`settings-form-${name}-${field}`}
-              label={fieldLabel(field)}
-              placeholder="entry.123456789"
-              value={entry}
-              onChange={(value) => updateFormField(name, field, value)}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  const { social, intake } = content
 
   return (
     <PageEditorLayout
@@ -358,41 +307,6 @@ function SettingsPage() {
         />
       </EditorSection>
 
-      {/* document upload */}
-      <EditorSection {...sectionProps('documentUpload')}>
-        <TextField
-          label="Upload link"
-          placeholder="https://tally.so/r/... or a Google Form with file upload"
-          hint="Shown as 'Upload your documents securely' on the intake form. Leave empty to hide it."
-          {...bind('documentUpload', 'url')}
-          onChange={(url) => update('documentUpload', { url: url.trim() })}
-        />
-      </EditorSection>
-
-      {/* google forms */}
-      <EditorSection {...sectionProps('googleForms')}>
-        <p className="pe-hint mt-0 mb-3">
-          Change these only when a Google Form is replaced. The entry ids can be
-          read with frontend/scripts/google-form-ids.mjs. A wrong id means that
-          answer is not saved.
-        </p>
-        {formEditor('contact', 'Request a Call form', 'Contact page')}
-        {formEditor('intake', 'Market Entry Intake form', 'Intake page')}
-        <div className="pe-group">
-          <span className="pe-group-label">
-            Register Interest form <span className="fw-400">· Events page</span>
-          </span>
-          <TextField
-            id="settings-form-events-view"
-            label="Form link"
-            placeholder="https://docs.google.com/forms/d/e/.../viewform"
-            hint="Opened by every Register Interest button. Leave empty and they open the Contact page."
-            value={googleForms.events.viewUrl}
-            onChange={(viewUrl) => updateForm('events', { viewUrl: viewUrl.trim() })}
-          />
-        </div>
-      </EditorSection>
-
       {/* intake options */}
       <EditorSection {...sectionProps('intake')}>
         <TagsField
@@ -400,7 +314,7 @@ function SettingsPage() {
           label="Budget ranges"
           values={intake.budgetRanges}
           placeholder="Add a range"
-          hint="Choices for 'Capital available / budget range'. Keep them the same as in the intake Google Form, or that answer is rejected. Remove all to show a text box instead."
+          hint="Choices for 'Capital available / budget range'. Remove all to show a text box instead."
           onChange={(budgetRanges) => update('intake', { budgetRanges })}
         />
       </EditorSection>

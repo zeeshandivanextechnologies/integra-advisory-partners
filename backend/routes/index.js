@@ -8,6 +8,7 @@ const eventRoutes = require('./events');
 const dashboardRoutes = require('./dashboard');
 const notificationRoutes = require('./notifications');
 const subscriberRoutes = require('./subscribers');
+const inquiryRoutes = require('./inquiries');
 
 router.get('/', (req, res) => {
   res.json({ message: 'API is working' });
@@ -21,5 +22,6 @@ router.use('/events', eventRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/subscribers', subscriberRoutes);
+router.use('/inquiries', inquiryRoutes);
 
 module.exports = router;
