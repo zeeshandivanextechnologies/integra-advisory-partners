@@ -375,7 +375,7 @@ function InquiriesPage() {
                         </div>
                       )}
                     </td>
-                    <td>
+                    <td style={{minWidth : '120px'}}>
                       <select
                         className="form-select form-select-sm"
                         value={item.status || 'new'}
@@ -393,7 +393,7 @@ function InquiriesPage() {
                       <div className="d-flex align-items-center justify-content-end gap-1">
                         <button
                           type="button"
-                          className="btn btn-sm btn-outline-primary"
+                          className="inquiries-view-btn"
                           title="View submission details"
                           onClick={() => setSelectedInquiry(item)}
                         >

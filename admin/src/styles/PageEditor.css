@@ -831,6 +831,29 @@
   gap: 8px;
 }
 
+.inquiries-view-btn{
+  border: 1px solid var(--border-color, #e2e8f0);
+    color: var(--primary-color);
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 4px;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s;
+    display: inline-flex;
+}
+
+.inquiries-view-btn:hover{
+      border-color: var(--primary-color);
+    background-color: 
+color-mix(in srgb, var(--secondary-color) 30%, transparent);
+    color: var(--primary-color);
+}
+
 /* ---------- responsive ---------- */
 
 /* below xl the section nav becomes a scrolling row above the editor */

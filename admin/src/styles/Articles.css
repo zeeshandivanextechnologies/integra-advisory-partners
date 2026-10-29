@@ -519,14 +519,20 @@
 }
 
 /* ---------- responsive ---------- */
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .arl-count {
     justify-content: flex-start;
     margin-top: 4px;
   }
+
+  .arl-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
   .arl-card {
     padding: 16px;
   }
