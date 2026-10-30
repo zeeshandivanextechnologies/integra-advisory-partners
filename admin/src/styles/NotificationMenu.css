@@ -196,8 +196,18 @@
   background-color: color-mix(in srgb, #1d7a45 12%, #fff);
 }
 
+
+
+/* the full list on the Notifications page grows with its content */
+.notif-list.notif-list-full {
+  max-height: none;
+  border: none;
+}
+
+
+
 /* ---------- phones: full width under the header, inside the screen ---------- */
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
   .notif-menu[data-bs-popper] {
     position: fixed;
     top: calc(var(--header-height, 60px) + 8px);
@@ -209,17 +219,11 @@
   }
 
   .notif-list {
-    max-height: calc(100vh - 230px);
+    max-height: calc(100vh - 400px);
   }
 
   .notif-head {
     flex-wrap: wrap;
     gap: 8px;
   }
-}
-
-/* the full list on the Notifications page grows with its content */
-.notif-list.notif-list-full {
-  max-height: none;
-  border: none;
 }

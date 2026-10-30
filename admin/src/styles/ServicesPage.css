@@ -91,7 +91,7 @@
   padding: 12px;
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
   .svc-pillar-icon .pe-media-preview {
     max-width: 120px;
   }

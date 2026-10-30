@@ -87,6 +87,7 @@
   color: var(--primary-color);
   border-bottom: 1px solid
     color-mix(in srgb, var(--secondary-color) 60%, transparent);
+    white-space: nowrap;
 }
 
 .arl-table tbody tr:last-child td {

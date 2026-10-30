@@ -503,37 +503,6 @@
   background-color: var(--secondary-color);
 }
 
-/* ---------- responsive ---------- */
-@media (max-width: 575.98px) {
-  .dash-card {
-    padding: 18px;
-  }
-
-  .dash-welcome {
-    padding: 22px 20px;
-  }
-
-  .dash-welcome-title {
-    font-size: 23px;
-  }
-
-  .dash-bars {
-    gap: 8px;
-    height: 200px;
-  }
-
-  .dash-stat-value {
-    font-size: 26px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dash-stat,
-  .dash-stat:hover {
-    transition: none;
-    transform: none;
-  }
-}
 
 /* ---------- live data (pages, articles, events) ---------- */
 .dash-status.published {
@@ -578,3 +547,37 @@ a.dash-person:hover {
   color: #c4363b;
   background-color: color-mix(in srgb, #e5484d 10%, #fff);
 }
+
+
+/* ---------- responsive ---------- */
+@media (max-width: 576px) {
+  .dash-card {
+    padding: 18px;
+  }
+
+  .dash-welcome {
+    padding: 22px 20px;
+  }
+
+  .dash-welcome-title {
+    font-size: 23px;
+  }
+
+  .dash-bars {
+    gap: 8px;
+    height: 200px;
+  }
+
+  .dash-stat-value {
+    font-size: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-stat,
+  .dash-stat:hover {
+    transition: none;
+    transform: none;
+  }
+}
+

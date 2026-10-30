@@ -145,6 +145,20 @@
   background-color: color-mix(in srgb, #d64545 8%, transparent);
 }
 
+
+/* long page names ("Payment Success Page") stay on one line on small screens */
+.admin-header > div:first-child {
+  min-width: 0;
+}
+
+.header-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
 @media (max-width: 576px) {
   .admin-header {
     padding: 0 16px;
@@ -158,16 +172,4 @@
     gap: 5px;
   }
 
-}
-
-/* long page names ("Payment Success Page") stay on one line on small screens */
-.admin-header > div:first-child {
-  min-width: 0;
-}
-
-.header-title {
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
