@@ -110,6 +110,36 @@ const submitIntake = async (req, res) => {
     const result = await db.query(query, values);
     const savedInquiry = result.rows[0];
 
+    // Store binary file data into PostgreSQL inquiry_attachments table
+    // so downloads permanently work in serverless/Vercel environments
+    if (uploadedFilesList.length > 0) {
+      for (const file of uploadedFilesList) {
+        try {
+          let buffer = file.buffer;
+          if (!buffer && file.path && fs.existsSync(file.path)) {
+            buffer = fs.readFileSync(file.path);
+          }
+          if (buffer) {
+            await db.query(
+              `INSERT INTO inquiry_attachments (inquiry_id, filename, original_name, mime_type, file_size, file_data)
+               VALUES ($1, $2, $3, $4, $5, $6)
+               ON CONFLICT (filename) DO UPDATE SET file_data = EXCLUDED.file_data`,
+              [
+                savedInquiry.id,
+                file.filename,
+                file.originalname || file.filename,
+                file.mimetype || 'application/octet-stream',
+                file.size || buffer.length,
+                buffer,
+              ]
+            );
+          }
+        } catch (fileSaveErr) {
+          console.error('Failed to save file attachment to database:', fileSaveErr);
+        }
+      }
+    }
+
     return res.status(201).json({
       success: true,
       message: 'Intake form submitted successfully.',

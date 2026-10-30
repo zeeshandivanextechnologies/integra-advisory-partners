@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
+const db = require('../config/db');
 const authMiddleware = require('../middleware/auth');
 const {
   submitContact,
@@ -64,24 +65,47 @@ const upload = multer({
 });
 
 // Direct file download route (forces browser download attachment with correct content disposition)
-router.get('/download/:filename', (req, res) => {
-  const filename = path.basename(req.params.filename);
-  const dir = getUploadsDir();
-  let filePath = path.join(dir, filename);
+// Checks database inquiry_attachments first (permanent storage for serverless/Vercel),
+// then falls back to local and tmp uploads disk.
+router.get('/download/:filename', async (req, res) => {
+  try {
+    const filename = path.basename(req.params.filename);
 
-  if (!fs.existsSync(filePath)) {
-    // Also check local uploadsDir as fallback
-    const localDir = path.join(__dirname, '..', 'uploads');
-    const localPath = path.join(localDir, filename);
-    if (fs.existsSync(localPath)) {
-      filePath = localPath;
-    } else {
-      return res.status(404).json({ message: 'File not found on server.' });
+    // 1. Check permanent database storage
+    const dbFile = await db.query(
+      'SELECT filename, original_name, mime_type, file_data FROM inquiry_attachments WHERE filename = $1',
+      [filename]
+    );
+
+    if (dbFile.rows.length > 0) {
+      const record = dbFile.rows[0];
+      const dlName = record.original_name || record.filename;
+      res.setHeader('Content-Type', record.mime_type || 'application/octet-stream');
+      res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(dlName)}"`);
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      return res.send(record.file_data);
     }
-  }
 
-  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-  return res.download(filePath, filename);
+    // 2. Check server disk (tmpDir or local uploadsDir)
+    const dir = getUploadsDir();
+    let filePath = path.join(dir, filename);
+
+    if (!fs.existsSync(filePath)) {
+      const localDir = path.join(__dirname, '..', 'uploads');
+      const localPath = path.join(localDir, filename);
+      if (fs.existsSync(localPath)) {
+        filePath = localPath;
+      } else {
+        return res.status(404).json({ message: 'File not found on server.' });
+      }
+    }
+
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    return res.download(filePath, filename);
+  } catch (err) {
+    console.error('Download file error:', err);
+    return res.status(500).json({ message: 'Error retrieving file.' });
+  }
 });
 
 // Public submission endpoints
