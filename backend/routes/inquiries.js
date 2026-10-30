@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const authMiddleware = require('../middleware/auth');
 const {
   submitContact,
@@ -14,14 +15,36 @@ const {
 
 const router = express.Router();
 
-// Setup local uploads storage for intake documents & images
-const uploadsDir = path.join(__dirname, '..', 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
+// Safe uploads directory: Use project uploads directory locally,
+// fallback to OS tmpdir in serverless/Vercel environments where disk is read-only.
+const getUploadsDir = () => {
+  const localDir = path.join(__dirname, '..', 'uploads');
+  try {
+    if (!fs.existsSync(localDir)) {
+      fs.mkdirSync(localDir, { recursive: true });
+    }
+    fs.accessSync(localDir, fs.constants.W_OK);
+    return localDir;
+  } catch {
+    const tmpDir = path.join(os.tmpdir(), 'integra_uploads');
+    if (!fs.existsSync(tmpDir)) {
+      fs.mkdirSync(tmpDir, { recursive: true });
+    }
+    return tmpDir;
+  }
+};
+
+const uploadsDir = getUploadsDir();
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
+  destination: (req, file, cb) => {
+    try {
+      const dir = getUploadsDir();
+      cb(null, dir);
+    } catch (err) {
+      cb(err);
+    }
+  },
   filename: (req, file, cb) => {
     // Sanitize original file name
     const ext = path.extname(file.originalname).toLowerCase();
@@ -43,10 +66,18 @@ const upload = multer({
 // Direct file download route (forces browser download attachment with correct content disposition)
 router.get('/download/:filename', (req, res) => {
   const filename = path.basename(req.params.filename);
-  const filePath = path.join(uploadsDir, filename);
+  const dir = getUploadsDir();
+  let filePath = path.join(dir, filename);
 
   if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ message: 'File not found on server.' });
+    // Also check local uploadsDir as fallback
+    const localDir = path.join(__dirname, '..', 'uploads');
+    const localPath = path.join(localDir, filename);
+    if (fs.existsSync(localPath)) {
+      filePath = localPath;
+    } else {
+      return res.status(404).json({ message: 'File not found on server.' });
+    }
   }
 
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
